@@ -1,0 +1,259 @@
+syntax = "proto3";
+package api.base.tenant;
+option go_package = "github.com/zhixingdx/oipivot-api/base/tenant/v1;tenant";
+option java_multiple_files = true;
+option java_package = "api.base.tenant";
+
+import "base/tenant/v1/auto_message.proto";
+import "base/tenant/v1/auto_portal_message.proto";
+import "base/tenant/v1/plus_message.proto";
+import "base/tenant/v1/plus_message_dag.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "apicommon/v1/common.proto";
+
+service BaseTenantPortalPlus {
+  // [仅内部 gRPC] 依据可信来源租户检查目标的业务动作与字段管理范围。
+  rpc CheckTenantAccess(TenantAccessRequest) returns (TenantAccessDecision);
+
+  // [仅内部 gRPC] 用固定查询批量判断，禁止调用方逐人展开下级集合。
+  rpc BatchCheckTenantAccess(BatchTenantAccessRequest)
+      returns (BatchTenantAccessReply);
+
+  // 分页读取当前租户的上下级 DAG，父引用可能位于其他分页。
+  rpc ListMyTenantHierarchy(ListMyTenantHierarchyRequest)
+      returns (TenantHierarchyReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/tenant/hierarchy/list",
+      body : "*"
+    };
+  }
+
+  // 获取租户时区
+  rpc GetTenantTimeZone(TenantTimeZoneRequest)
+      returns (TenantTimeZoneResponse) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/timeZone",
+    };
+  }
+
+  // 获取租户类型
+  rpc GetKindsMap(google.protobuf.Empty) returns (api.apicommon.StrMap) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/kinds",
+    };
+  }
+
+  // 已登录员工查询权限范围内的单位资料。
+  rpc DetailTenantProfile(OneTenantRequest) returns (TenantProfileDetailReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/profile/detail",
+    };
+  }
+
+  // [免鉴权] 公开租户详情
+  rpc DetailPublicTenant(OneTenantRequest)
+      returns (TenantPortalPublicDetailReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/public/detail",
+    };
+  }
+
+  // [免鉴权] 查询公开租户
+  rpc QueryPublicTenant(QueryTenantPortalRequest)
+      returns (TenantPortalPublicMultiReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/tenant/public/query",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取公开租户列表
+  rpc ListPublicTenant(ListTenantPortalRequest)
+      returns (TenantPortalPublicListReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/tenant/public/list",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 添加租户注册信息
+  rpc AddJoin(AddTenantPortalRequest) returns (JoinPortalDetailReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/tenant/join/add",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 编辑租户注册信息
+  rpc EditJoin(EditJoinPortalRequest) returns (JoinPortalDetailReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/tenant/join/edit",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取租户注册信息
+  rpc DetailJoin(OneJoinRequest) returns (JoinPortalDetailReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/join/detail",
+    };
+  }
+
+  // [免鉴权] 获取租户注册列表
+  rpc ListJoin(ListJoinRequest) returns (JoinPortalListReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/tenant/join/list",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 删除租户注册信息
+  rpc DelOneJoin(OneJoinRequest) returns (api.apicommon.BigNum) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/tenant/join/delOne",
+      body : "*",
+    };
+  }
+
+  // 当前单位联系方式原值，单独授权并同步审计。
+  rpc ReadTenantContact(google.protobuf.Empty) returns (TenantContactReply) {
+    option (google.api.http) = { get: "/api/base/tenant/portal/tenant/contact" };
+  }
+
+  // 获取当前租户的普通资料，联系方式只返回掩码。
+  rpc GetTenantInfo(google.protobuf.Empty) returns (TenantPortalDetailReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/info",
+    };
+  }
+
+  // 修改租户信息
+  rpc EditTenantInfo(EditTenantPortalRequest)
+      returns (TenantPortalDetailReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/tenant/edit",
+      body : "*",
+    };
+  }
+
+  // 查询当前租户下的上级单位、协作单位、下级单位
+  rpc QueryCoopRelationAndParent(google.protobuf.Empty)
+      returns (RelationPortalMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/coop/relation/getTenants",
+    };
+  }
+
+  // 查询下级租户 （上级租户默认拥有所有租户的权限）
+  rpc GetChildrenTenants(google.protobuf.Empty)
+      returns (QueryTenantRangeResponse) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/children",
+    };
+  }
+
+  // 查询协作租户 （可选参数 action 当 action 不为空时，进一步判断具体的权限)
+  rpc GetPartnerTenants(QueryTenantRangeRequest)
+      returns (QueryTenantRangeResponse) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/partner",
+    };
+  }
+
+  // 查询当前+下级+协作租户（可选参数 action 当 action
+  // 不为空时，进一步判断具体的权限)
+  rpc GetAllowTenants(QueryTenantRangeRequest)
+      returns (QueryTenantRangeResponse) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/allow",
+    };
+  }
+
+  // [免鉴权] 获取所有可访问的租户公开信息
+  rpc GetAccessibleTenants(google.protobuf.Empty)
+      returns (TenantPublicMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/accessible/all",
+    };
+  }
+
+  // 查询跨租户租户
+  rpc QueryCrossTenant(QueryTenantRequest) returns (QueryTenantRangeResponse) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/crossTenant/query",
+      body : "*",
+    };
+  }
+
+  // 获取跨租户租户列表
+  rpc ListCrossTenant(ListTenantRequest) returns (TenantCrossListReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/crossTenant/list",
+      body : "*",
+    };
+  }
+
+  // 查询当前租户的所有上级租户
+  rpc GetParentTenants(google.protobuf.Empty)
+      returns (QueryTenantRangeResponse);
+
+  // 查询我的直接上级单位
+  rpc GetMyDirectParentTenants(google.protobuf.Empty)
+      returns (TenantRelationBriefMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/tenant/my/directParents",
+    };
+  }
+
+  // 查询当前租户可选择的协作单位
+  rpc GetSelectableCoopTenants(google.protobuf.Empty)
+      returns (SelectableCoopTenantMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/coop/relation/selectableTenants",
+    };
+  }
+
+  // 发起建立或解除协作关系申请
+  rpc InitiateCoopRelation(InitiateCoopRelationRequest)
+      returns (api.apicommon.Str) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/coop/relation/request/initiate",
+      body : "*",
+    };
+  }
+
+  // 审批协作关系申请
+  rpc ApproveCoopRelation(ApproveCoopRelationRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/coop/relation/request/approve",
+      body : "*",
+    };
+  }
+
+  // 撤回协作关系申请
+  rpc WithdrawCoopRelation(WithdrawCoopRelationRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/portal/coop/relation/request/withdraw",
+      body : "*",
+    };
+  }
+
+  // 查看当前租户发起的协作关系申请详情和双侧审批链
+  rpc DetailMyInitiatedCoopRelation(OneCoopRelationRequestRequest)
+      returns (MyInitiatedCoopRelationDetailReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/coop/relation/request/detail",
+    };
+  }
+
+  // 查看分配给当前租户的审批详情和所属侧审批链
+  rpc DetailMyCoopRelationApproval(OneCoopRelationApprovalRequest)
+      returns (MyCoopRelationApprovalDetailReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/portal/coop/relation/approval/detail",
+    };
+  }
+}

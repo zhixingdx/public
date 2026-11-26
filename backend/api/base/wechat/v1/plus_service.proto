@@ -1,0 +1,12 @@
+syntax = "proto3";
+package api.base.wechat;
+option go_package = "github.com/zhixingdx/oipivot-api/base/wechat/v1;wechat";
+option java_multiple_files = true;
+option java_package = "api.base.wechat";
+
+import "base/wechat/v1/plus_message.proto";
+
+service BaseWechatManagePlus {
+  rpc MiniCode2Session(MiniCode2SessionRequest) returns (MiniCode2SessionReply);
+  rpc MiniGetPhoneNumber(MiniGetPhoneNumberRequest) returns (MiniGetPhoneNumberReply);
+}

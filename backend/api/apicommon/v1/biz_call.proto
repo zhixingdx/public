@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package api.apicommon;
+
+import "buf/validate/validate.proto";
+
+option go_package = "github.com/zhixingdx/oipivot-api/apicommon/v1;apicommon";
+option java_multiple_files = true;
+option java_package = "api.apicommon";
+
+// BizCall 标识一次调用所属的业务。service 和 action 必填。
+// 审计写入与 IAM 配置读写要求 biz_id；通知与安全在业务对象创建前可省略。
+message BizCall {
+  string service = 1;
+  string action = 2;
+  string biz_id = 3;
+}
+
+// BizCallRequest 按完整业务键定位对象；三个字段都必填。
+message BizCallRequest {
+  string service = 1 [(buf.validate.field).string = {min_len: 1, max_len: 127}];
+  string action = 2 [(buf.validate.field).string = {min_len: 1, max_len: 127}];
+  string biz_id = 3 [(buf.validate.field).string = {min_len: 1, max_len: 127}];
+}

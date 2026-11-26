@@ -1,0 +1,99 @@
+syntax = "proto3";
+package api.base.notify;
+option go_package = "github.com/zhixingdx/oipivot-api/base/notify/v1;notify";
+option java_multiple_files = true;
+option java_package = "api.base.notify";
+import "apicommon/v1/biz_call.proto";
+
+message SmsConfig {
+  string name = 1;
+  optional string sdkAppid = 2;
+  optional SmsSign sign = 3;
+  optional SmsTemplate defaultTemplate = 4;
+  repeated SmsTemplate templates = 5;
+  string desc = 6;
+}
+
+message SmsTemplate {
+  string id = 1;
+  string name = 2;
+  string content = 3;
+  string desc = 4;
+}
+
+message SmsSign {
+  string id = 1;
+  string name = 2;
+  string content = 3;
+  string desc = 4;
+}
+
+message SendSmsCodeRequest {
+  // 国际区号，允许带 +，默认 86。phone 只填写单个号码的本地数字部分。
+  optional string phone_prefix = 1;
+  string phone = 2;
+  string code = 3;
+  string name = 4;
+  string profile = 5;
+  string template = 6;
+  // 来源业务的 service、action 必填；有业务对象时填写 biz_id。
+  api.apicommon.BizCall biz_call = 7;
+}
+
+message SendSmsCodeResponse {
+  optional string serial_no = 1;
+  optional string phone = 2;
+  optional uint64 fee = 3;
+  optional string session = 4;
+  optional string code = 5;
+  optional string message = 6;
+  optional string iso_code = 7;
+  optional bool success = 8;
+  optional string request_id = 9;
+}
+
+message SendEmailCodeRequest {
+  string email = 1;
+  string code = 2;
+  int32 expire = 3; // 有效分钟数，默认为 10。
+  string config = 4;
+  reserved 5;
+  string template = 6;
+  // 来源业务的 service、action 必填；有业务对象时填写 biz_id。
+  api.apicommon.BizCall biz_call = 7;
+}
+
+message SendEmailCodeResponse {
+  string message_id = 1;
+  string request_id = 2;
+}
+
+message SendEmailRequest {
+  message Template {
+    uint64 template_id = 1;
+    string template_data = 2;
+  }
+  message Attachment {
+    string file_name = 1;
+    string content = 2; // Base64 编码。
+  }
+  string config = 1;
+  string from_email_address = 2;
+  repeated string destination = 3;
+  string subject = 4;
+  string reply_to_addresses = 5;
+  repeated string cc = 6;
+  repeated string bcc = 7;
+  Template template = 8;
+  repeated Attachment attachments = 9;
+  string unsubscribe = 10;
+  uint64 trigger_type = 11;
+  string content = 12;
+  // 来源业务的 service、action 必填；有业务对象时填写 biz_id。
+  api.apicommon.BizCall biz_call = 13;
+}
+
+message SendEmailResponse {
+  string message_id = 1;
+  string request_id = 2;
+}

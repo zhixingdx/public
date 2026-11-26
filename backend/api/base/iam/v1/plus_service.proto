@@ -1,0 +1,203 @@
+
+
+syntax = "proto3";
+package api.base.iam;
+option go_package = "github.com/zhixingdx/oipivot-api/base/iam/v1;iam";
+option java_multiple_files = true;
+option java_package = "api.base.iam";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "base/iam/v1/plus_message.proto";
+import "base/iam/v1/auto_message.proto";
+import "base/tenant/v1/auto_message.proto";
+import "base/iam/v1/auto_portal_message.proto";
+import "apicommon/v1/common.proto";
+
+service BaseIamManagePlus {
+  // 平台员工为已有租户按手机号匹配或建立员工，并授予管理员角色。
+  rpc AssignTenantAdmin(AssignTenantAdminRequest) returns (AssignedTenantAdmin) {
+    option (google.api.http) = { post: "/api/base/iam/manage/tenant/admin/assign" body: "*" };
+  }
+
+
+  // [仅内部 gRPC] 按租户 ID 解析权威 Realm，不依赖调用方 Realm metadata
+  rpc ResolveTenantRealm(api.base.tenant.OneTenantRequest) returns (api.apicommon.Str);
+
+
+  // 获取策略的操作项
+  rpc GetPoliciesOperations(api.apicommon.Str)
+      returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/policies/operations",
+    };
+  }
+
+  // 新增策略操作项
+  rpc AddPoliciesOperations(PoliciesOperationsRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/policies/operations/add",
+      body : "*",
+    };
+  }
+
+  // 删除策略操作项
+  rpc DelPoliciesOperations(PoliciesOperationsRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/policies/operations/del",
+      body : "*",
+    };
+  }
+
+  // 获取角色策略
+  rpc GetRolePolicies(api.apicommon.Str) returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/role/policies",
+    };
+  }
+
+  // 给角色添加策略
+  rpc AddRolePolicies(RolePoliciesRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/role/policies/add",
+      body : "*",
+    };
+  }
+
+  // 给角色删除策略
+  rpc DelRolePolicies(RolePoliciesRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/role/policies/del",
+      body : "*",
+    };
+  }
+
+  // 获取角色的操作项
+  rpc GetRoleOperations(api.apicommon.Str) returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/role/operations",
+    };
+  }
+
+  // 获取租户的角色树
+  rpc GetTenantRoleTree(TenantRequest) returns (RolePortalTreeReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/tenant/role/tree",
+    };
+  }
+
+  // 获取租户员工的角色
+  rpc GetTenantStaffRole(TenantStaffRequest) returns (RolesReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/tenant/staff/role",
+    };
+  }
+
+  // 更新租户员工的角色
+  rpc UpdateTenantStaffRole(UpdateTenantStaffRoleRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/tenant/staff/role/update",
+      body : "*",
+    };
+  }
+
+  // 获取租户角色的员工
+  rpc GetTenantRoleStaffs(TenantRoleRequest) returns (StaffPortalMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/tenant/role/staff",
+    };
+  }
+
+  // 更新租户角色的员工
+  rpc UpdateTenantRoleStaff(TenantRoleStaffRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/tenant/role/staff/update",
+      body : "*",
+    };
+  }
+  // 删除租户角色的员工
+  rpc DelTenantRoleStaff(TenantRoleStaffRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/tenant/role/staff/del",
+      body : "*",
+    };
+  }
+
+  // 添加租户角色的员工
+  rpc AddTenantRoleStaff(TenantRoleStaffRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/tenant/role/staff/add",
+      body : "*",
+    };
+  }
+
+  // 获取字典选项
+  rpc GetDictionaryOptions(OneDictionaryByNameRequest) returns (OptionsReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/dictionary/options",
+    };
+  }
+
+  // 获取功能模块数据（租户用）
+  rpc GetModules(google.protobuf.Empty) returns (RoleMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/modules",
+    };
+  }
+
+  // 获取租户的功能模块
+  rpc GetTenantModules(api.base.tenant.OneTenantRequest) returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/tenant/modules",
+    };
+  }
+
+
+  // 更新租户的功能模块
+  rpc UpdateTenantModules(UpdateTenantModuleRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/tenant/modules/update",
+      body : "*",
+    };
+  }
+
+
+  // 按 name 批量 upsert 操作项（无相同 name 则新增，有则更新）
+  rpc BatchUpsertOperationByName(BatchUpsertOperationByNameRequest)
+      returns (OperationMultiReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/operation/batchUpsertByName",
+      body : "*",
+    };
+  }
+
+  // 从云端同步 RBAC 种子数据（operations → policies → casbin p 策略）
+  rpc SyncRBACFromCloud(google.protobuf.Empty) returns (SyncRBACReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/rbac/sync",
+      body : "*",
+    };
+  }
+
+  // 启动当前 Realm 全部租户员工的绑定用户资料补全，仅平台管理身份可调用。
+  rpc StartStaffProfileBackfill(StartStaffProfileBackfillRequest)
+      returns (StaffProfileBackfillReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/manage/staff/profileBackfill/start",
+      body : "*",
+    };
+  }
+
+  // 查询当前 Realm 最近一次员工资料补全的进度与分类计数。
+  rpc GetStaffProfileBackfill(google.protobuf.Empty)
+      returns (StaffProfileBackfillReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/manage/staff/profileBackfill",
+    };
+  }
+}

@@ -1,0 +1,82 @@
+syntax = "proto3";
+package api.base.tenant;
+option go_package = "github.com/zhixingdx/oipivot-api/base/tenant/v1;tenant";
+option java_multiple_files = true;
+option java_package = "api.base.tenant";
+
+import "base/tenant/v1/auto_message.proto";
+import "base/tenant/v1/plus_message.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "apicommon/v1/common.proto";
+
+service BaseTenantManagePlus {
+  // 部署初始化专用 gRPC。固定 ID 已存在时复用，保留线上资料与启停状态。
+  rpc EnsureInitTenant(InitTenantRequest) returns (api.apicommon.Bool);
+
+  // IAM 登录、OAuth 选单位使用，结果限于当前渠道的有效单位。
+  rpc LookupSupplierBindings(LookupSupplierBindingsRequest) returns (TenantSupplierMultiReply);
+
+  // 内部按权威状态列举有效租户。平台管理可跨渠道；受控范围始终从当前渠道的可信来源租户出发。
+  rpc ListActiveTenants(ActiveTenantPageRequest) returns (ActiveTenantPage);
+
+  // 查询人员与部门的跨租户读取范围。传入候选时仅返回授权子集，来源租户取自 metadata。
+  rpc ResolveProtectedTenantIDs(api.apicommon.StrArray) returns (api.apicommon.StrArray);
+
+  // [仅内部 gRPC] 依据可信来源租户检查目标的业务动作与字段管理范围。
+  rpc CheckTenantAccess(TenantAccessRequest) returns (TenantAccessDecision);
+
+  // [仅内部 gRPC] 用固定查询批量判断，禁止调用方逐人展开下级集合。
+  rpc BatchCheckTenantAccess(BatchTenantAccessRequest)
+      returns (BatchTenantAccessReply);
+
+  // 分页读取当前租户的上下级 DAG，父引用可能位于其他分页。
+  rpc ListMyTenantHierarchy(ListMyTenantHierarchyRequest)
+      returns (TenantHierarchyReply) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/manage/tenant/hierarchy/list",
+      body : "*"
+    };
+  }
+
+  // [仅内部 gRPC] 按租户 ID 解析权威 Realm，不依赖调用方 Realm metadata
+  rpc ResolveTenantRealm(OneTenantRequest) returns (api.apicommon.Str);
+
+  // 获取租户时区
+  rpc GetTenantTimeZone(TenantTimeZoneRequest)
+      returns (TenantTimeZoneResponse) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/manage/tenant/timeZone",
+    };
+  }
+
+  // [免鉴权] 获取租户类型
+  rpc GetKindsMap(google.protobuf.Empty) returns (api.apicommon.StrMap) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/manage/kinds",
+    };
+  }
+
+  // 审批租户注册
+  rpc ApproveJoin(ApproveJoinRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/tenant/manage/tenant/join/approve",
+      body : "*",
+    };
+  }
+
+  // 查询可选择的上级单位
+  rpc GetSelectableParentTenants(SelectableParentTenantsRequest)
+      returns (TenantRelationBriefMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/manage/tenant/selectableParents",
+    };
+  }
+
+  // 获取供应商绑定的值选项
+  rpc GetSupplierOptions(api.apicommon.Str) returns (OptionsReply) {
+    option (google.api.http) = {
+      get : "/api/base/tenant/manage/supplier/options",
+    };
+  }
+}

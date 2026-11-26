@@ -1,0 +1,40 @@
+syntax = "proto3";
+package api.base.wechat;
+option go_package = "github.com/zhixingdx/oipivot-api/base/wechat/v1;wechat";
+option java_multiple_files = true;
+option java_package = "api.base.wechat";
+
+import "buf/validate/validate.proto";
+
+message MiniCode2SessionRequest {
+  string js_code = 1 [ (buf.validate.field).string = {min_len : 6} ];
+}
+
+message MiniCode2SessionReply {
+  int32 errcode = 1;
+  string errmsg = 2;
+  string openid = 3;
+  string session_key = 4;
+  string unionid = 5;
+}
+
+message MiniGetPhoneNumberRequest {
+  string code = 1 [ (buf.validate.field).required = true ];
+  optional string openid = 2;
+}
+
+message MiniGetPhoneNumberReply {
+  int32 errcode = 1;
+  string errmsg = 2;
+  message PhoneInfo {
+    string phoneNumber = 1;
+    string purePhoneNumber = 2;
+    string countryCode = 3;
+    message Watermark {
+      string appid = 1;
+      int64 timestamp = 2;
+    }
+    Watermark watermark = 4;
+  }
+  PhoneInfo phone_info = 3;
+}

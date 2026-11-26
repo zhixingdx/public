@@ -1,0 +1,16 @@
+version: v2
+plugins:
+  - local: protoc-gen-go
+    out: .
+    opt: &go_options
+      - module=github.com/zhixingdx/oipivot-api
+      - Merrors/errors.proto=github.com/go-kratos/kratos/v3/errors
+  - local: protoc-gen-go-grpc
+    out: .
+    opt: *go_options
+  - local: [go, run, github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v3@v3.0.0-20260626125723-668db92c2c00]
+    out: .
+    opt: *go_options
+  - local: [go, run, github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v3@v3.0.0-20260626125723-668db92c2c00]
+    out: .
+    opt: *go_options

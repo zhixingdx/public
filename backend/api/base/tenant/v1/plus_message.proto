@@ -1,0 +1,340 @@
+syntax = "proto3";
+package api.base.tenant;
+option go_package = "github.com/zhixingdx/oipivot-api/base/tenant/v1;tenant";
+option java_multiple_files = true;
+option java_package = "api.base.tenant";
+
+import "base/tenant/v1/auto_message.proto";
+import "google/protobuf/struct.proto";
+import "buf/validate/validate.proto";
+
+// 租户时区请求
+message TenantTimeZoneRequest {
+  string tenantID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message TenantTimeZoneResponse {
+  string name = 1;      // IANA 格式 如：Asia/Shanghai
+  string UTCOffset = 2; // UTC 偏移，如：+08:00（支持分钟级偏移）
+}
+
+message ApproveJoinRequest {
+  // 申请ID
+  int32 id = 1;
+  // 是否通过
+  bool approve = 2;
+  // 拒绝原因
+  optional string reason = 3;
+  // 备注
+  optional string remark = 4;
+}
+
+message TenantContactReply {
+  string contactMail = 1;
+  string contactPhonePrefix = 2;
+  string contactPhone = 3;
+  string contactLandLine = 4;
+}
+
+message Option {
+  string value = 1;
+  string label = 2;
+  optional string desc = 3;
+  optional string url = 4;
+  optional string img = 5;
+  optional string icon = 6;
+  optional string color = 7;
+  optional string background = 8;
+  // 激活态
+  optional string activeImg = 9;
+  optional string activeIcon = 10;
+  optional string activeColor = 11;
+  optional string activeBackground = 12;
+
+  optional bool disabled = 13;
+  // 存放一些额外的数据
+  google.protobuf.Struct extra = 14;
+  repeated Option children = 15;
+  // 开关、软删除
+  optional bool switch = 16;
+  optional bool del = 17;
+}
+
+message OptionsReply { repeated Option data = 1; }
+
+// 根据当前租户过滤租户可查询列表范围
+message QueryTenantRangeRequest { optional string action = 1; }
+
+message QueryTenantRangeResponse {
+  repeated TenantBriefDetail tenantDetails = 2;
+}
+
+message TenantBriefDetail {
+  string id = 1;
+  string name = 2;
+  string company = 3;
+}
+
+// 查询可选择上级单位请求。
+message SelectableParentTenantsRequest {
+  // 编辑租户 ID；新增场景不传。
+  optional string tenantID = 1 [ (buf.validate.field).string = {max_len : 15} ];
+  // 渠道名称，对应 Tenant.realm。
+  string realm = 2
+      [ (buf.validate.field).string =
+            {min_len : 2, max_len : 31, pattern : "^[a-z][a-z0-9-]{1,30}$"} ];
+}
+
+// TenantRelationBrief 是上下级关系接口允许返回的租户最小投影。
+message TenantRelationBrief {
+  string id = 1;
+  string name = 2;
+  string kind = 3;
+  string realm = 4;
+  string logo = 5;
+  map<string, string> nameI18n = 6;
+  bool switch = 7;
+}
+
+// TenantRelationBriefMultiReply 返回租户关系最小投影列表。
+message TenantRelationBriefMultiReply { repeated TenantRelationBrief data = 1; }
+
+// SelectableCoopTenant 是协作单位候选接口允许返回的租户最小投影。
+message SelectableCoopTenant {
+  string id = 1;
+  string name = 2;
+  string regionID = 3;
+  string kind = 4;
+}
+
+// SelectableCoopTenantMultiReply 返回当前租户可选择的协作单位列表。
+message SelectableCoopTenantMultiReply {
+  repeated SelectableCoopTenant data = 1;
+}
+
+// InitiateCoopRelationRequest
+// 发起建立或解除协作关系申请；发起方租户从可信上下文获取。
+message InitiateCoopRelationRequest {
+  // 接收申请的另一侧租户编码。
+  string receiverTenantID = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 15} ];
+  // 申请动作：ESTABLISH 或 TERMINATE。
+  string action = 2
+      [ (buf.validate.field).string = {in : [ "ESTABLISH", "TERMINATE" ]} ];
+  // 建立事由或解除原因。
+  string purpose = 3 [ (buf.validate.field).required = true ];
+  // 发起方的上级审批租户编码；是否必填由发起方 coopRule 决定。
+  optional string parentApprovalTenantID = 4
+      [ (buf.validate.field).string = {max_len : 15} ];
+}
+
+// ApproveCoopRelationRequest 处理一个协作关系申请审批节点。
+message ApproveCoopRelationRequest {
+  // 当前审批节点编码。
+  string nodeID = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 15} ];
+  // 审批动作：pass、pass_continue 或 reject。
+  string action = 2
+      [ (buf.validate.field).string = {min_len : 1, max_len : 15} ];
+  // 继续上级审批时选择的当前审批租户直接上级。
+  optional string nextApprovalTenantID = 3
+      [ (buf.validate.field).string = {max_len : 15} ];
+  // 拒绝时填写的原因。
+  optional string rejectReason = 4;
+}
+
+// WithdrawCoopRelationRequest 撤回当前租户发起的待处理协作关系申请。
+message WithdrawCoopRelationRequest {
+  // 待撤回的申请编码。
+  string requestID = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 15} ];
+}
+
+// CoopRelationApprovalStep 是详情页允许展示的单个审批环节投影。
+message CoopRelationApprovalStep {
+  // 审批租户名称。
+  string approvalTenantName = 1;
+  // 审批租户编码。
+  string approvalTenantID = 2;
+  // 审批节点状态：pending、approved、pass_continue 或 rejected。
+  string status = 3;
+  // 审批时间；pending 节点不返回。
+  optional int64 approvalTime = 4;
+  // 操作人姓名；pending 节点不返回。
+  reserved 5;
+  reserved "operatorStaffName";
+  // 操作人员工编码；pending 节点不返回。
+  optional string operatorStaffID = 6;
+  // 拒绝原因；仅 rejected 节点返回。
+  optional string rejectReason = 7;
+}
+
+// CoopRelationApprovalChain 是申请一侧从首个租户开始的完整审批链投影。
+message CoopRelationApprovalChain {
+  // 首个租户当前配置的审批规则。
+  string approvalRule = 1;
+  // 链路聚合状态：pending、approved、rejected 或 withdrawn。
+  string status = 2;
+  // 链路首个租户名称。
+  string firstTenantName = 3;
+  // 按根节点到当前末端顺序排列的审批环节。
+  repeated CoopRelationApprovalStep steps = 4;
+}
+
+// MyInitiatedCoopRelationDetailReply 返回当前租户发起的申请及双侧审批链。
+message MyInitiatedCoopRelationDetailReply {
+  string requestID = 1;
+  string status = 2;
+  string initiatorTenantID = 3;
+  string initiatorTenantName = 4;
+  string receiverTenantID = 5;
+  string receiverTenantName = 6;
+  string purpose = 7;
+  int64 createTime = 8;
+  int64 updateTime = 9;
+  CoopRelationApprovalChain initiatorApprovalChain = 10;
+  CoopRelationApprovalChain receiverApprovalChain = 11;
+  // 申请动作：ESTABLISH 或 TERMINATE。
+  string action = 12;
+}
+
+// MyCoopRelationApprovalDetailReply 返回申请概要及当前审批节点所属侧链路。
+message MyCoopRelationApprovalDetailReply {
+  string requestID = 1;
+  string status = 2;
+  string initiatorTenantID = 3;
+  string initiatorTenantName = 4;
+  string receiverTenantID = 5;
+  string receiverTenantName = 6;
+  string purpose = 7;
+  int64 createTime = 8;
+  int64 updateTime = 9;
+  CoopRelationApprovalChain approvalChain = 10;
+  // 申请动作：ESTABLISH 或 TERMINATE。
+  string action = 11;
+}
+
+message TenantCrossListReply {
+  // 数据
+  repeated TenantCrossListRow data = 1;
+  // 当前页
+  int32 page = 2;
+  // 每页条数
+  int32 pageSize = 3;
+  // 总条数
+  int64 count = 4;
+  // 总页数
+  int32 totalPages = 5;
+}
+
+// 租户管理判断只接受目标和业务能力，来源租户取认证 metadata。
+message TenantAccessRequest {
+  string targetTenantID = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 15} ];
+  string resource = 2
+      [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  string action = 3
+      [ (buf.validate.field).string = {min_len : 1, max_len : 31} ];
+  repeated string fields = 4
+      [ (buf.validate.field).repeated = {max_items : 100} ];
+}
+
+message TenantAccessDecision {
+  string targetTenantID = 1;
+  string resource = 2;
+  string action = 3;
+  bool allowed = 4;
+  bool allFields = 5;
+  repeated string fields = 6;
+}
+
+message BatchTenantAccessRequest {
+  repeated TenantAccessRequest data = 1
+      [ (buf.validate.field).repeated = {min_items : 1, max_items : 1000} ];
+}
+
+message BatchTenantAccessReply { repeated TenantAccessDecision data = 1; }
+
+// 游标分页返回 DAG 节点及其直接父引用，客户端按 ID 去重，不复制所有路径。
+message ListMyTenantHierarchyRequest {
+  string direction = 1
+      [ (buf.validate.field).string = {in : [ "ancestors", "descendants" ]} ];
+  string after = 2 [ (buf.validate.field).string = {max_len : 15} ];
+  int32 limit = 3 [ (buf.validate.field).int32 = {gte : 0, lte : 1000} ];
+}
+
+message TenantHierarchyNode {
+  string tenantID = 1;
+  string name = 2;
+  repeated string directParentIDs = 3;
+}
+
+message TenantHierarchyReply {
+  repeated TenantHierarchyNode data = 1;
+  string next = 2;
+  bool hasMore = 3;
+}
+
+message TenantProfileDetailReply {
+  string id = 1;
+  string name = 2;
+  string country = 3;
+  string province = 4;
+  string city = 5;
+  string regionID = 6;
+  reserved 7;
+  repeated string languageCodes = 8;
+  string contact = 9;
+  string unitTypeID = 10;
+  string summary = 11;
+}
+
+message TenantCrossListRow {
+  string id = 1;
+  string name = 2;
+  string company = 3;
+  string country = 4;
+  string province = 5;
+  string city = 6;
+  string regionID = 7;
+  reserved 8;
+  map<string, string> nameI18n = 9;
+}
+
+// 按调用身份限定查询范围，分页按租户 ID 升序。
+message ActiveTenantPageRequest {
+  string after = 1 [(buf.validate.field).string.max_len = 15];
+  repeated string ids = 2 [(buf.validate.field).repeated.max_items = 1000];
+  bool controlled_only = 3;
+}
+
+message ActiveTenant {
+  string id = 1;
+  string name = 2;
+  string kind = 3;
+  string realm = 4;
+  string logo = 5;
+  map<string, string> nameI18n = 6;
+  bool switch = 7;
+}
+
+message ActiveTenantPage {
+  repeated ActiveTenant data = 1;
+  string next = 2;
+}
+
+// 解析业务渠道内的供应商绑定。用户选单位按已验证的单位与供应商过滤，第三方登录按组织标识过滤。
+message LookupSupplierBindingsRequest {
+  repeated string tenant_ids = 1 [(buf.validate.field).repeated.items.string = {min_len: 1, max_len: 15}];
+  repeated string codes = 2 [(buf.validate.field).repeated.items.string.min_len = 1];
+  optional string organization = 3 [(buf.validate.field).string = {min_len: 1, max_len: 255}];
+  int32 limit = 4 [(buf.validate.field).int32 = {gte: 0, lte: 1000}];
+}
+
+// 固定 ID 用于部署初始化，普通新增仍由租户服务分配 ID。
+message InitTenantRequest {
+  string id = 1 [(buf.validate.field).string = {min_len:1,max_len:15}];
+  AddTenantRequest tenant = 2 [(buf.validate.field).required = true];
+  // 仅检查固定 ID 与渠道归属，返回是否需要创建。
+  bool validate_only = 3;
+}

@@ -1,0 +1,27 @@
+
+
+syntax = "proto3";
+package api.base.audit;
+option go_package = "github.com/zhixingdx/oipivot-api/base/audit/v1;audit";
+option java_multiple_files = true;
+option java_package = "api.base.audit";
+
+import "google/api/annotations.proto";
+import "base/audit/v1/plus_message.proto";
+
+service BaseAuditManagePlus {
+  // QueryRecords 只允许平台HTTP索引查询。
+  rpc QueryRecords(ManageQueryRecordsRequest) returns (QueryRecordsReply) {
+    option (google.api.http) = {
+      post : "/api/base/audit/manage/plus/record/query"
+      body : "*"
+    };
+  }
+  // ReadPayload 只允许平台HTTP经授权与访问留痕后读取。
+  rpc ReadPayload(ManageReadPayloadRequest) returns (PayloadReply) {
+    option (google.api.http) = {
+      post : "/api/base/audit/manage/plus/record/readPayload"
+      body : "*"
+    };
+  }
+}

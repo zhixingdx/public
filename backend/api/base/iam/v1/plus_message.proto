@@ -1,0 +1,486 @@
+// 该文件中不允许引入auto_message.proto和auto_portal_message.proto中的结构体,有需要请在plus_message_dag.proto中定义
+
+syntax = "proto3";
+package api.base.iam;
+option go_package = "github.com/zhixingdx/oipivot-api/base/iam/v1;iam";
+option java_multiple_files = true;
+option java_package = "api.base.iam";
+import "buf/validate/validate.proto";
+import "google/protobuf/struct.proto";
+
+message TenantRequest {
+  string tenantID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message UpdateTenantModuleRequest {
+  string tenantID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string modules = 2;
+}
+
+
+message LoginRequest {
+  // 选择手机登录时提交号码与区号，用户名和手机号二选一。
+  optional string phone = 6 [(buf.validate.field).string = {min_len:1,max_len:15,pattern:"^[0-9]+$"}];
+  optional string phonePrefix = 7 [(buf.validate.field).string = {pattern:"^\\+[1-9][0-9]{0,2}$"}];
+  string name = 1 [ (buf.validate.field).string = {max_len : 32} ];
+  string password = 2 [ (buf.validate.field).string = {min_len : 8} ];
+  optional string captchaID = 3 [ (buf.validate.field).string = {min_len : 4} ];
+  optional string captchaCode = 4
+      [ (buf.validate.field).string = {min_len : 4} ];
+  bool remember = 5;
+}
+
+message ChangePasswordRequest {
+  string oldPassword = 1 [ (buf.validate.field).string = {min_len : 8} ];
+  string newPassword = 2 [ (buf.validate.field).string = {min_len : 8} ];
+}
+
+message StaffInfoRequest {
+  // http 时可不传 grpc 时必传
+  string token = 1;
+  // http 时可不传 grpc 时必传
+  string userAgent = 2;
+}
+
+message CheckStaffPermissionRequest {
+  string staffID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string path = 2 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message StaffRequest {
+  string staffID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  // 受控下级的数据归属，省略时使用当前单位。
+  optional string childTenantID = 2;
+}
+
+message TenantStaffRequest {
+  string staffID = 1;
+  string tenantID = 2 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message PoliciesOperationsRequest {
+  string name = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string operations = 2;
+}
+
+message RolePoliciesRequest {
+  string name = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string policies = 2;
+}
+
+message PermissionsReply { repeated string paths = 1; }
+
+message RolesReply { repeated string roles = 1; }
+
+message CheckRolePermissionRequest {
+  string role = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string path = 2 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message UpdateStaffRoleRequest {
+  string staffID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string roles = 2;
+  optional string childTenantID = 3;
+}
+
+message UpdateTenantStaffRoleRequest {
+  string staffID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string roles = 2;
+  string tenantID = 3 [ (buf.validate.field).string = {min_len : 1, max_len : 15} ];
+}
+
+message UpdateRolePermissionRequest {
+  string role = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string paths = 2;
+}
+
+message UpdateTenantRolePermissionRequest {
+  string role = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string paths = 2;
+  string tenantID = 3 [ (buf.validate.field).string = {min_len : 1, max_len : 15} ];
+}
+
+message RoleRequest {
+  string role = 1 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message PoliciesRequest {
+  string name = 1 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message TenantRoleRequest {
+  string role = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string tenantID = 2 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message RoleStaffRequest {
+  string role = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string staffIDs = 2;
+}
+
+message TenantRoleStaffRequest {
+  string role = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string staffIDs = 2;
+  string tenantID = 3 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message PermissionRequest {
+  string path = 1 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+message Option {
+  string value = 1;
+  string label = 2;
+  optional string desc = 3;
+  optional string url = 4;
+  optional string img = 5;
+  optional string icon = 6;
+  optional string color = 7;
+  optional string background = 8;
+  // 激活态
+  optional string activeImg = 9;
+  optional string activeIcon = 10;
+  optional string activeColor = 11;
+  optional string activeBackground = 12;
+
+  optional bool disabled = 13;
+  // 存放一些额外的数据
+  google.protobuf.Struct extra = 14;
+  repeated Option children = 15;
+  // 开关、软删除
+  optional bool switch = 16;
+  optional bool del = 17;
+}
+
+message OptionsReply { repeated Option data = 1; }
+
+message GetDepartmentStaffsRequest {
+  string departmentID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  bool includeChildren = 2;
+}
+
+message VerifyLinkRequest {
+  string token = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string phonePrefix = 2 [ (buf.validate.field).string = {min_len : 1} ];
+  string phone = 3 [ (buf.validate.field).string = {min_len : 1} ];
+  string tenantID = 4;
+}
+
+// 应用菜单项内容
+message MenuItem {
+  // 路径
+  string path = 1;
+  // 标题
+  string title = 2;
+  // 标题的本地值，根据 titleI18n 和 ctx 中的语言生成
+  string titleLocal = 3;
+  // 图标
+  string icon = 4;
+  // disabled 是否禁用
+  bool disabled = 5;
+  // 排序
+  int32 sort = 6;
+  // 子菜单
+  repeated MenuItem children = 7;
+  // 扩展字段 支持任意属性
+  google.protobuf.Struct extra = 8;
+}
+
+// 应用菜单项编辑内容
+message MenuEditItem {
+  // 路径
+  string path = 1;
+  // 标题
+  string title = 2;
+  // 标题国际化
+  map<string, string> titleI18n = 3;
+  // 图标
+  string icon = 4;
+  // disabled 是否禁用
+  bool disabled = 5;
+  // 排序
+  int32 sort = 6;
+  // 子菜单
+  repeated MenuEditItem children = 7;
+  // 是否需要有子节点，当无子节点时不展示
+  bool needChildren = 8;
+  // 编辑时 需要与权限策略相关做绑定，以判断在不同权限是否展示或者 disabled
+  // 当为 true 时，即看 policiesByAnd 和 policiesByOr 是否满足 或者有叶子节点
+  bool needPolicy = 9;
+  // 需要的 Policy 都满足 (AND 关系)
+  repeated string policiesByAnd = 10;
+  // 只需要其中一个 Policy 满足 (OR 关系)
+  repeated string policiesByOr = 11;
+  // 扩展字段 支持任意属性
+  google.protobuf.Struct extra = 12;
+}
+
+message MenusReply { repeated MenuItem data = 1; }
+
+// 根据组ID和员工ID删除对应教研组下的老师
+message DelGroupRelPortalRequest {
+  string groupID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  repeated string staffIDs = 2;
+}
+
+message QueryDataCrossTenantRequest {
+  repeated string tenantIDs = 1;
+  repeated string dataIDs = 2;
+}
+
+message ListStaffRecordsReply {
+  repeated ListStaffRecordsItem data = 1;
+  int32 page = 2;
+  int32 pageSize = 3;
+  int64 count = 4;
+  int32 totalPages = 5;
+}
+
+message ListStaffRecordsItem {
+  string id = 1;
+  string name = 2;
+  string phonePrefix = 3;
+  string phone = 4;
+  string employeeNo = 5;
+  string employeeStatus = 6;
+  string tenantID = 7;
+  string tenantName = 8;
+  string createStaffID = 9;
+  string createStaffName = 10;
+  int64 createTime = 11;
+}
+
+// OAuth 用户访问令牌
+message OAuthAccessTokenParamsRequest {
+  // 省略时读取请求头，支持 Authorization: Bearer。
+  optional string accessToken = 1;
+  // 可省略，显式传入时必须匹配令牌的 client_id。
+  string appid = 2;
+}
+
+message OAuthGetUserTenantSupplier {
+  string code = 1;
+  string value = 2;
+}
+message OAuthGetUserTenant {
+  string tenantID = 1;
+  string tenantName = 2;
+  // 员工
+  string staffID = 3;
+  string staffName = 4;
+  string staffAvatar = 5;
+  string staffPhone = 6;
+  string staffEmail = 7;
+  repeated string roles = 8;
+  repeated OAuthGetUserTenantSupplier suppliers = 9;
+}
+
+message OAuthGetUserTenantsReply { repeated OAuthGetUserTenant data = 1; }
+
+// 第三方 OAuth 获取 access token 请求
+message ThirdOAuthAccessTokenRequest {
+  // 第三方提供商名称，如 github、wechat、qdedu 等
+  string provider = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 31} ];
+  string clientID = 2
+      [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  // 授权码
+  string code = 3 [ (buf.validate.field).string = {min_len : 1} ];
+  // 重定向地址；不传时由服务端模板按租户生成
+  optional string redirectURL = 4;
+  // OAuth state，可携带 tenantID:<租户ID>[:csrf]
+  optional string state = 5;
+}
+
+// 第三方 OAuth token 响应
+message ThirdOAuthTokenResponse {
+  string accessToken = 1;
+  string tokenType = 2;
+  optional int64 expiresIn = 3;
+  optional string refreshToken = 4;
+  optional string scope = 5;
+}
+
+// 第三方 OAuth 刷新 token 请求
+message ThirdOAuthRefreshTokenRequest {
+  string provider = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string clientID = 2 [ (buf.validate.field).string = {min_len : 1} ];
+  string refreshToken = 3 [ (buf.validate.field).string = {min_len : 1} ];
+  optional string scope = 4;
+}
+
+// 第三方 OAuth 获取账号信息请求
+message ThirdOAuthProviderAccountRequest {
+  string provider = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string clientID = 2 [ (buf.validate.field).string = {min_len : 1} ];
+  // access token；不传时从 Authorization header 读取
+  optional string token = 3;
+}
+
+// 第三方 OAuth 提供商公开配置项
+message ThirdOAuthProviderItem {
+  string provider = 1;
+  string clientID = 2;
+  // 可用的 OAuth 回调地址列表（含 {tenantID} 替换后的实际地址）
+  repeated string redirectURLs = 3;
+  // 登录按钮展示名，如「青岛教育」
+  string name = 4;
+  // 登录按钮图标 URL
+  string logoURL = 5;
+  // 完整授权跳转 URL（authorizeURL 基于 redirectURLs 首项与 state 生成）
+  string authorizeURL = 6;
+}
+
+message ThirdOAuthProviderListReply {
+  repeated ThirdOAuthProviderItem data = 1;
+}
+
+// 平台用户第三方登录完成后自动创建员工请求。
+message PlatformUserAutoCreateStaffRequest {
+  // 本次平台用户登录使用的第三方提供商，不允许使用服务端默认值。
+  string provider = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 31} ];
+  // 本次平台用户登录使用的客户端 ID，必须命中配置和用户绑定。
+  string clientID = 2
+      [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  // 本次 OAuth 登录命中的第三方账号绑定 ID，必须与 base-user 用户会话一致。
+  string oauthAccountID = 3
+      [ (buf.validate.field).string = {min_len : 1, max_len : 15} ];
+}
+
+// 存储策略配置项（单个资源类型的配置）
+message StoragePolicyItem {
+  // 资源类型标识（如：course_video、inspection_video、platform_resource 等）
+  string type = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  // 存储位置（存储池）
+  optional string location = 2;
+  // 存储路径
+  optional string path = 3;
+  // 覆盖策略（如：按时间、手动清理）
+  optional string overwrite = 4;
+  // 保留周期（如：14 天）
+  optional string retention = 5;
+}
+
+// 存储桶配置项
+message StorageBucketConfig {
+  string name = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  optional int64 capacity = 2;
+  string type = 3 [ (buf.validate.field).string = {min_len : 1} ];
+  // 状态跟已使用 计划返回 当前 前端暂时不需要 后续使用自动计算添加返回
+  optional string status = 5;
+  optional string used = 6;
+}
+
+// 存储配置项编辑请求
+message StorageConf {
+  // 所有资源类型的存储策略配置
+  repeated StoragePolicyItem policies = 1
+      [ (buf.validate.field).repeated = {min_items : 1} ];
+  // 桶的配置列表
+  repeated StorageBucketConfig buckets = 2;
+  // 备注
+  optional string remark = 3;
+}
+
+// SyncEntityStats 单类实体同步统计
+message SyncEntityStats {
+  int32 added = 1;
+  int32 deleted = 2;
+  int32 updated = 3;
+  int32 skipped = 4;
+}
+
+// SyncRBACReply RBAC 云端同步结果
+message SyncRBACReply {
+  SyncEntityStats operations = 1;
+  SyncEntityStats policies = 2;
+  SyncEntityStats casbinPolicies = 3;
+}
+
+// StartStaffProfileBackfillRequest 选择本轮补全字段、执行模式和扫描预算。
+message StartStaffProfileBackfillRequest {
+  repeated string fields = 1
+      [ (buf.validate.field).repeated = {min_items : 1, max_items : 3} ];
+  // 缺省 PREVIEW；EXECUTE 才会修改员工资料。
+  string mode = 2
+      [ (buf.validate.field).string = {in : [ "", "PREVIEW", "EXECUTE" ]} ];
+  // 缺省 10000；限制本轮扫描员工数，内部每批最多 100 人。
+  optional int64 limit = 3 [ (buf.validate.field).int64.gt = 0 ];
+}
+
+// StaffProfileBackfillReply 仅返回固定大小的计数，不包含员工或用户资料明细。
+message StaffProfileBackfillReply {
+  repeated string fields = 1;
+  string mode = 2;
+  string status = 3;
+  string reason = 4;
+  string message = 5;
+  int64 scanned = 6;
+  int64 updated = 7;
+  int64 wouldUpdate = 8;
+  int64 skipped = 9;
+  int64 problem = 10;
+  int64 notFound = 11;
+  int64 startedAt = 12;
+  int64 updatedAt = 13;
+  int64 limit = 14;
+  bool hasMore = 15;
+  map<string, int64> problemReasons = 16;
+}
+
+// UpsertOperationByNameItem 按 name upsert 操作项的单条入参，结构与
+// openapi-manage-operations.json 一致。
+message UpsertOperationByNameItem {
+  // [必填] 操作项
+  string name = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string = {min_len : 1, max_len : 511}
+  ];
+  // [必填] 包
+  string package = 3 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string = {max_len : 127}
+  ];
+  // [必填] 服务
+  string service = 4 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string = {max_len : 127}
+  ];
+  // 备注
+  optional string remark = 214
+      [ (buf.validate.field).string = {max_len : 1023} ];
+  // [必填] 标题
+  string title = 219 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string = {max_len : 511}
+  ];
+  // 国际化标题
+  map<string, string> titleI18n = 304;
+  // 国际化标题 为空时忽略更新
+  bool titleI18nIgnoreUpdateIfEmpty = 6581;
+}
+
+message BatchUpsertOperationByNameRequest {
+  repeated UpsertOperationByNameItem data = 1
+      [ (buf.validate.field).repeated = {min_items : 1} ];
+}
+
+message StaffPoliciesRequest {
+  // 员工 ID，保留现有查询参数名。
+  string value = 1;
+  optional string childTenantID = 2;
+}
+
+message ChildTenantScopeRequest { optional string childTenantID = 1; }
+
+message AssignTenantAdminRequest {
+  string tenantID = 1 [(buf.validate.field).string = {min_len:1,max_len:15}];
+  string phonePrefix = 2 [(buf.validate.field).string.pattern = "^\\+[1-9][0-9]{0,2}$"];
+  string phone = 3 [(buf.validate.field).string = {min_len:1,max_len:15,pattern:"^[0-9]+$"}];
+}
+
+message AssignedTenantAdmin {
+  string staffID = 1;
+  string username = 2;
+}

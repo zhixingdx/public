@@ -1,0 +1,43 @@
+syntax = "proto3";
+package api.base.user;
+option go_package = "github.com/zhixingdx/oipivot-api/base/user/v1;user";
+option java_multiple_files = true;
+option java_package = "api.base.user";
+
+import "google/api/annotations.proto";
+import "base/user/v1/plus_message.proto";
+
+service BaseUserManagePlus {
+  // 清理已完成批次的暂存资料，每次最多100条；不删除正式账号或操作审计。
+  rpc DeleteThirdAccountSync(ThirdAccountSyncRequest)
+      returns (ThirdAccountSyncReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/manage/thirdAccountSync/delete"
+      body : "*"
+    };
+  }
+
+  // 默认预览并封存批次，mode=EXECUTE 才写入；每次最多100条，执行前复核目标。
+  rpc ProcessThirdAccountSync(ThirdAccountSyncRequest)
+      returns (ThirdAccountSyncReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/manage/thirdAccountSync/process"
+      body : "*"
+    };
+  }
+
+  // 启动单渠道用户资料补全，复用 Manage RBAC；只补空值，不创建用户或绑定。
+  rpc StartProfileBackfill(StartProfileBackfillRequest)
+      returns (ProfileBackfillReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/manage/user/profileBackfill/start"
+      body : "*"
+    };
+  }
+  // 查询当前租户最近一次补全的进度与分类计数，不返回用户明细或敏感原值。
+  rpc GetProfileBackfill(TargetTenantRequest) returns (ProfileBackfillReply) {
+    option (google.api.http) = {
+      get : "/api/base/user/manage/user/profileBackfill"
+    };
+  }
+}

@@ -1,0 +1,105 @@
+syntax = "proto3";
+package api.apicommon;
+// 特意使用 apicommon 居然与其他 common 包冲突
+option go_package = "github.com/zhixingdx/oipivot-api/apicommon/v1;apicommon";
+option java_multiple_files = true;
+option java_package = "api.apicommon";
+
+import "google/protobuf/struct.proto";
+
+message Num { int32 value = 1; }
+
+message BigNum { int64 value = 1; }
+
+message Bool { bool value = 1; }
+
+message Str { string value = 1; }
+
+message StrMap { map<string, string> value = 1; }
+
+message NumMap { map<string, int32> value = 1; }
+
+message BigNumMap { map<string, int64> value = 1; }
+
+message BoolMap { map<string, bool> value = 1; }
+
+message AnyMap { google.protobuf.Struct value = 1; }
+
+message StrArray { repeated string value = 1; }
+
+message NumArray { repeated int32 value = 1; }
+
+message BigNumArray { repeated int64 value = 1; }
+
+message BoolArray { repeated bool value = 1; }
+
+message DetailSimpleReply {
+  string id = 1;
+  optional string name = 2;
+  optional string title = 3;
+  optional string summary = 4;
+  optional string cover = 5;
+  optional string icon = 6;
+  optional string color = 7;
+  optional string background = 8;
+  optional bool disabled = 9;
+}
+
+// 选项
+message Option {
+  string value = 1;
+  string label = 2;
+  optional string desc = 3;
+  optional string url = 4;
+  optional string img = 5;
+  optional string icon = 6;
+  optional string color = 7;
+  optional string background = 8;
+  // 激活态
+  optional string activeImg = 9;
+  optional string activeIcon = 10;
+  optional string activeColor = 11;
+  optional string activeBackground = 12;
+
+  optional bool disabled = 13;
+  // 存放一些额外的数据
+  google.protobuf.Struct extra = 14;
+}
+
+// 选项数据
+message Options { repeated Option data = 1; }
+
+// 查询排序
+message SortOrder {
+  string field = 1;
+  string order = 2;
+}
+
+// 搜索同步请求（全量/增量）
+message SyncSearchRequest {
+  // 同步类型: full(全量) / incremental(增量)
+  optional string syncType = 1;
+  // 全量同步时，是否清理索引中存在但数据库表中不存在的数据
+  optional bool cleanOrphan = 2;
+}
+
+// 搜索同步响应
+message SyncSearchReply {
+  // 同步的文档数量
+  int64 syncCount = 1;
+  // 清理的孤儿文档数量
+  int64 cleanCount = 2;
+}
+
+// VersionedRef 只表达调用方期望绑定的不可变配置身份。
+message VersionedRef {
+  string id = 1;
+  string version = 2;
+}
+
+// ResolvedVersionedRef 由配置 owner 返回版本和安全摘要，hash 不接受业务方填写。
+message ResolvedVersionedRef {
+  string id = 1;
+  string version = 2;
+  string hash = 3;
+}

@@ -1,0 +1,24 @@
+
+
+syntax = "proto3";
+package api.base.iam;
+option go_package = "github.com/zhixingdx/oipivot-api/base/iam/v1;iam";
+option java_multiple_files = true;
+option java_package = "api.base.iam";
+import "base/iam/v1/auto_message.proto";
+import "base/iam/v1/auto_portal_message.proto";
+import "buf/validate/validate.proto";
+
+message AuthReply {
+  StaffDetailReply staff = 1;
+  string token = 2;
+  optional string redirect = 3;
+  // 当通过第三方 OAuth 登录时，返回第三方的服务商和 clientID
+  optional string oauthProvider = 4;
+  optional string oauthClientID = 5;
+}
+
+message GroupRelPortalRequest {
+  string groupID = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  ListStaffPortalRequest staffs = 2;
+}

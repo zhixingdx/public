@@ -1,0 +1,172 @@
+
+
+syntax = "proto3";
+package api.base.audit;
+option go_package = "github.com/zhixingdx/oipivot-api/base/audit/v1;audit";
+option java_multiple_files = true;
+option java_package = "api.base.audit";
+
+import "apicommon/v1/biz_call.proto";
+
+// Change 使用原始JSON文本区分缺失与null，避免大整数经double损失。
+message Change {
+  string path = 1;
+  bool beforePresent = 2;
+  optional string before = 3;
+  bool afterPresent = 4;
+  optional string after = 5;
+}
+// RecordEnvelope
+// 是不可变证据命令，生成Add无法表达事务、内容presence和策略约束。
+message RecordEnvelope {
+  string eventID = 1;
+  string operationID = 2;
+  // 稳定逻辑部署来源，扩缩容和重启保持不变；不是 Pod/进程实例 ID。
+  string sourceDeploymentID = 3;
+  api.apicommon.BizCall bizCall = 4;
+  string actorID = 5;
+  string actorType = 6;
+  string outcome = 7;
+  // 业务发生时间，Unix 毫秒。
+  int64 occurredAt = 8;
+  string traceID = 9;
+  string spanID = 10;
+  // 采集与留存策略版本。
+  int32 policyVersion = 11;
+  // 事件信封结构版本。
+  int32 schemaVersion = 12;
+  string category = 13;
+  string captureMode = 14;
+  string deleteMode = 15;
+  string detail = 16;
+  repeated Change changes = 17;
+  string snapshot = 18;
+  repeated string omittedFields = 19;
+  // 客户端报告的单个 IP；仅可信代理保证来源，不用于授权。
+  optional string clientIP = 20;
+  // 客户端自报 User-Agent，不用于授权。
+  optional string userAgent = 21;
+  // 客户端自报终端标识，不是用户身份。
+  optional string clientID = 22;
+  // 业务渠道，与终端 Channel 独立。
+  optional string realm = 23;
+  // 客户端自报终端渠道，如 web、ios。
+  optional string channel = 24;
+  // 客户端自报平台类型。
+  optional string platform = 25;
+  // 生产者本地配置的来源环境。
+  optional string sourceEnvironment = 26;
+  // 生产者本地配置的服务版本。
+  optional string serviceVersion = 27;
+}
+message AppendRecordsRequest { repeated RecordEnvelope items = 1; }
+message RecordReceipt {
+  // 稳定逻辑部署来源，扩缩容和重启保持不变；不是 Pod/进程实例 ID。
+  string sourceDeploymentID = 1;
+  string eventID = 2;
+  string recordID = 3;
+  string status = 4;
+  string storageTarget = 5;
+}
+message AppendRecordsReply { repeated RecordReceipt data = 1; }
+// ConfirmSoftDeleteRequest 仅确认同租户和同来源已经提交的源库软删。
+message ConfirmSoftDeleteRequest {
+  string sourceService = 1;
+  string sourceDeploymentID = 2;
+  repeated string recordIDs = 3;
+}
+// RecordFilter 只接受索引条件，避免泛化查询暴露正文。
+message RecordFilter {
+  string service = 1;
+  string action = 2;
+  string bizID = 3;
+  string actorID = 4;
+  string category = 5;
+  string captureMode = 6;
+  string traceID = 7;
+  int64 occurredAtGte = 8;
+  int64 occurredAtLte = 9;
+  int32 limit = 10;
+  string cursor = 11;
+  string clientID = 12;
+  string realm = 13;
+  string channel = 14;
+  string sourceEnvironment = 15;
+}
+message ManageQueryRecordsRequest {
+  optional string tenantID = 1;
+  RecordFilter filter = 2;
+}
+message PortalQueryRecordsRequest { RecordFilter filter = 1; }
+// RecordSummary 是显式安全投影，不含
+// detail、资源正文或内部摘要；可选请求上下文仅供已授权审计查询。
+message RecordSummary {
+  string recordID = 1;
+  string tenantID = 2;
+  string eventID = 3;
+  string operationID = 4;
+  // 稳定逻辑部署来源，扩缩容和重启保持不变；不是 Pod/进程实例 ID。
+  string sourceDeploymentID = 5;
+  api.apicommon.BizCall bizCall = 6;
+  string actorID = 7;
+  string actorType = 8;
+  string outcome = 9;
+  string category = 10;
+  string captureMode = 11;
+  string deleteMode = 12;
+  int64 occurredAt = 13;
+  // 数据库入库时间，Unix 毫秒；底层 CreateTime 为秒精度。
+  int64 storedAt = 14;
+  int64 expiresAt = 15;
+  string traceID = 16;
+  string spanID = 17;
+  int32 policyVersion = 18;
+  int32 schemaVersion = 19;
+  // 客户端报告的单个 IP；仅可信代理保证来源，不用于授权。
+  optional string clientIP = 20;
+  // 客户端自报 User-Agent，不用于授权。
+  optional string userAgent = 21;
+  // 客户端自报终端标识，不是用户身份。
+  optional string clientID = 22;
+  // 业务渠道，与终端 Channel 独立。
+  optional string realm = 23;
+  // 客户端自报终端渠道，如 web、ios。
+  optional string channel = 24;
+  // 客户端自报平台类型。
+  optional string platform = 25;
+  // 生产者本地配置的来源环境。
+  optional string sourceEnvironment = 26;
+  // 生产者本地配置的服务版本。
+  optional string serviceVersion = 27;
+  // 仅删除前快照返回 archived 或 deletion_confirmed，其他事件为空。
+  string softDeleteStatus = 28;
+}
+message QueryRecordsReply {
+  repeated RecordSummary data = 1;
+  string nextCursor = 2;
+  string scope = 3;
+}
+message GetPayloadRequest {
+  string recordID = 1;
+  string purpose = 2;
+  string sourceService = 3;
+  // 稳定逻辑部署来源，扩缩容和重启保持不变；不是 Pod/进程实例 ID。
+  string sourceDeploymentID = 4;
+}
+message ManageReadPayloadRequest {
+  string tenantID = 1;
+  string recordID = 2;
+  string purpose = 3;
+}
+message PortalReadPayloadRequest {
+  string recordID = 1;
+  string purpose = 2;
+}
+message PayloadReply {
+  RecordSummary metadata = 1;
+  string kind = 2;
+  repeated Change changes = 3;
+  string snapshot = 4;
+  repeated string omittedFields = 5;
+  int32 payloadSchemaVersion = 6;
+}

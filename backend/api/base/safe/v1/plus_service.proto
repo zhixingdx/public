@@ -1,0 +1,27 @@
+syntax = "proto3";
+package api.base.safe;
+option go_package = "github.com/zhixingdx/oipivot-api/base/safe/v1;safe";
+option java_multiple_files = true;
+option java_package = "api.base.safe";
+
+import "base/safe/v1/plus_message.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "apicommon/v1/common.proto";
+
+service BaseSafeManagePlus {
+  // 查询全局词库版本及副本状态，仅接受管理 HTTP。
+  rpc GetSensitiveWordStatus(google.protobuf.Empty)
+      returns (SensitiveWordStatusReply) {
+    option (google.api.http) = {
+      get : "/api/base/safe/manage/sensitiveWord/status"
+    };
+  }
+  // 要求副本重新加载当前发布版本，保留内容及修订号。
+  rpc ReloadSensitiveWords(google.protobuf.Empty) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/safe/manage/sensitiveWord/reload"
+      body : "*"
+    };
+  }
+}

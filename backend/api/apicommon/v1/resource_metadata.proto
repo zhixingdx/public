@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package api.apicommon;
+
+option go_package = "github.com/zhixingdx/oipivot-api/apicommon/v1;apicommon";
+option java_multiple_files = true;
+option java_package = "api.apicommon";
+
+import "buf/validate/validate.proto";
+import "google/protobuf/struct.proto";
+
+// ResourceMetadataEntry 表示同一 space 下的一条可检索值或不可检索文档。
+message ResourceMetadataEntry {
+  string name = 1 [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+
+  oneof payload {
+    option (buf.validate.oneof).required = true;
+
+    string value = 2
+        [ (buf.validate.field).string = {min_len : 1, max_len : 255} ];
+    google.protobuf.Struct document = 3;
+  }
+}
+
+// ResourceMetadataSpace 表示一个业务空间的完整元数据集合；空 entries
+// 用于清空该空间。
+message ResourceMetadataSpace {
+  string space = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  repeated ResourceMetadataEntry entries = 2;
+}
+
+// ResourceMetadata 表示实体的全部元数据空间，供创建命令和行业转换组合使用。
+message ResourceMetadata { repeated ResourceMetadataSpace spaces = 1; }
+
+// ResourceMetadataState 返回显式开启乐观并发控制的单个空间状态。
+message ResourceMetadataState {
+  ResourceMetadataSpace metadata = 1;
+  int64 version = 2;
+}
+
+// ResourceMetadataWriteReply 返回一次元数据写入后的最新并发控制版本。
+message ResourceMetadataWriteReply { int64 version = 1; }
+
+// ResourceMetadataPredicate 表示绑定到 space/name 的一个受控查询叶子。
+message ResourceMetadataPredicate {
+  string space = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  string name = 2 [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  string operator = 3 [ (buf.validate.field).string = {
+    in : [
+      "eq",
+      "contains_any",
+      "contains_all",
+      "contains_none",
+      "exists",
+      "not_exists"
+    ]
+  } ];
+  repeated string values = 4 [ (buf.validate.field).repeated = {
+    max_items : 32,
+    items : {string : {min_len : 1, max_len : 255}}
+  } ];
+}
+
+// ResourceMetadataExpressionGroup 表示有界 AND/OR 子表达式集合。
+message ResourceMetadataExpressionGroup {
+  repeated ResourceMetadataExpression expressions = 1
+      [ (buf.validate.field).repeated = {min_items : 1, max_items : 32} ];
+}
+
+// ResourceMetadataExpression 表示 predicate、all_of、any_of
+// 三选一的递归表达式。
+message ResourceMetadataExpression {
+  oneof expression {
+    option (buf.validate.oneof).required = true;
+
+    ResourceMetadataPredicate predicate = 1;
+    ResourceMetadataExpressionGroup all_of = 2;
+    ResourceMetadataExpressionGroup any_of = 3;
+  }
+}

@@ -1,0 +1,175 @@
+syntax = "proto3";
+package api.base.safe;
+option go_package = "github.com/zhixingdx/oipivot-api/base/safe/v1;safe";
+option java_multiple_files = true;
+option java_package = "api.base.safe";
+import "apicommon/v1/biz_call.proto";
+import "buf/validate/validate.proto";
+
+// IAM 的门户 HTTP 图形验证码接口使用此响应。
+message ImageCaptchaReply {
+  // 图片 base64
+  string image = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  // 图片 ID
+  string id = 2 [ (buf.validate.field).string = {min_len : 1} ];
+}
+
+// SensitiveWordReplica 仅公开副本加载状态，不返回词库内容。
+message SensitiveWordReplica {
+  string id = 1;
+  int64 revision = 2;
+  bool ready = 3;
+  bool refreshFailed = 4;
+  int64 lastSeen = 5;
+}
+// SensitiveWordStatusReply 区分已保存与全量生效；预期副本数为零时拓扑未知。
+message SensitiveWordStatusReply {
+  int64 revision = 1;
+  int32 expectedReplicas = 2;
+  repeated SensitiveWordReplica data = 3;
+  bool allApplied = 4;
+}
+
+message Phone {
+  string prefix = 1; // 国际区号，纯数字，不带 +。
+  string number = 2; // 本地号码，纯数字。
+}
+
+message Destination {
+  oneof address {
+    Phone phone = 1;
+    string email = 2;
+  }
+}
+
+message IssueChallengeRequest {
+  api.apicommon.BizCall biz_call = 1;
+  Destination destination = 2;
+  string channel = 3; // 可选，使用通知服务中同名渠道。
+  string template = 4;
+  // 收到 needCaptcha 提示后，提交同一租户、业务用途的图形挑战。
+  ImageProof image_proof = 5;
+}
+
+message ImageProof {
+  ClientBinding binding = 1;
+  string challenge_id = 2;
+  string answer = 3;
+}
+
+message IssueChallengeResponse {
+  string challenge_id = 1;
+  int64 expires_at_unix = 2;
+}
+
+message VerifyChallengeRequest {
+  api.apicommon.BizCall biz_call = 1;
+  string challenge_id = 2;
+  string code = 3;
+  Destination destination = 4; // 填本次操作真正要核验的目标。
+}
+
+message VerifyChallengeResponse {}
+
+// subject 是业务方的稳定对象标识。namespace 和 action 限定用途。
+message GuardKey {
+  string namespace = 1;
+  string action = 2;
+  string subject = 3;
+}
+
+message TakeQuotaRequest {
+  GuardKey key = 1;
+  uint32 limit = 2;
+  uint32 window_seconds = 3;
+  // 缺省仅限流。指定时超限将锁定同一 GuardKey，0 使用默认 600 秒。
+  optional uint32 lock_seconds = 4;
+}
+message TakeQuotaResponse {
+  bool allowed = 1;
+  uint32 remaining = 2;
+  uint32 retry_after_seconds = 3;
+  // 滑动窗口内，本次调用前已占用的次数，供调用方判断是否升级验证。
+  uint32 used_before = 4;
+}
+message ResetQuotaRequest { GuardKey key = 1; }
+message ResetQuotaResponse {}
+message SetLockRequest {
+  GuardKey key = 1;
+  uint32 ttl_seconds = 2;
+}
+message SetLockResponse {}
+message GetLockRequest { GuardKey key = 1; }
+message GetLockResponse { uint32 remaining_seconds = 1; }
+message ClearLockRequest { GuardKey key = 1; }
+message ClearLockResponse {}
+
+// audience 由验证方按自身业务配置填写，隔离员工会话、用户会话和应用私有凭据。
+message IssueSessionRequest {
+  string audience = 1;
+  string subject = 2;
+  // 缺省或 0 时签发 30 天；正数按业务调用方指定的秒数签发。
+  uint32 ttl_seconds = 3;
+  map<string, string> claims = 4;
+  string client_id = 5;
+}
+message IssueSessionResponse {
+  string token = 1;
+  int64 expires_at_unix = 2;
+}
+message SessionCredential {
+  string audience = 1;
+  string token = 2;
+  string client_id = 3;
+}
+message ReadSessionRequest { SessionCredential credential = 1; }
+message ReadSessionResponse {
+  string subject = 1;
+  map<string, string> claims = 2;
+  int64 expires_at_unix = 3;
+}
+message RevokeSessionRequest { SessionCredential credential = 1; }
+message RevokeSessionResponse {}
+
+// 匿名会话的随机客户端标识，用于绑定挑战和密封载荷。不能代表人员身份。
+message RegisterClientRequest { string user_agent = 1; }
+message RegisterClientResponse { string client_id = 1; }
+message ClientBinding { string client_id = 1; string user_agent = 2; }
+message ReadClientRequest { ClientBinding binding = 1; }
+message ReadClientResponse { int64 created_at_unix = 1; }
+message IssueImageRequest { ClientBinding binding = 1; api.apicommon.BizCall biz_call = 2; }
+message IssueImageResponse { string challenge_id = 1; bytes png = 2; }
+message VerifyImageRequest {
+  ClientBinding binding = 1;
+  api.apicommon.BizCall biz_call = 2;
+  string challenge_id = 3;
+  string answer = 4;
+}
+message VerifyImageResponse {}
+
+// 供受信服务传递短时密封值。客户端到 IAM 的口令传输使用 HTTPS。
+message SealValueRequest { ClientBinding binding = 1; string purpose = 2; bytes value = 3; }
+message SealValueResponse { string envelope = 1; }
+message OpenValueRequest { ClientBinding binding = 1; string purpose = 2; string envelope = 3; }
+message OpenValueResponse { bytes value = 1; }
+
+message TextItem { string id = 1; string text = 2; string scene = 3; }
+enum TextResult {
+  TEXT_RESULT_UNSPECIFIED = 0;
+  TEXT_RESULT_PASS = 1;
+  TEXT_RESULT_HIT = 2;
+}
+message CheckTextBatchRequest { repeated TextItem items = 1; }
+message TextFinding { string id = 1; TextResult result = 2; }
+message CheckTextBatchResponse {
+  repeated TextFinding findings = 1;
+  uint64 revision = 2; // 本批实际使用的词库修订。
+  string assessment_id = 3; // 本次检测或掩码的唯一编号，与平台审计的业务对象 ID 一致。
+}
+message MaskTextBatchRequest { repeated TextItem items = 1; }
+message MaskedText { string id = 1; string text = 2; bool changed = 3; }
+message MaskTextBatchResponse {
+  repeated MaskedText items = 1;
+  uint64 revision = 2; // 本批实际使用的词库修订。
+  string assessment_id = 3; // 本次检测或掩码的唯一编号，与平台审计的业务对象 ID 一致。
+}

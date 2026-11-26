@@ -1,0 +1,356 @@
+syntax = "proto3";
+package api.base.user;
+option go_package = "github.com/zhixingdx/oipivot-api/base/user/v1;user";
+option java_multiple_files = true;
+option java_package = "api.base.user";
+
+import "base/wechat/v1/plus_message.proto";
+import "base/static/v1/plus_message.proto";
+import "base/safe/v1/plus_message.proto";
+import "google/protobuf/empty.proto";
+import "apicommon/v1/common.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/struct.proto";
+import "base/user/v1/portal_message.proto";
+import "base/user/v1/auto_portal_message.proto";
+import "base/user/v1/plus_message.proto";
+
+import "base/user/v1/auto_message.proto";
+
+service BaseUserPortalPlus {
+  // 以下查询仅供受信业务服务通过 gRPC 使用。
+  rpc DetailUserWithoutMask(ResourceIDRequest) returns (UserDetailReply) {}
+  rpc QueryThirdOAuthAccountWithoutMask(AccountLookupRequest) returns (ThirdOAuthAccountMultiReply) {}
+  rpc QueryOneUser(UserLookupRequest) returns (UserDetailReply) {}
+  // 内部租户选择器凭用户令牌取应用的供应商范围。
+  rpc ResolveOAuthAccess(OAuthAccessTokenParamsRequest) returns (OAuthAccessReply) {}
+
+  rpc GetAppCache(ResourceIDRequest) returns (AppSupplierAccessReply) {}
+
+  // 登录页仅读应用展示字段。
+  rpc GetAppDisplay(ResourceIDRequest) returns (AppDisplayReply) {
+    option (google.api.http) = {get: "/api/base/user/portal/app/getCache"};
+  }
+
+  // [免鉴权] 获取当前时间戳 秒
+  rpc GetTimestamp(google.protobuf.Empty) returns (api.apicommon.Str) {
+    option (google.api.http) = {
+      get : "/api/base/user/portal/timestamp",
+    };
+  }
+
+  // [免鉴权] 创建 ID
+  rpc CreateID(google.protobuf.Empty) returns (api.apicommon.Str) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/id/create",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 为已登记的客户端签发五分钟内有效的单次口令挑战与公钥。响应禁止缓存。
+  rpc GetPasswordKey(PasswordKeyRequest) returns (PasswordKeyReply) {
+    option (google.api.http) = { post: "/api/base/user/portal/password/key", body: "*" };
+  }
+
+  // [免权限] 加密数据
+  rpc Encrypt(EncryptRequest) returns (api.apicommon.Str) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/encrypt",
+      body : "*",
+    };
+  }
+
+  // [免权限] 获取上传凭证
+  rpc GetUploadCredential(api.base.static.GetUploadCredentialByMicroRequest)
+      returns (api.base.static.GetUploadCredentialReply) {
+    option (google.api.http) = {
+      get : "/api/base/user/portal/getUploadCredential",
+    };
+  };
+
+  // [免鉴权] 获取图片验证码
+  rpc GetImageCaptcha(ImageRequest)
+      returns (api.base.safe.ImageCaptchaReply) {
+    option (google.api.http) = {
+      get : "/api/base/user/portal/captcha/image",
+    };
+  }
+
+  // [免鉴权] 获取当前租户的认证公开配置
+  rpc GetAuthConfig(google.protobuf.Empty) returns (AuthConfigReply) {
+    option (google.api.http) = {
+      get : "/api/base/user/portal/auth/config",
+    };
+  }
+
+  // [免鉴权] 账号登录 基于安全考虑默认不开启
+  rpc Login(LoginRequest) returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/login",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 账号注册 基于安全考虑默认不开启
+  rpc Join(JoinRequest) returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/join",
+      body : "*",
+    };
+  }
+
+  // [免权限] 退出登录
+  rpc Logout(google.protobuf.Empty) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/logout",
+      body : "*",
+    };
+  }
+
+  // [免权限] 获取我的信息
+  rpc GetMyInfo(MyInfoRequest) returns (UserAuthReply) {
+    option (google.api.http) = {
+      get : "/api/base/user/portal/my/info",
+    };
+  }
+
+  // [免鉴权] 获取手机验证码
+  rpc GetPhoneCaptcha(PhoneCaptchaRequest) returns (api.base.safe.IssueChallengeResponse) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/captcha/phone",
+      body : "*",
+    };
+  }
+
+  // [免权限] 获取当前用户绑定手机号的验证码
+  // 需登录；未绑定手机号则报错；底层调用 base-safe。
+  rpc GetMyPhoneCaptcha(MyPhoneCaptchaRequest) returns (api.base.safe.IssueChallengeResponse) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/my/captcha/phone",
+      body : "*",
+    };
+  }
+
+  // [免权限] 校验当前用户绑定手机号的验证码
+  // 需登录；未绑定手机号则报错；底层调用 base-safe。
+  rpc VerifyMyPhoneCaptcha(VerifyMyPhoneCaptchaRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/my/captcha/phone/verify",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 通过手机验证码登录
+  rpc LoginByPhone(PhoneRequest) returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/login/phone",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取邮箱验证码
+  rpc GetMailCaptcha(MailCaptchaRequest) returns (api.base.safe.IssueChallengeResponse) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/captcha/mail",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 通过邮箱验证码登录
+  rpc LoginByMail(MailRequest) returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/login/mail",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 微信小程序 code2Session
+  rpc WechatMiniCode2Session(api.base.wechat.MiniCode2SessionRequest)
+      returns (api.base.wechat.MiniCode2SessionReply) {
+    option (google.api.http) = {
+      get : "/api/base/user/portal/wechat/mini/code2Session"
+    };
+  }
+
+  // [免鉴权] 通过微信小程序 code 登录
+  rpc LoginByWechatMiniCode(api.base.wechat.MiniCode2SessionRequest)
+      returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/login/wechat/mini",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 通过微信小程序手机号登录
+  rpc LoginByWechatMiniPhone(api.base.wechat.MiniGetPhoneNumberRequest)
+      returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/login/wechat/mini/phone",
+      body : "*",
+    };
+  }
+
+  // [免权限] 绑定手机号
+  rpc BindPhone(PhoneRequest) returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/bind/phone",
+      body : "*",
+    };
+  }
+
+  // [免权限] 绑定微信手机号
+  rpc BindPhoneByWechat(api.base.wechat.MiniGetPhoneNumberRequest)
+      returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/bind/phone/wechat",
+      body : "*",
+    };
+  }
+
+  // [免权限] 绑定微信小程序
+  rpc BindWechatMini(api.base.wechat.MiniCode2SessionRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/bind/wechat/mini",
+      body : "*",
+    };
+  }
+
+  // [免权限] 判断是否已经绑定
+  rpc IsBind(google.protobuf.Empty) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      get : "/api/base/user/portal/bind/is",
+    };
+  }
+
+  // [免权限] 注销账号
+  rpc Destroy(google.protobuf.Empty) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/my/destroy",
+      body : "*",
+    };
+  }
+
+  // [免权限] 更新我的头像
+  rpc UpdateMyAvatar(UpdateMyAvatarRequest) returns (UserPortalDetailReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/my/update/avatar",
+      body : "*",
+    };
+  }
+
+  // [免权限] 更新我的信息
+  rpc UpdateMyInfo(UpdateMyInfoRequest) returns (UserPortalDetailReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/my/update/info",
+      body : "*",
+    };
+  }
+
+  // [免权限] 初始密码
+  rpc InitPassword(InitPasswordRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/my/password/init",
+      body : "*",
+    };
+  }
+
+  // [免权限] 更新密码
+  rpc UpdatePassword(UpdatePasswordRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/my/password/update",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 重置密码
+  rpc ResetPassword(ResetPasswordRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/password/reset",
+      body : "*",
+    };
+  }
+
+  // [免权限] OAuth 接受登录请求
+  rpc OAuthAcceptLogin(OAuthLoginRequest) returns (OAuthRedirectResponse) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/acceptLogin",
+      body : "*",
+    };
+  }
+
+  // [免权限] OAuth 接受同意请求
+  rpc OAuthAcceptConsent(OAuthConsentRequest) returns (OAuthRedirectResponse) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/acceptConsent",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 内部 OAuth 通过 code 获取 user token
+  rpc OAuthGetUserToken(OAuthCodeRequest) returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/getUserToken",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] OAuth 接受注销请求
+  rpc OAuthAcceptLogout(OAuthLogoutRequest) returns (OAuthRedirectResponse) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/acceptLogout",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 第三方 OAuth 获取 access token（转发到第三方服务）
+  rpc ThirdOAuthAccessToken(ThirdOAuthAccessTokenRequest)
+      returns (ThirdOAuthTokenResponse) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/third/accessToken",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 第三方 OAuth 刷新 token（转发到第三方服务）
+  rpc ThirdOAuthRefreshToken(ThirdOAuthRefreshTokenRequest)
+      returns (ThirdOAuthTokenResponse) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/third/refreshToken",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 第三方 OAuth 根据 token 获取用户信息（转发到第三方服务）
+  // token 可以从 Authorization header 或请求参数中获取
+  rpc ThirdOAuthUser(ThirdOAuthUserRequest) returns (google.protobuf.Struct) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/third/user",
+      body : "*",
+    };
+  }
+  // [免鉴权] 通过第三方的 OAuth code 登录用户
+  rpc ThirdOAuthLoginByCode(ThirdOAuthAccessTokenRequest)
+      returns (UserAuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/third/loginByCode",
+      body : "*",
+    };
+  }
+  // [免鉴权] OAuth 通过 code 获取 access token
+  rpc OAuthGetAccessToken(OAuthTokenRequest) returns (OAuthTokenReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/accessToken",
+      body : "*",
+    };
+  }
+  // [免鉴权] OAuth 通过 access token 获取 用户信息
+  rpc OAuthGetUserInfo(OAuthAccessTokenParamsRequest)
+      returns (UserPortalDetailReply) {
+    option (google.api.http) = {
+      post : "/api/base/user/portal/oauth/user",
+      body : "*",
+    };
+  }
+}

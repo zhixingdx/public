@@ -1,0 +1,22 @@
+syntax = "proto3";
+package api.base.user;
+option go_package = "github.com/zhixingdx/oipivot-api/base/user/v1;user";
+option java_multiple_files = true;
+option java_package = "api.base.user";
+
+import "base/user/v1/auto_portal_message.proto";
+
+message UserAuthReply {
+  UserPortalDetailReply user = 1;
+  string token = 3;
+  // 是否没密码 可选 已有密码则不返回或为 false
+  optional bool noPassword = 4;
+  // 可选
+  optional string idToken = 5;
+  // 当通过第三方 OAuth 登录时，返回第三方的服务商和 clientID
+  optional string oauthProvider = 6;
+  optional string oauthClientID = 7;
+  // 本次 OAuth 登录命中的第三方账号绑定 ID；同时写入用户
+  // token，供下游校验登录来源。
+  optional string oauthAccountID = 8;
+}

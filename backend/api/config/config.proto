@@ -1,0 +1,383 @@
+syntax = "proto3";
+package api.config;
+
+option go_package = "github.com/zhixingdx/oipivot-api/config;config";
+option java_multiple_files = true;
+option java_package = "api.config";
+option objc_class_prefix = "ApiConfig";
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/struct.proto";
+
+message Config {
+  string name = 1;
+  Server server = 2;
+  Data data = 3;
+  Trace trace = 4;
+  Metrics metrics = 15;
+  MQ mq = 5;
+  Upload upload = 6;
+  map<string, string> services = 7;  // 连接其他服务
+  string callbackURL = 8;            // 回调地址 用于与第三方如微信支付宝等 接收回调
+  Logger logger = 9;
+  // 多语言配置
+  map<string, Lang> languages = 10;
+  // 公共语言配置 用于替换公共的语言处理器
+  map<string, Lang> commonLangs = 11;
+
+  Workflow workflow = 12;
+
+  // 管理认证配置
+  Auth manageAuth = 13;
+  // 门户/用户认证配置
+  Auth portalAuth = 14;
+  reserved 16;
+
+  google.protobuf.Struct extra = 20;  // 扩展配置
+}
+
+// 为了区分 manage（管理后台）和 portal（门户/用户）接口
+// 一个微服务可提供 2 个 http 服务
+// manage 通常管理接口用于管理后台
+// portal 接口用于前端(通常指的是 C 端用户，如 app、小程序之类的调用)
+
+// grpc 服务 默认用于微服务内部通信 不对象暴露 所以不区分 manage 和 portal
+
+// 服务配置
+message Server {
+  string id = 1;
+  string name = 2;
+  string version = 3;
+  string appid = 4;
+  // grpc 服务 默认用于微服务内部通信
+  ServerItem grpc = 5;
+  // 管理后台 API 服务
+  ServerItem httpManage = 6;
+  // 门户/用户 API 服务
+  // portal 服务 默认用于前端(通常指的是 C 端用户，如 app、小程序之类的调用) API
+  // 如果有独立的 portal 服务，建议不开启，
+  // 如果是单体服务，建议开启，用于前端调用
+  // 如果是微服务，又相对比较独立，portal 层只是单纯的转发，可配合网关开启使用。
+  ServerItem httpPortal = 7;
+  // 部署环境标识，所有可观测性信号（日志/追踪/指标）的唯一来源
+  // 推荐值: dev / staging / prod
+  string env = 8;
+  // 服务归属范围，用于本地网关、验收和工程工具判断服务面向平台、租户或用户端
+  // 推荐值: platform / tenant / client
+  string scope = 9;
+  // 网关路由前缀片段，插入 /api/ 与服务名推导路径之间
+  // 例如 base-iam 平台侧可配置为 platform，生成 /api/platform/base/iam
+  string routePrefix = 10;
+  // 是否需要 APISIX 开启 WebSocket 代理
+  bool websocket = 11;
+  // APISIX upstream 超时时间，单位秒；WebSocket 服务通常配置为 3600
+  int32 routeTimeout = 12;
+  reserved 13, 14;
+}
+
+// 服务配置项 当不配置 addr 时，默认不开启服务
+message ServerItem {
+  string network = 1;
+  string addr = 2;
+  google.protobuf.Duration timeout = 3;
+  bool isLog = 4;
+  bool isTrace = 5;
+  bool isMetrics = 13;
+  string authServer = 6;
+  string accessServer = 7;
+  repeated string authWhiteList = 8;
+  repeated string accessWhiteList = 9;
+  string accessPrefix = 10;
+  // 用于区分不同服务的前缀 httpManage httpPortal grpc
+  string tracePrefix = 11;
+  // 用于区分不同服务的后缀 httpManage httpPortal grpc
+  string traceSuffix = 12;
+  // 仅用于 server.grpc。省略时使用受信内网，配置时要求客户端证书。
+  MutualTLS mtls = 14;
+}
+
+message MutualTLS {
+  string certFile = 1;
+  string keyFile = 2;
+  string clientCAFile = 3;
+}
+
+// 数据配置
+message Data {
+  Database database = 1;
+  Redis redis = 2;
+  Cache cache = 3;
+  Search search = 4;
+
+  // 密钥，用于落库加密
+  // 默认密钥
+  string secret = 5;
+  // 自定义密钥，不同库或者表可以使用不同的密钥
+  map<string, string> secrets = 6;
+  // 不创建表结构 通常生产环境账号只给读写数据权限，结果更改走审计
+  bool noCreateSchema = 7;
+  // 大字段对象存储配置（仅在 schema 使用了 ObjectStore 注解时需要配置）
+  ObjectStoreConf objectStore = 8;
+}
+
+// 大字段对象存储配置
+message ObjectStoreConf {
+  // 云服务商: aws / tencent / aliyun / huawei / volcengine
+  string provider = 1;
+  string secretID = 2;
+  string secretKey = 3;
+  string region = 4;
+  string bucket = 5;
+  // 自定义 endpoint（可选）
+  string endpoint = 6;
+  // CDN host（可选，用于构建对外访问 URL）
+  string host = 7;
+  // 存储模式: "s3"（默认，直连 S3）或 "static"（通过 base-static 服务）
+  string mode = 8;
+  // static 模式: base-static gRPC 地址（如 "discovery:///base-static"）
+  string staticEndpoint = 9;
+  // static 模式: 调用方服务名（如 "shared-ai"），用于 base-static 查找存储配置
+  string service = 10;
+  // S3 URL 预签名配置（当 schema 字段开启 S3Presign 时需要配置）
+  S3PresignConf s3Presign = 11;
+}
+
+// S3 URL 预签名配置
+// 用于自动为字段中的 S3 私有文件 URL 添加预签名授权
+message S3PresignConf {
+  // 需要处理的域名/路径前缀列表（必填才有行为）
+  // 匹配规则：URL 的 host 或 host+path 前缀匹配
+  // 为空或未配置则不进行预签名与入库授权参数清理（不处理任意域名）
+  // 示例: ["cdn.example.com", "cdn.example.com/private/"]
+  repeated string matchPrefixes = 1;
+  // 预签名有效期（秒），默认 3600（1小时）
+  int32 expiry = 2;
+}
+
+message Database {
+  string driver = 1;
+  string source = 2;
+  bool isTrace = 3;
+  // 单进程最大打开连接数；零值使用仓库默认值 64。
+  int32 maxOpenConns = 4;
+  // 单进程最大空闲连接数；零值使用 min(32, maxOpenConns)。
+  int32 maxIdleConns = 5;
+  // 连接最大复用时长；未配置时默认 30 分钟。
+  google.protobuf.Duration connMaxLifetime = 6;
+  // 空闲连接最大保留时长；未配置时默认 5 分钟。
+  google.protobuf.Duration connMaxIdleTime = 7;
+}
+
+message Redis {
+  string addr = 1;
+  string password = 2;
+  int32 db = 3;
+  google.protobuf.Duration dial_timeout = 4;
+  google.protobuf.Duration read_timeout = 5;
+  google.protobuf.Duration write_timeout = 6;
+  bool isTrace = 7;
+  // 单机模式
+  bool isSingle = 8;
+  repeated string addrs = 9;
+}
+
+message Cache {
+  string prefix = 1;
+  int32 expiration = 2;
+  // 默认 redis
+  string driver = 3;
+}
+
+message Search {
+  string addr = 1;
+  repeated string addrs = 2;  // es 集群
+  string user = 3;
+  string password = 4;
+  // Index 前缀（类似 Cache.prefix），用于环境隔离
+  // 例如 "dev_" → 实际 index 名为 "dev_content"
+  // 默认为空，不加前缀
+  string prefix = 5;
+  // 是否在启动时自动创建不存在的 Index，创建失败则服务不启动
+  bool autoCreateIndex = 6;
+  // 关闭 Hook 实时同步（默认 false 即启用）
+  // 高频写入场景设为 true 关闭，改用 Workflow 定时增量同步兼顾性能
+  bool disableHookSync = 7;
+  // 启动时自动检测 Index mapping 漂移并删除重建（数据由 Workflow 全量同步补回）
+  // 默认 false：仅检测并打 Error 日志，不自动重建
+  // 开发/测试环境可设为 true；生产环境慎重开启，大索引重建期间搜索不可用
+  bool autoMigrateIndex = 8;
+}
+
+message MQ {
+  Pulsar pulsar = 1;
+  map<string, Consumer> consumers = 2;
+  map<string, Producer> producers = 3;
+}
+
+message Pulsar {
+  string url = 1;
+  string authentication = 2;
+  int32 operationTimeout = 3;
+  int32 connectionTimeout = 4;
+}
+
+message Consumer {
+  message DLQ {
+    uint32 maxDeliveries = 1;
+    string deadLetterTopic = 2;
+    string retryLetterTopic = 3;
+  }
+  int32 channelNum = 1;
+  int64 reconsumeDelay = 2;
+  string topic = 3;
+  repeated string topics = 4;
+  string subscriptionName = 5;
+  string type = 6;
+  DLQ dlq = 7;
+}
+
+message Producer {
+  string topic = 1;
+  string name = 2;
+}
+
+// 日志配置
+message Logger {
+  // 服务商
+  string provider = 1;
+  string topicID = 2;
+  string accessKey = 3;
+  string accessSecret = 4;
+  string endpoint = 5;
+  // 认证配置
+  string token = 6;
+  string username = 7;
+  string password = 8;
+  // 是否同时输出到标准输出
+  bool alsoStd = 9;
+  // 日志过滤的级别 字符串
+  string filterLevel = 10;
+  // 日志过滤的 keys
+  repeated string filterKeys = 11;
+  // 日志过滤的 values
+  repeated string filterValues = 12;
+  // 按正则屏蔽/脱敏 不是过滤
+  repeated string sensitiveRegex = 13;
+  // otel 时有些需要配置 headers
+  map<string, string> headers = 14;
+  // 是否使用 insecure 连接
+  optional bool insecure = 15;
+}
+
+message Trace {
+  string endpoint = 1;
+  float samplingRate = 2;
+  string service = 3;
+  string env = 4;
+  TraceAuth auth = 5;
+  optional bool insecure = 6;
+  map<string, string> headers = 7;
+}
+
+message TraceAuth {
+  string token = 1;
+  string name = 2;
+  string password = 3;
+}
+
+message Metrics {
+  string endpoint = 1;
+  string service = 2;
+  // 环境标识
+  string env = 3;
+  // 命名空间
+  string namespace = 4;
+  // 子系统
+  string subsystem = 5;
+  // 自定义标签
+  map<string, string> labels = 6;
+  optional bool insecure = 7;
+  map<string, string> headers = 8;
+  // 超时时间 秒
+  int32 timeout = 9;
+  // 上报间隔 秒
+  int32 interval = 10;
+}
+
+message Upload {
+  string url = 1;
+  string secretID = 2;
+  string secretKey = 3;
+  string cdn = 4;
+}
+
+// 多语言内容配置
+message Lang {
+  repeated LangMessage messages = 1;
+  map<string, DictData> dict = 2;
+}
+
+message LangMessage {
+  string id = 1;
+  string hash = 2;
+  string description = 3;
+  string leftDelim = 4;
+  string rightDelim = 5;
+  string zero = 6;
+  string one = 7;
+  string two = 8;
+  string few = 9;
+  string many = 10;
+  string other = 11;
+}
+
+message DictData { map<string, string> data = 1; }
+
+// 工作流配置
+message Workflow {
+  string hostPort = 1;
+  string namespace = 2;
+  string identity = 3;
+  bool disableErrorCodeMetricTags = 4;
+  map<string, Worker> workers = 5;
+}
+
+message Worker {
+  int32 maxConcurrentActivityExecutionSize = 1;
+  float workerActivitiesPerSecond = 2;
+  int32 maxConcurrentLocalActivityExecutionSize = 3;
+  float workerLocalActivitiesPerSecond = 4;
+  float taskQueueActivitiesPerSecond = 5;
+  int32 maxConcurrentActivityTaskPollers = 6;
+  int32 maxConcurrentWorkflowTaskExecutionSize = 7;
+  int32 maxConcurrentWorkflowTaskPollers = 8;
+  bool enableLoggingInReplay = 9;
+  // 单位毫秒
+  int32 stickyScheduleToStartTimeout = 10;
+  // 单位毫秒
+  int32 workerStopTimeout = 11;
+  bool enableSessionWorker = 12;
+  int32 maxConcurrentSessionExecutionSize = 13;
+  bool disableWorkflowWorker = 14;
+  bool localActivityWorkerOnly = 15;
+  string identity = 16;
+  // 单位毫秒
+  int32 deadlockDetectionTimeout = 17;
+  // 单位毫秒
+  int32 maxHeartbeatThrottleInterval = 18;
+  // 单位毫秒
+  int32 defaultHeartbeatThrottleInterval = 19;
+  bool disableEagerActivities = 20;
+  int32 maxConcurrentEagerActivityExecutionSize = 21;
+  bool disableRegistrationAliasing = 22;
+  string buildID = 23;
+  bool useBuildIDForVersioning = 24;
+}
+
+// 认证的配置
+message Auth {
+  // 类型 iam 或者 用户
+  string type = 1;
+  // 认证服务地址
+  string addr = 2;
+}

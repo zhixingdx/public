@@ -1,0 +1,258 @@
+syntax = "proto3";
+package api.base.static;
+option go_package = "github.com/zhixingdx/oipivot-api/base/static/v1;static";
+option java_multiple_files = true;
+option java_package = "api.base.static";
+
+// CDN URL 鉴权配置
+message CDNAuthConfig {
+  // CDN URL 鉴权方式：typeA（查询参数方式，CDN 缓存友好）
+  string authType = 1;
+  // CDN URL 鉴权密钥（长度 6-32，大小写字母与数字）
+  string authKey = 2;
+  // 鉴权 URL 有效时长（秒），默认 3600
+  int32 expires = 3;
+  // 鉴权参数名，默认 auth_key
+  string authParam = 4;
+}
+
+message BucketConfig {
+  string service = 1;
+  string name = 2;
+  string region = 3;
+  string bucket = 4;
+  // 存在则使用，不存在则使用 region 和 bucket 拼接
+  string endpoint = 5;
+  reserved 6; // 历史字段编号占用
+  string dir = 7;
+  string desc = 8;
+  // 公开文件目录前缀（如 "public"），为空则不启用公开目录功能
+  string publicDir = 9;
+  // CDN URL 鉴权（Type A 等）；与 cdnHost 配合用于对外返回的访问 URL，上传仍走
+  // endpoint
+  CDNAuthConfig cdnAuth = 10;
+  // 对外读链使用的 CDN 域名（不含协议，如 cdn.example.com）；为空则不替换 CDN
+  string cdnHost = 11;
+  // 服务器侧上传使用的内网接入点；仅用于后台
+  // UploadFromURL，不影响对外预签名与访问 URL
+  string internalEndpoint = 12;
+  // 内网接入点是否使用路径风格（/bucket/key）；不配置时按 endpoint
+  // 是否包含桶名自动判断
+  optional bool internalEndpointPathStyle = 13;
+  // 预签名计算使用的接入点；为空时使用 endpoint。返回给前端的 URL 仍使用
+  // endpoint/cdnHost
+  string signingEndpoint = 14;
+}
+
+// 获取上传凭证
+message GetUploadCredentialRequest {
+  // 桶名 为空则使用默认桶
+  string bucket = 1;
+  // 服务
+  string service = 2;
+  // 上传文件的目录
+  string dir = 3;
+  // type
+  string type = 4;
+  // 文件名
+  string filename = 5;
+  // 私有 默认 false（公开），true 时文件为私有
+  optional bool private = 6;
+  // 预签名 URL 过期时间（秒），默认 3600（1小时），最大 604800（7天）
+  optional int32 expires = 7;
+  // 是否临时上传：为 true 时在桶根目录后、public/service 之前插入临时路径段（见
+  // Extra temp_upload_dir，默认 temp）
+  optional bool temporary = 8;
+}
+
+// 获取上传凭证
+message GetUploadCredentialByMicroRequest {
+  // 上传文件的目录
+  string dir = 1;
+  // type
+  string type = 2;
+  // 文件名
+  string filename = 3;
+  // 私有 默认 false（公开），true 时文件为私有
+  bool private = 4;
+  // 预签名 URL 过期时间（秒），默认 3600（1小时），最大 604800（7天）
+  optional int32 expires = 5;
+  // 是否临时上传：为 true 时在桶根目录后、public/service 之前插入临时路径段（见
+  // Extra temp_upload_dir，默认 temp）
+  optional bool temporary = 6;
+}
+
+message GetUploadCredentialReply {
+  string uploadURL = 1;
+  reserved 2;
+  reserved "cdnHost";
+  // 上传完成后用于浏览/预览的访问链接（GET）；与桶配置一致：仅 CDN
+  // 域名替换、CDN Type-A 鉴权、或保留 S3 预签名参数
+  string accessURL = 3;
+}
+
+// 批量删除对象请求（key 或完整 URL，与 GetPrivateFileAccess 入参风格一致）
+message DeleteObjectsRequest {
+  string bucket = 1;
+  string service = 2;
+  repeated string keysOrURLs = 3;
+}
+
+// 批量删除对象响应（当前无额外字段，预留扩展）
+message DeleteObjectsReply {}
+
+// 获取文件元数据请求
+message GetFileMetadataRequest {
+  // 如为空则使用默认配置
+  string bucket = 1;
+  // 服务
+  string service = 2;
+  // S3 key 或完整的文件 URL
+  string keyOrURL = 3;
+  // 为 true 时只读取已配置对象存储，未知 HTTP 域名在网络请求前拒绝。
+  bool storageOnly = 4;
+}
+
+// 获取文件元数据响应
+message GetFileMetadataReply {
+  // 文件的 hash 值（MD5 或 SHA256，优先从自定义元数据获取）
+  string hash = 1;
+  // 文件大小（字节）
+  int64 size = 2;
+  // MIME 类型
+  string contentType = 3;
+  // 最后修改时间（Unix 时间戳，秒）
+  int64 lastModified = 4;
+  // ETag（S3 对象的 ETag）
+  string etag = 5;
+  // 存储类型（如 STANDARD、STANDARD_IA、GLACIER 等）
+  string storageClass = 6;
+  // 自定义元数据（键值对）
+  map<string, string> metadata = 7;
+  // 服务器端加密方式（如果有）
+  string serverSideEncryption = 8;
+  // 同一对象在 base-artifact 中的稳定引用；未配置存储 Profile 映射时为空
+  string stableArtifactURI = 9;
+}
+
+// 获取私有文件访问权限请求
+message GetPrivateFileAccessRequest {
+  // 配置 ID 如为空则使用默认配置
+  string bucket = 1;
+  // 服务
+  string service = 2;
+  // S3 key 或完整的文件 URL 列表（支持批量）
+  repeated string keysOrURLs = 3;
+  // 预签名 URL 过期时间（秒），默认 3600（1小时），最大 604800（7天）
+  optional int32 expires = 4;
+}
+
+// 获取私有文件访问权限响应
+message GetPrivateFileAccessReply {
+  // 文件访问 URL 映射（key: 原始 key 或 URL，value: 预签名 URL）
+  map<string, string> urls = 1;
+  // 整体状态（英文单词）：allSuccess | partialSuccess | allFailed（含请求条数为
+  // 0 时为 allSuccess）
+  string status = 2;
+  // 请求处理的条数
+  int32 total = 3;
+  // 成功生成访问 URL 的条数
+  int32 succeeded = 4;
+  // 失败条数（total - succeeded）
+  int32 failed = 5;
+  // 失败项：原始 key 或 URL -> 简要错误说明（仅失败条目）
+  map<string, string> errors = 6;
+}
+
+// 获取公开文件访问权限请求（免鉴权接口）
+message GetPublicFileAccessRequest {
+  // 完整的文件 URL 列表（通过 URL 的 host 匹配配置）
+  repeated string urls = 1;
+  // 预签名 URL 过期时间（秒），默认 3600，最大 604800
+  optional int32 expires = 2;
+}
+
+// 获取公开文件访问权限响应
+message GetPublicFileAccessReply {
+  // 文件访问 URL 映射（key: 原始 URL，value: 授权 URL）
+  map<string, string> urls = 1;
+  // 整体状态（英文单词）：allSuccess | partialSuccess | allFailed
+  string status = 2;
+  int32 total = 3;
+  int32 succeeded = 4;
+  int32 failed = 5;
+  // 失败项：原始 URL -> 简要错误说明
+  map<string, string> errors = 6;
+}
+
+// 清理文档内容中的预签名 URL 请求
+message CleanPresignedURLsInContentRequest {
+  // 配置 ID 如为空则使用默认配置
+  string bucket = 1;
+  // 服务
+  string service = 2;
+  // 文档内容（可能是 markdown、HTML 或其他格式）
+  string content = 3;
+}
+
+// 重新授权文档内容中的 URL 请求
+message ReauthorizeURLsInContentRequest {
+  // 配置 ID 如为空则使用默认配置
+  string bucket = 1;
+  // 服务
+  string service = 2;
+  // 文档内容（可能是 markdown、HTML 或其他格式）
+  string content = 3;
+  // 预签名 URL 过期时间（秒），默认 3600（1小时），最大 604800（7天）
+  optional int32 expires = 4;
+}
+
+// 重新授权文档内容中的 URL 响应（统计字段与 GetPrivateFileAccessReply
+// 一致，便于调用方观测批量结果）
+message ReauthorizeURLsInContentReply {
+  // 与 api.apicommon.Str 一致（原 RPC 返回 Str），便于
+  // JSON/只读主文案的客户端兼容
+  string value = 1;
+  // 整体状态（英文单词）：allSuccess | partialSuccess | allFailed
+  string status = 2;
+  int32 total = 3;
+  int32 succeeded = 4;
+  int32 failed = 5;
+  map<string, string> errors = 6;
+}
+
+// StorageSizeDisplay 字节大小与人类可读展示（服务端按数值自适应单位，如
+// B、KB、MB、GB、TB）
+message StorageSizeDisplay {
+  // 字节数
+  int64 sizeBytes = 1;
+  // 优化展示文案（示例："1.23 GB"、"512 MB"）
+  string displayText = 2;
+}
+
+// TenantFirstLevelDirUsageItem 租户存储根下「一级路径段」聚合用量（对象 key
+// 去掉租户前缀后第一个 / 之前为目录名；无前缀子路径时 firstLevelDir 为空）
+message TenantFirstLevelDirUsageItem {
+  // 一级目录名（路径首段，不含斜杠）；空字符串表示位于租户前缀下的直接对象（无子目录）
+  string firstLevelDir = 1;
+  StorageSizeDisplay usage = 2;
+}
+
+// GetTenantStorageUsageRequest 查询租户存储用量（租户 ID 取自登录上下文）
+message GetTenantStorageUsageRequest {
+  // 桶配置 ID，为空则默认桶
+  string bucket = 1;
+  // 服务标识，与现有上传/访问接口一致；为空则默认配置
+  string service = 2;
+}
+
+// GetTenantStorageUsageReply 当前租户已使用总容量及各一级子路径用量
+message GetTenantStorageUsageReply {
+  // 租户隔离前缀下对象总字节数及展示文案
+  StorageSizeDisplay total = 1;
+  // 按一级路径段聚合（含根目录零散对象：firstLevelDir 为空）
+  repeated TenantFirstLevelDirUsageItem firstLevelDirs = 2;
+  // 允许使用的总容量上限（字节与人类可读文案）；来源于服务端 Extra 配置
+  // tenant_storage_quota_bytes，未配置或无效时使用默认 20TiB
+  StorageSizeDisplay quotaTotal = 3;
+}

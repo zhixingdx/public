@@ -1,0 +1,428 @@
+syntax = "proto3";
+package api.base.iam;
+option go_package = "github.com/zhixingdx/oipivot-api/base/iam/v1;iam";
+option java_multiple_files = true;
+option java_package = "api.base.iam";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "base/iam/v1/plus_message.proto";
+import "base/iam/v1/plus_message_dag.proto";
+import "base/iam/v1/auto_message.proto";
+import "base/iam/v1/auto_portal_message.proto";
+import "base/safe/v1/plus_message.proto";
+import "base/user/v1/plus_message.proto";
+import "base/static/v1/plus_message.proto";
+import "apicommon/v1/common.proto";
+import "google/protobuf/struct.proto";
+
+service BaseIamPortalPlus {
+  // 员工口令信封，IAM 单独签发一次性挑战。
+  rpc GetPasswordKey(api.base.user.PasswordKeyRequest) returns (api.base.user.PasswordKeyReply) {
+    option (google.api.http) = { post: "/api/base/iam/portal/password/key" body: "*" };
+  }
+
+
+
+
+  // [免鉴权]
+  // 获取用户名下的租户员工及当前渠道个人版候选；未加入的候选只有租户信息，员工
+  // ID 为空
+  rpc GetUserBindStaffs(google.protobuf.Empty) returns (StaffRowsReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/staff/userBind",
+    };
+  }
+
+  // [免鉴权] 使用平台用户登录态，按独立准入策略自动创建并返回员工身份
+  rpc AutoCreateStaffForPlatformUser(PlatformUserAutoCreateStaffRequest)
+      returns (StaffRowsReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/staff/platformUser/autoCreate",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 通过用户登录员工
+  rpc LoginByUser(TenantStaffRequest) returns (AuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/loginByUser",
+      body : "*",
+    };
+  }
+
+
+
+  // [免鉴权] 获取图片验证码
+  rpc GetImageCaptcha(google.protobuf.Empty)
+      returns (api.base.safe.ImageCaptchaReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/captcha/image",
+    };
+  }
+
+  // [免鉴权] 员工账号登录
+  rpc Login(LoginRequest) returns (AuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/login",
+      body : "*",
+    };
+  }
+  // [免鉴权] 退出登录
+  rpc Logout(google.protobuf.Empty) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/logout",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 修改密码
+  rpc ChangePassword(ChangePasswordRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/password/change",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取员工信息
+  rpc GetStaffInfo(StaffInfoRequest) returns (AuthReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/staff/info",
+    };
+  }
+
+  // [免鉴权] 获取当前时间戳 秒
+  rpc GetTimestamp(google.protobuf.Empty) returns (api.apicommon.Str) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/timestamp",
+    };
+  }
+
+  // [免鉴权] 创建 ID
+  rpc CreateID(google.protobuf.Empty) returns (api.apicommon.Str) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/id/create",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取我的菜单
+  rpc MyMenu(google.protobuf.Empty) returns (MenusReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/my/menu",
+    };
+  }
+
+  // 检查员工是否有权限（走操作项+策略模式，供鉴权中间件调用）
+  rpc CheckStaffPermission(CheckStaffPermissionRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/staff/permission/check",
+      body : "*",
+    };
+  }
+
+  // 获取员工的角色
+  rpc GetStaffRole(StaffRequest) returns (RolesReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/staff/role",
+    };
+  }
+
+  // 获取员工的权限策略
+  rpc GetStaffPolicies(StaffPoliciesRequest) returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/staff/policies",
+    };
+  }
+
+  // 获取员工的权限操作项
+  rpc GetStaffOperations(api.apicommon.Str) returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/staff/operations",
+    };
+  }
+
+  // 获取租户的权限策略列表（受已购模块限制）
+  rpc GetTenantPolicies(google.protobuf.Empty) returns (PoliciesMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/tenant/policies",
+    };
+  }
+
+  // 获取租户的权限策略树（受已购模块限制，保留命中节点的祖先链路）
+  rpc GetTenantPoliciesTree(ChildTenantScopeRequest)
+      returns (PoliciesTreeReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/tenant/policies/tree",
+    };
+  }
+
+  // 获取融合的角色树
+  rpc GetMergedRoleTree(ChildTenantScopeRequest) returns (RolePortalTreeReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/role/mergedTree",
+    };
+  }
+
+  // 获取角色策略
+  rpc GetRolePolicies(api.apicommon.Str) returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/role/policies",
+    };
+  }
+
+  // 获取私有角色策略
+  rpc GetPrivateRolePolicies(api.apicommon.Str)
+      returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/privateRole/policies",
+    };
+  }
+
+  // 给私有角色添加策略
+  rpc AddPrivateRolePolicies(RolePoliciesRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/privateRole/policies/add",
+      body : "*",
+    };
+  }
+
+  // 给私有角色删除策略
+  rpc DelPrivateRolePolicies(RolePoliciesRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/privateRole/policies/del",
+      body : "*",
+    };
+  }
+
+  // 获取私有角色的操作项
+  rpc GetPrivateRoleOperations(api.apicommon.Str)
+      returns (api.apicommon.StrArray) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/privateRole/operations",
+    };
+  }
+
+  // 更新员工的角色
+  rpc UpdateStaffRole(UpdateStaffRoleRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/staff/role/update",
+      body : "*",
+    };
+  }
+
+  // 获取角色的员工
+  rpc GetRoleStaffs(RoleRequest) returns (StaffPortalMultiReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/role/staff",
+    };
+  }
+
+  // 更新角色的员工
+  rpc UpdateRoleStaff(RoleStaffRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/role/staff/update",
+      body : "*",
+    };
+  }
+  // 删除角色的员工
+  rpc DelRoleStaff(RoleStaffRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/role/staff/del",
+      body : "*",
+    };
+  }
+
+  // 添加角色的员工
+  rpc AddRoleStaff(RoleStaffRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/role/staff/add",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取上传凭证
+  rpc GetUploadCredential(api.base.static.GetUploadCredentialByMicroRequest)
+      returns (api.base.static.GetUploadCredentialReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/getUploadCredential",
+    };
+  }
+
+  // [免鉴权] 获取字典选项
+  rpc GetDictionaryOptions(OneDictionaryByNameRequest) returns (OptionsReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/dictionary/options",
+    };
+  }
+
+  // 获取部门下的员工信息
+  rpc GetDepartmentStaffs(GetDepartmentStaffsRequest)
+      returns (StaffPortalRowsReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/department/getStaffs",
+    };
+  }
+
+  // 生成员工邀请码
+  rpc CreateInviteLink(StaffRequest) returns (api.apicommon.Str) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/staff/createInviteLink",
+    };
+  }
+
+  // [免鉴权] 验证员工邀请码并绑定用户信息
+  rpc VerifyInviteLink(VerifyLinkRequest) returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/staff/verifyInviteLink",
+      body : "*",
+    };
+  }
+
+  // 获取组下的员工列表
+  rpc ListGroupStaff(GroupRelPortalRequest) returns (StaffPortalListReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/groupRel/staff/list",
+      body : "*",
+    };
+  }
+
+  // 删除校验组下的老师
+  rpc DelGroupStaffByGroupIDAndStaffs(DelGroupRelPortalRequest)
+      returns (api.apicommon.Bool) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/groupRel/staff/delByGroupIDAndStaffs",
+      body : "*",
+    };
+  }
+
+
+
+
+
+
+  // [免鉴权] 获取可访问租户的部门公开信息
+  rpc QueryAccessibleDepartments(QueryDepartmentCrossTenantRequest)
+      returns (DepartmentPublicMultiReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/department/accessible/query",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取当前租户的员工信息列表
+  rpc ListMyStaffs(ListStaffPortalRequest) returns (StaffPortalListReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/staff/my/list",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取可访问租户的员工公开信息
+  rpc QueryAccessibleStaffs(QueryStaffCrossTenantRequest)
+      returns (StaffPublicMultiReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/staff/accessible/query",
+      body : "*",
+    };
+  }
+
+
+
+
+
+
+
+
+
+
+
+  // 跨租户查询所有部门（无限制）
+  rpc QueryDepartmentCrossTenantNoLimit(QueryDataCrossTenantRequest)
+      returns (DepartmentMultiReply);
+
+  // 跨租户查询所有员工（无限制）
+  rpc QueryStaffCrossTenantNoLimit(QueryDataCrossTenantRequest)
+      returns (StaffRowsReply);
+
+  // 租户查询范围内的员工档案列表
+  rpc ListStaffRecords(ListStaffCrossTenantRequest)
+      returns (ListStaffRecordsReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/staff/listRecords",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] OAuth 通过 access token 获取用户绑定的租户员工信息 包含权限
+  rpc OAuthGetUserTenants(OAuthAccessTokenParamsRequest)
+      returns (OAuthGetUserTenantsReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/oauth/user/tenants",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 获取当前租户可用的第三方 OAuth 员工登录项
+  rpc ListThirdOAuthProviders(google.protobuf.Empty)
+      returns (ThirdOAuthProviderListReply) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/oauth/third/providers",
+    };
+  }
+
+  // [免鉴权] 第三方 OAuth 通过 code 获取 access token
+  rpc ThirdOAuthAccessToken(ThirdOAuthAccessTokenRequest)
+      returns (ThirdOAuthTokenResponse) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/oauth/third/accessToken",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 第三方 OAuth 刷新 access token
+  rpc ThirdOAuthRefreshToken(ThirdOAuthRefreshTokenRequest)
+      returns (ThirdOAuthTokenResponse) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/oauth/third/refreshToken",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 第三方 OAuth 获取账号信息
+  rpc ThirdOAuthProviderAccount(ThirdOAuthProviderAccountRequest)
+      returns (google.protobuf.Struct) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/oauth/third/account",
+      body : "*",
+    };
+  }
+
+  // [免鉴权] 第三方 OAuth 授权码登录员工
+  rpc ThirdOAuthStaffLoginByCode(ThirdOAuthAccessTokenRequest)
+      returns (AuthReply) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/oauth/third/loginByCode",
+      body : "*",
+    };
+  }
+
+  // 通过通用的配置表，来实现各个不同的配置，为了让配置更确切，更好维护和使用，每个配置提供
+  // 详情 和 编辑的接口
+
+  // 存储配置项详情（整体配置）
+  rpc DetailConfStorage(google.protobuf.Empty) returns (StorageConf) {
+    option (google.api.http) = {
+      get : "/api/base/iam/portal/conf/storage/detail",
+    };
+  }
+
+  // 存储配置项编辑（整体配置）
+  rpc EditConfStorage(StorageConf) returns (StorageConf) {
+    option (google.api.http) = {
+      post : "/api/base/iam/portal/conf/storage/edit",
+      body : "*",
+    };
+  }
+}

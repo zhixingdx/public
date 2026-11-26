@@ -1,0 +1,16 @@
+syntax = "proto3";
+package api.base.tenant;
+option go_package = "github.com/zhixingdx/oipivot-api/base/tenant/v1;tenant";
+option java_multiple_files = true;
+option java_package = "api.base.tenant";
+
+import "base/tenant/v1/auto_message.proto";
+
+message RelationPortalMultiReply {
+  repeated RelationPortalDetailReply data = 1;
+}
+
+message RelationPortalDetailReply {
+  TenantDetailReply relationTenant = 1;
+  string relationType = 2;
+}

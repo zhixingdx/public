@@ -1,0 +1,101 @@
+version: v2
+modules:
+  - path: .
+deps:
+  - buf.build/bufbuild/protovalidate
+  - buf.build/googleapis/googleapis
+  - buf.build/temporalio/api
+  - buf.build/kratos/apis
+lint:
+  use:
+    - STANDARD
+  # base/shared 使用 Qiyun 的四类服务名、字段和请求复用约定；其他历史例外按文件指定。
+  ignore_only:
+    ENUM_VALUE_PREFIX:
+      - fault/fault.proto
+    ENUM_VALUE_UPPER_SNAKE_CASE:
+      - fault/fault.proto
+    ENUM_ZERO_VALUE_SUFFIX:
+      - fault/fault.proto
+    FIELD_LOWER_SNAKE_CASE:
+      - apicommon/v1/common.proto
+      - apicommon/v1/crdt.proto
+      - apicommon/v1/cross_tenant.proto
+      - config/config.proto
+      - base
+      - shared
+    IMPORT_USED:
+      - base/notify/v1/auto_portal_service.proto
+      - base/static/v1/auto_portal_service.proto
+    PACKAGE_DIRECTORY_MATCH:
+      - apicommon/v1/biz_call.proto
+      - apicommon/v1/common.proto
+      - apicommon/v1/crdt.proto
+      - apicommon/v1/cross_tenant.proto
+      - apicommon/v1/file.proto
+      - apicommon/v1/resource_metadata.proto
+      - apicommon/v1/trusted_runtime.proto
+      - config/config.proto
+      - fault/fault.proto
+      - base
+      - shared
+    PACKAGE_SAME_JAVA_MULTIPLE_FILES:
+      - apicommon/v1/biz_call.proto
+      - apicommon/v1/common.proto
+      - apicommon/v1/crdt.proto
+      - apicommon/v1/cross_tenant.proto
+      - apicommon/v1/file.proto
+      - apicommon/v1/resource_metadata.proto
+      - apicommon/v1/trusted_runtime.proto
+    PACKAGE_SAME_JAVA_PACKAGE:
+      - apicommon/v1/biz_call.proto
+      - apicommon/v1/common.proto
+      - apicommon/v1/crdt.proto
+      - apicommon/v1/cross_tenant.proto
+      - apicommon/v1/file.proto
+      - apicommon/v1/resource_metadata.proto
+      - apicommon/v1/trusted_runtime.proto
+    PACKAGE_VERSION_SUFFIX:
+      - apicommon/v1/biz_call.proto
+      - apicommon/v1/common.proto
+      - apicommon/v1/crdt.proto
+      - apicommon/v1/cross_tenant.proto
+      - apicommon/v1/file.proto
+      - apicommon/v1/resource_metadata.proto
+      - apicommon/v1/trusted_runtime.proto
+      - config/config.proto
+      - fault/fault.proto
+      - base
+      - shared
+    PROTOVALIDATE:
+      - base/iam/v1/plus_message.proto
+    RPC_REQUEST_RESPONSE_UNIQUE:
+      - base
+      - shared
+    RPC_REQUEST_STANDARD_NAME:
+      - apicommon/v1/trusted_runtime.proto
+      - base
+      - shared
+    RPC_RESPONSE_STANDARD_NAME:
+      - apicommon/v1/trusted_runtime.proto
+      - base
+      - shared
+    SERVICE_SUFFIX:
+      - apicommon/v1/trusted_runtime.proto
+      - base
+      - shared
+  disallow_comment_ignores: true
+breaking:
+  use:
+    - FILE
+    - PACKAGE
+  # 本次切换到 BaseAuditPortalPlus，已发布的独立 AuditService 在这三个旧文件中。
+  ignore_only:
+    FILE_NO_DELETE:
+      - oipivot/audit/v1/audit.proto
+      - base/audit/v1/message.proto
+      - base/audit/v1/service.proto
+    PACKAGE_NO_DELETE:
+      - oipivot/audit/v1/audit.proto
+      - base/audit/v1/message.proto
+      - base/audit/v1/service.proto

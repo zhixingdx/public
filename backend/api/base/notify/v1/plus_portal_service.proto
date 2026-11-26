@@ -1,0 +1,15 @@
+syntax = "proto3";
+package api.base.notify;
+option go_package = "github.com/zhixingdx/oipivot-api/base/notify/v1;notify";
+option java_multiple_files = true;
+option java_package = "api.base.notify";
+
+import "base/notify/v1/plus_message.proto";
+
+service BaseNotifyPortalPlus {
+  // 资源租户取自 x-md-global-tenantid。普通发送携带用户或员工 ID，两者都有时归属员工。
+  // 登录前的两个验证码 RPC 仅接受 base-safe 使用授权凭据投递，biz_call.biz_id 记录挑战 ID。
+  rpc SendSmsCode(SendSmsCodeRequest) returns (SendSmsCodeResponse);
+  rpc SendEmailCode(SendEmailCodeRequest) returns (SendEmailCodeResponse);
+  rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
+}

@@ -1,0 +1,38 @@
+syntax = "proto3";
+package api.base.safe;
+option go_package = "github.com/zhixingdx/oipivot-api/base/safe/v1;safe";
+option java_multiple_files = true;
+option java_package = "api.base.safe";
+
+import "base/safe/v1/plus_message.proto";
+
+service BaseSafePortalPlus {
+  // 普通发送传递租户和人员身份。登录前由认证服务传递租户及其授权凭据。
+  rpc IssueChallenge(IssueChallengeRequest) returns (IssueChallengeResponse);
+  // 成功后立即消费。错误、过期、已消费或不属于当前上下文均不能通过。
+  rpc VerifyChallenge(VerifyChallengeRequest) returns (VerifyChallengeResponse);
+
+  // 供受信业务服务执行滑动窗口限流与有界操作锁。
+  rpc TakeQuota(TakeQuotaRequest) returns (TakeQuotaResponse);
+  rpc ResetQuota(ResetQuotaRequest) returns (ResetQuotaResponse);
+  rpc SetLock(SetLockRequest) returns (SetLockResponse);
+  rpc GetLock(GetLockRequest) returns (GetLockResponse);
+  rpc ClearLock(ClearLockRequest) returns (ClearLockResponse);
+
+  // IAM 或业务服务完成身份认证后签发，可独立撤销每个会话。
+  rpc IssueSession(IssueSessionRequest) returns (IssueSessionResponse);
+  rpc ReadSession(ReadSessionRequest) returns (ReadSessionResponse);
+  rpc RevokeSession(RevokeSessionRequest) returns (RevokeSessionResponse);
+
+  // 服务端创建匿名客户端上下文、图片挑战和单次密封载荷。
+  rpc RegisterClient(RegisterClientRequest) returns (RegisterClientResponse);
+  rpc ReadClient(ReadClientRequest) returns (ReadClientResponse);
+  rpc IssueImage(IssueImageRequest) returns (IssueImageResponse);
+  rpc VerifyImage(VerifyImageRequest) returns (VerifyImageResponse);
+  rpc SealValue(SealValueRequest) returns (SealValueResponse);
+  rpc OpenValue(OpenValueRequest) returns (OpenValueResponse);
+
+  // 每批最多 1000 项，正文最多 1 MiB，单项最多 16 KiB。整批使用同一项目词库修订。
+  rpc CheckTextBatch(CheckTextBatchRequest) returns (CheckTextBatchResponse);
+  rpc MaskTextBatch(MaskTextBatchRequest) returns (MaskTextBatchResponse);
+}

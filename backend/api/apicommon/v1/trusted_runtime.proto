@@ -1,0 +1,20 @@
+syntax = "proto3";
+package api.apicommon;
+option go_package = "github.com/zhixingdx/oipivot-api/apicommon/v1;apicommon";
+import "google/protobuf/struct.proto";
+
+// TrustedRuntime 为受信内部调用复用目标服务的现有操作权限和业务处理，不提供 HTTP 路由。
+service TrustedRuntime {
+  rpc Invoke(TrustedRuntimeRequest) returns (TrustedRuntimeReply);
+}
+
+// TrustedRuntimeRequest 仅指定当前实例已经注册的 RPC，不允许指定网络地址或身份。
+message TrustedRuntimeRequest {
+  string operation = 1;
+  google.protobuf.Struct input = 2;
+}
+
+// TrustedRuntimeReply 保留目标契约的 JSON 形状，protobuf 64 位整数按 JSON 规范使用字符串。
+message TrustedRuntimeReply {
+  google.protobuf.Struct output = 1;
+}

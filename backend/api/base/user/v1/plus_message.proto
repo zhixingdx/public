@@ -1,0 +1,421 @@
+
+
+syntax = "proto3";
+package api.base.user;
+option go_package = "github.com/zhixingdx/oipivot-api/base/user/v1;user";
+option java_multiple_files = true;
+option java_package = "api.base.user";
+
+import "buf/validate/validate.proto";
+import "google/protobuf/struct.proto";
+
+message JoinConfig {
+  bool isAllow = 1;
+  bool enablePassword = 2;
+  bool enablePhone = 3;
+  bool enableEmail = 4;
+}
+
+message LoginConfig {
+  bool enablePassword = 1;
+  bool enablePhone = 2;
+  bool enableEmail = 3;
+  // 是否开启微信小程序 code 静默登录
+  bool enableWechatMiniCode = 4;
+  // 是否开启微信APP授权登录
+  bool enableWechatAPP = 5;
+  // 是否开启微信公众号授权登录
+  bool enableWechatMP = 6;
+}
+
+// ThirdOAuthPaths 描述第三方 OAuth 服务的路径或请求方法映射。
+message ThirdOAuthPaths {
+  string authorize = 1;
+  string accessToken = 2;
+  string refreshToken = 3;
+  string user = 4;
+  string realUser = 5;
+}
+
+// ThirdOAuthUserFields 定义第三方用户响应到本地账号快照的固定字段映射。
+message ThirdOAuthUserFields {
+  string providerUserID = 1;
+  string providerAccountID = 2;
+  string providerUserName = 3;
+  string providerUserAvatar = 4;
+  string unionID = 5;
+  string organizationID = 6;
+  string organizationName = 7;
+  string phonePrefix = 8;
+  string phone = 9;
+  string mail = 10;
+  string idCard = 11;
+}
+
+// ThirdOAuthProviderItem 是允许匿名返回给登录页的第三方 OAuth 公共投影。
+message ThirdOAuthProviderItem {
+  string provider = 1;
+  string clientID = 2;
+  repeated string redirectURLs = 3;
+  string name = 4;
+  optional string logo = 5;
+  optional string authorizeURL = 6;
+}
+
+// AuthConfigReply 汇总当前租户登录页可使用的认证配置，不包含任何服务端密钥。
+message AuthConfigReply {
+  JoinConfig join = 1;
+  LoginConfig login = 2;
+  repeated ThirdOAuthProviderItem oauth2 = 3;
+}
+
+message LoginRequest {
+  // 账号名称/手机/邮箱 根据数据格式判断 优先手机 当格式为手机时
+  // 可传phonePrefix如 86 不传默认为 86
+  string name = 1 [ (buf.validate.field).string = {min_len : 6, max_len : 32} ];
+  string password = 2 [ (buf.validate.field).string = {min_len : 8} ];
+  optional string captchaID = 3 [ (buf.validate.field).string = {min_len : 4} ];
+  optional string captchaCode = 4
+      [ (buf.validate.field).string = {min_len : 4} ];
+  // 当 name 为手机格式时 可传 phonePrefix 不传默认为 86
+  optional string phonePrefix = 5;
+}
+
+message JoinRequest {
+  string name = 1 [ (buf.validate.field).string = {min_len : 6, max_len : 32} ];
+  string password = 2 [ (buf.validate.field).string = {min_len : 8} ];
+  optional string captchaID = 3 [ (buf.validate.field).string = {min_len : 4} ];
+  optional string captchaCode = 4
+      [ (buf.validate.field).string = {min_len : 4} ];
+}
+
+message PhoneCaptchaRequest {
+  string purpose = 12; // login、bind 或 reset-password；服务端按入口核验。
+  string phonePrefix = 1;
+  string phone = 2 [ (buf.validate.field).string = {min_len : 8} ];
+  optional string captchaID = 3 [ (buf.validate.field).string = {min_len : 4} ];
+  optional string captchaCode = 4
+      [ (buf.validate.field).string = {min_len : 4} ];
+}
+
+// 获取当前登录用户绑定手机号的验证码（手机号从登录态读取，无需传手机号）
+message MyPhoneCaptchaRequest {
+  optional string captchaID = 1 [ (buf.validate.field).string = {min_len : 4} ];
+  optional string captchaCode = 2
+      [ (buf.validate.field).string = {min_len : 4} ];
+}
+
+// 校验当前登录用户绑定手机号的验证码（手机号从登录态读取）
+message VerifyMyPhoneCaptchaRequest {
+  string challenge_id = 12; // 使用验证码时提交，成功后消费。
+  string code = 1 [ (buf.validate.field).string = {min_len : 4} ];
+}
+
+message MailCaptchaRequest {
+  string purpose = 12; // login、bind 或 reset-password；服务端按入口核验。
+  string mail = 1 [ (buf.validate.field).string.email = true ];
+  optional string captchaID = 2 [ (buf.validate.field).string = {min_len : 4} ];
+  optional string captchaCode = 3
+      [ (buf.validate.field).string = {min_len : 4} ];
+}
+
+message MyInfoRequest {
+  // http 时可不传 grpc 时必传
+  string token = 1;
+  // http 时可不传 grpc 时必传
+  string userAgent = 2;
+}
+
+message PhoneRequest {
+  string challenge_id = 12; // 使用验证码时提交，成功后消费。
+  string phonePrefix = 1;
+  string phone = 2 [ (buf.validate.field).string = {min_len : 8} ];
+  // 手机验证码
+  string code = 3 [ (buf.validate.field).string = {min_len : 4} ];
+  // 可选 绑定账号使用的 code, 如在小程序里使用时传递 js code 可绑定该小程序
+  optional string bindCode = 4;
+}
+
+message MailRequest {
+  string challenge_id = 12; // 使用验证码时提交，成功后消费。
+  string mail = 1 [ (buf.validate.field).string.email = true ];
+  // 手机验证码
+  string code = 2 [ (buf.validate.field).string = {min_len : 4} ];
+  // 可选 绑定账号使用的 code, 如在小程序里使用时传递 js code 可绑定该小程序
+  optional string bindCode = 3;
+}
+
+message UpdateMyAvatarRequest { string avatar = 1; }
+
+message UpdateMyInfoRequest {
+  optional string name = 1;
+  optional string actualName = 2;
+  optional int64 birthDate = 3;
+}
+
+message InitPasswordRequest {
+  string password = 1 [ (buf.validate.field).string = {min_len : 8} ];
+}
+
+message UpdatePasswordRequest {
+  string challenge_id = 12; // 使用验证码时提交，成功后消费。
+  // 未传 code 时必填：原密码（加密传输）
+  optional string oldPassword = 1
+      [ (buf.validate.field).string = {min_len : 8} ];
+  string newPassword = 2 [ (buf.validate.field).string = {min_len : 8} ];
+  // 手机验证码：传则经 base-safe 校验当前绑定手机号后，可直接用 newPassword
+  // 修改，无需原密码
+  optional string code = 3 [ (buf.validate.field).string = {min_len : 4} ];
+}
+
+message ResetPasswordRequest {
+  string challenge_id = 12; // 使用验证码时提交，成功后消费。
+  string phonePrefix = 1;
+  string phone = 2;
+  string code = 3 [ (buf.validate.field).string = {min_len : 4} ];
+  string password = 4 [ (buf.validate.field).string = {min_len : 8} ];
+  string mail = 5 [ (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE, (buf.validate.field).string.email = true ];
+}
+
+message OAuthLoginRequest {
+  // 必填
+  string challenge = 1 [ (buf.validate.field).string = {min_len : 16} ];
+}
+
+message OAuthConsentRequest {
+  // 必填
+  string challenge = 1 [ (buf.validate.field).string = {min_len : 16} ];
+  // 必填
+  repeated string scope = 2;
+  // 必填
+  bool remember = 3;
+}
+
+message OAuthLogoutRequest {
+  // 必填
+  string challenge = 1 [ (buf.validate.field).string = {min_len : 16} ];
+}
+
+message OAuthRedirectResponse { string redirect = 1; }
+
+// OAuth2Token
+message OAuth2TokenRequest {
+  string token = 1;
+  optional string scope = 2;
+}
+
+message OAuthCodeRequest {
+  string code = 1;
+  string appid = 2;
+  string redirectURL = 3;
+}
+
+// 第三方 OAuth 获取 access token 请求
+message ThirdOAuthAccessTokenRequest {
+  // 第三方提供商名称，如: github, google, wechat, qq 等
+  string provider = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string clientID = 2 [ (buf.validate.field).string = {min_len : 1} ];
+  // 授权码
+  string code = 3 [ (buf.validate.field).string = {min_len : 1} ];
+  // 重定向地址
+  optional string redirectURL = 4;
+  // 可选：状态参数
+  optional string state = 5;
+}
+
+// 第三方 OAuth token 响应
+message ThirdOAuthTokenResponse {
+  // access token
+  string accessToken = 1;
+  // token 类型，通常是 "Bearer"
+  string tokenType = 2;
+  // 过期时间（秒）
+  optional int64 expiresIn = 3;
+  // refresh token（如果支持）
+  optional string refreshToken = 4;
+  // 作用域
+  optional string scope = 5;
+}
+
+// 第三方 OAuth 刷新 token 请求
+message ThirdOAuthRefreshTokenRequest {
+  // 第三方提供商名称，如: github, google, wechat, qq 等
+  string provider = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string clientID = 2 [ (buf.validate.field).string = {min_len : 1} ];
+  // refresh token
+  string refreshToken = 3 [ (buf.validate.field).string = {min_len : 1} ];
+  // 可选：作用域
+  optional string scope = 4;
+}
+
+// 第三方 OAuth 获取用户信息请求
+message ThirdOAuthUserRequest {
+  // 第三方提供商名称，如: github, google, wechat, qq 等
+  string provider = 1 [ (buf.validate.field).string = {min_len : 1} ];
+  string clientID = 2 [ (buf.validate.field).string = {min_len : 1} ];
+  // access token（可选，如果不提供则从 Authorization header 中读取）
+  optional string token = 3;
+}
+
+message OAuthTokenRequest {
+  string code = 1;
+  string appid = 2;
+  string appSecret = 3;
+  string redirectURL = 4;
+}
+
+message OAuthTokenReply {
+  // accessToken 是用于授权和验证请求的访问令牌
+  string accessToken = 1;
+
+  // tokenType 是令牌类型，通常是 "Bearer"
+  string tokenType = 2;
+
+  // refreshToken
+  // 是应用程序（而非用户）用来刷新访问令牌的刷新令牌（如果访问令牌过期）
+  optional string refreshToken = 3;
+
+  // expiry 是访问令牌的可选过期时间（Unix 时间戳，秒）
+  // 如果为零，TokenSource 实现将永远重用同一个令牌，不会使用 RefreshToken
+  // 或等效机制
+  optional int64 expiry = 4;
+
+  // expiresIn 是 OAuth2 标准格式的 "expires_in" 字段
+  // 指定令牌在多少秒后过期，相对于大约"现在"的未知时间基准
+  // 应用程序有责任在需要时从 ExpiresIn 填充 Expiry
+  optional int64 expiresIn = 5;
+
+  // expiryDelta 用于计算令牌何时被视为过期，通过从 Expiry 中减去该值
+  // 如果为零，则使用 defaultExpiryDelta
+  optional int64 expiryDelta = 6;
+}
+// OAuth 用户访问令牌
+message OAuthAccessTokenParamsRequest {
+  // 省略时读取请求头，支持 Authorization: Bearer。
+  optional string accessToken = 1;
+  // 可省略，显式传入时必须匹配令牌的 client_id。
+  string appid = 2;
+}
+
+// 独立批处理命令，标准 User CRUD 无法表达渠道、一致性预检与运行报告。
+message StartProfileBackfillRequest {
+  string tenantID = 205 [(buf.validate.field).string = {min_len: 1, max_len: 63}];
+  string provider = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 31} ];
+  string clientID = 2
+      [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  repeated string fields = 3
+      [ (buf.validate.field).repeated = {min_items : 1, max_items : 3} ];
+  // 缺省 PREVIEW；EXECUTE 才会修改用户，预检也占用互斥锁。
+  string mode = 4
+      [ (buf.validate.field).string = {in : [ "", "PREVIEW", "EXECUTE" ]} ];
+  // 缺省 10000；限制本轮扫描用户数而非成功数，内部每批最多 100 人。
+  optional int64 limit = 5 [ (buf.validate.field).int64.gt = 0 ];
+}
+
+// 缓存中的临时汇总，不存用户明细；计数仅属于本轮，扫描游标仅在后台内存中使用。
+message ProfileBackfillReply {
+  string provider = 1;
+  string clientID = 2;
+  repeated string fields = 3;
+  string mode = 4;
+  string status = 5;
+  string reason = 6;
+  string message = 7;
+  int64 scanned = 8;
+  int64 updated = 9;
+  int64 wouldUpdate = 10;
+  int64 skipped = 11;
+  int64 problem = 12;
+  int64 notFound = 13;
+  int64 startedAt = 14;
+  int64 updatedAt = 15;
+  int64 limit = 16;
+  bool hasMore = 17;
+  map<string, int64> problemReasons = 18;
+}
+
+// 批次命令跨多条暂存记录，生成单对象请求无法表达连接范围；租户和操作人只取可信上下文。
+message ThirdAccountSyncRequest {
+  string tenantID = 205 [(buf.validate.field).string = {min_len: 1, max_len: 63}];
+  string batchID = 1
+      [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  string provider = 2
+      [ (buf.validate.field).string = {min_len : 1, max_len : 31} ];
+  string clientID = 3
+      [ (buf.validate.field).string = {min_len : 1, max_len : 63} ];
+  // 仅处理接口使用：缺省或 PREVIEW 只预览，显式 EXECUTE
+  // 才写入；清理接口忽略此字段。
+  string mode = 4
+      [ (buf.validate.field).string = {in : [ "", "PREVIEW", "EXECUTE" ]} ];
+}
+
+// 单次最多处理100条；hasMore=true时继续调用相同动作，预览计数表示拟执行数量。
+message ThirdAccountSyncReply {
+  int64 processed = 1;
+  int64 created = 2;
+  int64 updated = 3;
+  int64 unchanged = 4;
+  int64 conflicts = 5;
+  bool hasMore = 6;
+}
+
+// 每次加密申请独立挑战，action 区分操作以及改密时的新旧口令。
+message PasswordKeyRequest { string action = 1; }
+message PasswordKeyReply {
+  string kid = 1;
+  string x = 2;
+  string y = 3;
+  string challenge = 4;
+}
+
+message EncryptRequest {
+  string id = 1;
+  string value = 2;
+}
+
+message ImageRequest {string purpose = 1;}
+
+// 平台管理调用显式选择资源租户。
+message TargetTenantRequest {
+  string tenantID = 205 [(buf.validate.field).string = {min_len: 1, max_len: 63}];
+}
+
+// 内部读取从 metadata 取得租户。
+message ResourceIDRequest {
+  string id = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+message UserLookupRequest {
+  optional string id = 1;
+  optional string phone = 2;
+  optional string phonePrefix = 3;
+}
+
+message AccountLookupRequest {
+  string provider = 1 [(buf.validate.field).string.min_len = 1];
+  string clientID = 2 [(buf.validate.field).string.min_len = 1];
+  optional string id = 3;
+  optional string userID = 4;
+  repeated string userIDIn = 5;
+  optional int32 limit = 6 [(buf.validate.field).int32.gte = 0];
+}
+
+message AppDisplayReply {
+  string id = 1;
+  string title = 2;
+  optional string logo = 3;
+  optional string favicon = 4;
+  google.protobuf.Struct theme = 5;
+  optional string icp = 6;
+  optional string titleLocal = 7;
+}
+
+message OAuthAccessReply {
+  string userID = 1;
+  repeated string allowedSupplierCodes = 2;
+}
+
+message AppSupplierAccessReply {
+  repeated string allowedSupplierCodes = 1;
+}

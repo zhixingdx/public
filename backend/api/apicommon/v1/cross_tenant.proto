@@ -1,0 +1,12 @@
+syntax = "proto3";
+package api.apicommon;
+// 特意使用 apicommon 居然与其他 common 包冲突
+option go_package = "github.com/zhixingdx/oipivot-api/apicommon/v1;apicommon";
+option java_multiple_files = true;
+option java_package = "api.apicommon";
+
+// 跨租户员工
+message CrossTenantStaffRequest {
+  string tenantID = 1;
+  string staffID = 2;
+}

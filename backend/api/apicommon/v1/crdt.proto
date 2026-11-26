@@ -1,0 +1,21 @@
+syntax = "proto3";
+package api.apicommon;
+// 特意使用 apicommon 居然与其他 common 包冲突
+option go_package = "github.com/zhixingdx/oipivot-api/apicommon/v1;apicommon";
+option java_multiple_files = true;
+option java_package = "api.apicommon";
+
+import "google/protobuf/struct.proto";
+
+message CRDTHookBase {
+  optional string documentName = 1;
+  optional string socketId = 2;
+  optional string token = 3;
+}
+
+message CRDTHookRequest {
+  CRDTHookBase base = 1;
+  string event = 2;
+  string timestamp = 3;
+  optional google.protobuf.Struct data = 4;
+}
