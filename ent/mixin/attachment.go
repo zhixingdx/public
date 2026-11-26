@@ -5,8 +5,8 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot-api/apicommon/v1"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
+	"github.com/zhixingdx/public/api/apicommon/v1"
+	"github.com/zhixingdx/public/ent/ann"
 )
 
 const portalAttachmentI18NPbIndex = 315

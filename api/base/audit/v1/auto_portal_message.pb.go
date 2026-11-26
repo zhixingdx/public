@@ -940,8 +940,8 @@ const file_base_audit_v1_auto_portal_message_proto_rawDesc = "" +
 	"\x05count\x18\x04 \x01(\x03R\x05count\x12\x1e\n" +
 	"\n" +
 	"totalPages\x18\x05 \x01(\x05R\n" +
-	"totalPagesBH\n" +
-	"\x0eapi.base.auditP\x01Z4github.com/zhixingdx/oipivot-api/base/audit/v1;auditb\x06proto3"
+	"totalPagesBG\n" +
+	"\x0eapi.base.auditP\x01Z3github.com/zhixingdx/public/api/base/audit/v1;auditb\x06proto3"
 
 var (
 	file_base_audit_v1_auto_portal_message_proto_rawDescOnce sync.Once

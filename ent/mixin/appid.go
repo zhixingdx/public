@@ -6,7 +6,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
+	"github.com/zhixingdx/public/ent/ann"
 )
 
 // Appid mixin 通常用于 sass 场景中标识不同的 app

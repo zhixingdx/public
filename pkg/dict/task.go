@@ -2,7 +2,7 @@
 // Package dict Task
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // TaskStatus 用于标识任务状态
 type TaskStatus string

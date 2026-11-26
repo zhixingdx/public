@@ -6,7 +6,7 @@ package api.base.audit;
 
 import "buf/validate/validate.proto";
 
-option go_package = "github.com/zhixingdx/oipivot-api/base/audit/v1;audit";
+option go_package = "github.com/zhixingdx/public/api/base/audit/v1;audit";
 option java_multiple_files = true;
 option java_package = "api.base.audit";
 

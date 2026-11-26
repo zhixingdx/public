@@ -10,7 +10,7 @@
 package safe
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -64,8 +64,8 @@ const file_base_safe_v1_auto_service_proto_rawDesc = "" +
 	"\x19QuerySensitiveWordVersion\x12/.api.base.safe.QuerySensitiveWordVersionRequest\x1a,.api.base.safe.SensitiveWordVersionRowsReply\";\x82\xd3\xe4\x93\x025:\x01*\"0/api/base/safe/manage/sensitiveWordVersion/query\x12\xa0\x01\n" +
 	"\x19CountSensitiveWordVersion\x12/.api.base.safe.QuerySensitiveWordVersionRequest\x1a\x15.api.apicommon.BigNum\";\x82\xd3\xe4\x93\x025:\x01*\"0/api/base/safe/manage/sensitiveWordVersion/count\x12\xb4\x01\n" +
 	"\x18ListSensitiveWordVersion\x12..api.base.safe.ListSensitiveWordVersionRequest\x1a,.api.base.safe.SensitiveWordVersionListReply\":\x82\xd3\xe4\x93\x024:\x01*\"//api/base/safe/manage/sensitiveWordVersion/list\x12\xce\x01\n" +
-	" EditSensitiveWordVersionMetadata\x126.api.base.safe.EditSensitiveWordVersionMetadataRequest\x1a..api.base.safe.SensitiveWordVersionDetailReply\"B\x82\xd3\xe4\x93\x02<:\x01*\"7/api/base/safe/manage/sensitiveWordVersion/editMetadataBE\n" +
-	"\rapi.base.safeP\x01Z2github.com/zhixingdx/oipivot-api/base/safe/v1;safeb\x06proto3"
+	" EditSensitiveWordVersionMetadata\x126.api.base.safe.EditSensitiveWordVersionMetadataRequest\x1a..api.base.safe.SensitiveWordVersionDetailReply\"B\x82\xd3\xe4\x93\x02<:\x01*\"7/api/base/safe/manage/sensitiveWordVersion/editMetadataBD\n" +
+	"\rapi.base.safeP\x01Z1github.com/zhixingdx/public/api/base/safe/v1;safeb\x06proto3"
 
 var file_base_safe_v1_auto_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),                           // 0: google.protobuf.Empty

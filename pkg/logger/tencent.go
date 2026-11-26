@@ -6,8 +6,8 @@ import (
 	"time"
 
 	cls "github.com/tencentcloud/tencentcloud-cls-sdk-go"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 	"google.golang.org/protobuf/proto"
 )
 

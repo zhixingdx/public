@@ -1,7 +1,7 @@
 package objectstore
 
 import (
-	"github.com/zhixingdx/oipivot-api/config"
+	"github.com/zhixingdx/public/api/config"
 )
 
 // NewFromConfig 根据配置创建 ObjectStore 实例

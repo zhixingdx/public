@@ -30,8 +30,8 @@ const file_base_user_v1_plus_service_proto_rawDesc = "" +
 	"\x16DeleteThirdAccountSync\x12&.api.base.user.ThirdAccountSyncRequest\x1a$.api.base.user.ThirdAccountSyncReply\"8\x82\xd3\xe4\x93\x022:\x01*\"-/api/base/user/manage/thirdAccountSync/delete\x12\xa2\x01\n" +
 	"\x17ProcessThirdAccountSync\x12&.api.base.user.ThirdAccountSyncRequest\x1a$.api.base.user.ThirdAccountSyncReply\"9\x82\xd3\xe4\x93\x023:\x01*\"./api/base/user/manage/thirdAccountSync/process\x12\xa4\x01\n" +
 	"\x14StartProfileBackfill\x12*.api.base.user.StartProfileBackfillRequest\x1a#.api.base.user.ProfileBackfillReply\";\x82\xd3\xe4\x93\x025:\x01*\"0/api/base/user/manage/user/profileBackfill/start\x12\x91\x01\n" +
-	"\x12GetProfileBackfill\x12\".api.base.user.TargetTenantRequest\x1a#.api.base.user.ProfileBackfillReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/user/manage/user/profileBackfillBE\n" +
-	"\rapi.base.userP\x01Z2github.com/zhixingdx/oipivot-api/base/user/v1;userb\x06proto3"
+	"\x12GetProfileBackfill\x12\".api.base.user.TargetTenantRequest\x1a#.api.base.user.ProfileBackfillReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/user/manage/user/profileBackfillBD\n" +
+	"\rapi.base.userP\x01Z1github.com/zhixingdx/public/api/base/user/v1;userb\x06proto3"
 
 var file_base_user_v1_plus_service_proto_goTypes = []any{
 	(*ThirdAccountSyncRequest)(nil),     // 0: api.base.user.ThirdAccountSyncRequest

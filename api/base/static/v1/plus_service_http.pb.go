@@ -9,7 +9,7 @@ package static
 import (
 	context "context"
 	http "github.com/go-kratos/kratos/v3/transport/http"
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 )
 
 // This is a compile-time assertion to ensure that this generated file

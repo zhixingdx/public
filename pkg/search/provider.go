@@ -3,7 +3,7 @@ package search
 import (
 	"strings"
 
-	"github.com/zhixingdx/oipivot-api/config"
+	"github.com/zhixingdx/public/api/config"
 )
 
 // NewFromConfig 根据全局配置创建 OpenSearch 客户端；未配置任何有效地址时返回 (nil, nil)。

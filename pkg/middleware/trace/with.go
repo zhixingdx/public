@@ -8,8 +8,8 @@ import (
 	"github.com/go-kratos/kratos/v3/middleware"
 	"github.com/go-kratos/kratos/v3/transport"
 	"github.com/samber/lo"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/trace"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/trace"
 	"go.opentelemetry.io/otel"
 )
 

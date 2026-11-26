@@ -28,8 +28,8 @@ const file_base_audit_v1_plus_service_proto_rawDesc = "" +
 	" base/audit/v1/plus_service.proto\x12\x0eapi.base.audit\x1a\x1cgoogle/api/annotations.proto\x1a base/audit/v1/plus_message.proto2\xbc\x02\n" +
 	"\x13BaseAuditManagePlus\x12\x91\x01\n" +
 	"\fQueryRecords\x12).api.base.audit.ManageQueryRecordsRequest\x1a!.api.base.audit.QueryRecordsReply\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/base/audit/manage/plus/record/query\x12\x90\x01\n" +
-	"\vReadPayload\x12(.api.base.audit.ManageReadPayloadRequest\x1a\x1c.api.base.audit.PayloadReply\"9\x82\xd3\xe4\x93\x023:\x01*\"./api/base/audit/manage/plus/record/readPayloadBH\n" +
-	"\x0eapi.base.auditP\x01Z4github.com/zhixingdx/oipivot-api/base/audit/v1;auditb\x06proto3"
+	"\vReadPayload\x12(.api.base.audit.ManageReadPayloadRequest\x1a\x1c.api.base.audit.PayloadReply\"9\x82\xd3\xe4\x93\x023:\x01*\"./api/base/audit/manage/plus/record/readPayloadBG\n" +
+	"\x0eapi.base.auditP\x01Z3github.com/zhixingdx/public/api/base/audit/v1;auditb\x06proto3"
 
 var file_base_audit_v1_plus_service_proto_goTypes = []any{
 	(*ManageQueryRecordsRequest)(nil), // 0: api.base.audit.ManageQueryRecordsRequest

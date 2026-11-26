@@ -2,7 +2,7 @@
 // Package dict Workflow
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // WorkflowInstanceStatus 工作流实例状态
 type WorkflowInstanceStatus string

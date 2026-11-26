@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	static "github.com/zhixingdx/oipivot-api/base/static/v1"
-	"github.com/zhixingdx/oipivot/backend/pkg/utils"
+	static "github.com/zhixingdx/public/api/base/static/v1"
+	"github.com/zhixingdx/public/pkg/utils"
 	"github.com/go-kratos/kratos/contrib/otel/v3/tracing"
 	"github.com/go-kratos/kratos/v3/middleware/metadata"
 	"github.com/go-kratos/kratos/v3/middleware/recovery"

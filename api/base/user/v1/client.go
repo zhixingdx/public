@@ -1,7 +1,7 @@
 // Package user client
 package user
 
-import "github.com/zhixingdx/oipivot-api/rpcclient"
+import "github.com/zhixingdx/public/api/rpcclient"
 
 // GetRPC 获取 RPC 客户端
 func GetRPC(endpoint string) BaseUserManageClient {

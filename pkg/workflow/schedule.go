@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 	enumspb "go.temporal.io/api/enums/v1"
 	"go.temporal.io/api/serviceerror"
 	"go.temporal.io/sdk/client"

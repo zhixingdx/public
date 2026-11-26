@@ -10,7 +10,7 @@
 package notify
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -36,8 +36,8 @@ const file_base_notify_v1_auto_portal_service_proto_rawDesc = "" +
 	"\x10DetailMailRecord\x12+.api.base.notify.OneMailRecordPortalRequest\x1a,.api.base.notify.MailRecordPortalDetailReply\"1\x82\xd3\xe4\x93\x02+\x12)/api/base/notify/portal/mailRecord/detail\x12\xa2\x01\n" +
 	"\x0fQueryMailRecord\x12-.api.base.notify.QueryMailRecordPortalRequest\x1a+.api.base.notify.MailRecordPortalMultiReply\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/base/notify/portal/mailRecord/query\x12\x9c\x01\n" +
 	"\x0fDetailSmsRecord\x12*.api.base.notify.OneSmsRecordPortalRequest\x1a+.api.base.notify.SmsRecordPortalDetailReply\"0\x82\xd3\xe4\x93\x02*\x12(/api/base/notify/portal/smsRecord/detail\x12\x9e\x01\n" +
-	"\x0eQuerySmsRecord\x12,.api.base.notify.QuerySmsRecordPortalRequest\x1a*.api.base.notify.SmsRecordPortalMultiReply\"2\x82\xd3\xe4\x93\x02,:\x01*\"'/api/base/notify/portal/smsRecord/queryBK\n" +
-	"\x0fapi.base.notifyP\x01Z6github.com/zhixingdx/oipivot-api/base/notify/v1;notifyb\x06proto3"
+	"\x0eQuerySmsRecord\x12,.api.base.notify.QuerySmsRecordPortalRequest\x1a*.api.base.notify.SmsRecordPortalMultiReply\"2\x82\xd3\xe4\x93\x02,:\x01*\"'/api/base/notify/portal/smsRecord/queryBJ\n" +
+	"\x0fapi.base.notifyP\x01Z5github.com/zhixingdx/public/api/base/notify/v1;notifyb\x06proto3"
 
 var file_base_notify_v1_auto_portal_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),                // 0: google.protobuf.Empty

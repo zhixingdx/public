@@ -5,8 +5,8 @@ import (
 	"errors"
 
 	kerrors "github.com/go-kratos/kratos/v3/errors"
-	"github.com/zhixingdx/oipivot-api/fault"
-	"github.com/zhixingdx/oipivot/backend/pkg/polling"
+	"github.com/zhixingdx/public/api/fault"
+	"github.com/zhixingdx/public/pkg/polling"
 )
 
 // HandlePollingError 在服务边界本地化调度错误；保留 cause，使互斥、取消和业务错误仍可识别。

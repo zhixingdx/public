@@ -1,6 +1,6 @@
 package iam
 
-import "github.com/zhixingdx/oipivot-api/rpcclient"
+import "github.com/zhixingdx/public/api/rpcclient"
 
 func GetRPC(endpoint string) BaseIamManageClient {
 	return NewBaseIamManageClient(rpcclient.Connect(endpoint))

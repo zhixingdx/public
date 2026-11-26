@@ -12,8 +12,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	pb "github.com/zhixingdx/oipivot-api/base/audit/v1"
-	"github.com/zhixingdx/oipivot/backend/pkg/versionedresource"
+	pb "github.com/zhixingdx/public/api/base/audit/v1"
+	"github.com/zhixingdx/public/pkg/versionedresource"
 )
 
 // ErrProjection 表示源值不能安全、完整地编码，仅供内部诊断及边界本地化。

@@ -1,7 +1,7 @@
 // Package dict 备课域字典
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // PrepBookType 备课本类型
 type PrepBookType string

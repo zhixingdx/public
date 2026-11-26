@@ -3,7 +3,7 @@
 package dict
 
 import (
-	"github.com/zhixingdx/oipivot/backend/pkg/lang"
+	"github.com/zhixingdx/public/pkg/lang"
 )
 
 // PublicScope 公开范围

@@ -10,7 +10,7 @@
 package audit
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -32,8 +32,8 @@ const file_base_audit_v1_auto_service_proto_rawDesc = "" +
 	"\n" +
 	" base/audit/v1/auto_service.proto\x12\x0eapi.base.audit\x1a\x19apicommon/v1/common.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto2o\n" +
 	"\x0fBaseAuditManage\x12\\\n" +
-	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/api/base/audit/manage/healthBH\n" +
-	"\x0eapi.base.auditP\x01Z4github.com/zhixingdx/oipivot-api/base/audit/v1;auditb\x06proto3"
+	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/api/base/audit/manage/healthBG\n" +
+	"\x0eapi.base.auditP\x01Z3github.com/zhixingdx/public/api/base/audit/v1;auditb\x06proto3"
 
 var file_base_audit_v1_auto_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil), // 0: google.protobuf.Empty

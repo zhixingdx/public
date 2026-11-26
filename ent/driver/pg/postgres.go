@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"entgo.io/ent/dialect"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/ent/driver/pool"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/ent/driver/pool"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"

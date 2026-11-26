@@ -10,7 +10,7 @@
 package tenant
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -133,8 +133,8 @@ const file_base_tenant_v1_auto_service_proto_rawDesc = "" +
 	"\x16QueryOneTenantSupplier\x12+.api.base.tenant.QueryTenantSupplierRequest\x1a*.api.base.tenant.TenantSupplierDetailReply\":\x82\xd3\xe4\x93\x024:\x01*\"//api/base/tenant/manage/tenantSupplier/queryOne\x12\xa6\x01\n" +
 	"\x13QueryTenantSupplier\x12+.api.base.tenant.QueryTenantSupplierRequest\x1a).api.base.tenant.TenantSupplierMultiReply\"7\x82\xd3\xe4\x93\x021:\x01*\",/api/base/tenant/manage/tenantSupplier/query\x12\x92\x01\n" +
 	"\x13CountTenantSupplier\x12+.api.base.tenant.QueryTenantSupplierRequest\x1a\x15.api.apicommon.BigNum\"7\x82\xd3\xe4\x93\x021:\x01*\",/api/base/tenant/manage/tenantSupplier/count\x12\xa2\x01\n" +
-	"\x12ListTenantSupplier\x12*.api.base.tenant.ListTenantSupplierRequest\x1a(.api.base.tenant.TenantSupplierListReply\"6\x82\xd3\xe4\x93\x020:\x01*\"+/api/base/tenant/manage/tenantSupplier/listBK\n" +
-	"\x0fapi.base.tenantP\x01Z6github.com/zhixingdx/oipivot-api/base/tenant/v1;tenantb\x06proto3"
+	"\x12ListTenantSupplier\x12*.api.base.tenant.ListTenantSupplierRequest\x1a(.api.base.tenant.TenantSupplierListReply\"6\x82\xd3\xe4\x93\x020:\x01*\"+/api/base/tenant/manage/tenantSupplier/listBJ\n" +
+	"\x0fapi.base.tenantP\x01Z5github.com/zhixingdx/public/api/base/tenant/v1;tenantb\x06proto3"
 
 var file_base_tenant_v1_auto_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),                    // 0: google.protobuf.Empty

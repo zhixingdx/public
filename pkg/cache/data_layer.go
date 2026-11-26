@@ -2,9 +2,9 @@ package cache
 
 import (
 	"github.com/redis/go-redis/v9"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/lang"
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/lang"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 	"golang.org/x/sync/singleflight"
 )
 

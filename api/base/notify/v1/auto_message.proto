@@ -8,7 +8,7 @@ import "apicommon/v1/common.proto";
 import "base/notify/v1/plus_message.proto";
 import "buf/validate/validate.proto";
 
-option go_package = "github.com/zhixingdx/oipivot-api/base/notify/v1;notify";
+option go_package = "github.com/zhixingdx/public/api/base/notify/v1;notify";
 option java_multiple_files = true;
 option java_package = "api.base.notify";
 

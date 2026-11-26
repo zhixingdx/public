@@ -1,6 +1,6 @@
 package audit
 
-import "github.com/zhixingdx/oipivot-api/rpcclient"
+import "github.com/zhixingdx/public/api/rpcclient"
 
 func GetRPC(endpoint string) BaseAuditManageClient {
 	return NewBaseAuditManageClient(rpcclient.Connect(endpoint))

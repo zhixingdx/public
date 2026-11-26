@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/utils"
+	"github.com/zhixingdx/public/pkg/utils"
 	"github.com/samber/lo"
 
 	"entgo.io/ent/entc/gen"
@@ -192,7 +192,7 @@ const (
 // 示例
 //
 //	 &ann.FieldFunc{
-//		PkgPath: `"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"`,
+//		PkgPath: `"github.com/zhixingdx/public/pkg/middleware/meta"`,
 //		Place:   ann.PlaceData,
 //		GetStr:  "userID,_:=meta.GetUserID(ctx)",
 //		SetStr:  `if b.Creator==nil && userID != "" {b.Creator = &userID}`, service 的写法 b.Field=xxx

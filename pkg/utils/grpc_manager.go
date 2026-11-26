@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 )

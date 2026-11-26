@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"entgo.io/ent/entc/gen"
-	"github.com/zhixingdx/oipivot-api/apicommon/v1"
+	"github.com/zhixingdx/public/api/apicommon/v1"
 )
 
 const (

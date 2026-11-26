@@ -3,7 +3,7 @@ package data
 
 /* cSpell:disable */
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // OpType 数据操作类型
 type OpType string

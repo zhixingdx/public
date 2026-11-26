@@ -7,8 +7,8 @@
 package iam
 
 import (
-	v11 "github.com/zhixingdx/oipivot-api/apicommon/v1"
-	v1 "github.com/zhixingdx/oipivot-api/base/tenant/v1"
+	v11 "github.com/zhixingdx/public/api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/base/tenant/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -54,8 +54,8 @@ const file_base_iam_v1_plus_service_proto_rawDesc = "" +
 	"\x1aBatchUpsertOperationByName\x12/.api.base.iam.BatchUpsertOperationByNameRequest\x1a!.api.base.iam.OperationMultiReply\";\x82\xd3\xe4\x93\x025:\x01*\"0/api/base/iam/manage/operation/batchUpsertByName\x12s\n" +
 	"\x11SyncRBACFromCloud\x12\x16.google.protobuf.Empty\x1a\x1b.api.base.iam.SyncRBACReply\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/base/iam/manage/rbac/sync\x12\xb1\x01\n" +
 	"\x19StartStaffProfileBackfill\x12..api.base.iam.StartStaffProfileBackfillRequest\x1a'.api.base.iam.StaffProfileBackfillReply\";\x82\xd3\xe4\x93\x025:\x01*\"0/api/base/iam/manage/staff/profileBackfill/start\x12\x8e\x01\n" +
-	"\x17GetStaffProfileBackfill\x12\x16.google.protobuf.Empty\x1a'.api.base.iam.StaffProfileBackfillReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/iam/manage/staff/profileBackfillBB\n" +
-	"\fapi.base.iamP\x01Z0github.com/zhixingdx/oipivot-api/base/iam/v1;iamb\x06proto3"
+	"\x17GetStaffProfileBackfill\x12\x16.google.protobuf.Empty\x1a'.api.base.iam.StaffProfileBackfillReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/iam/manage/staff/profileBackfillBA\n" +
+	"\fapi.base.iamP\x01Z/github.com/zhixingdx/public/api/base/iam/v1;iamb\x06proto3"
 
 var file_base_iam_v1_plus_service_proto_goTypes = []any{
 	(*AssignTenantAdminRequest)(nil),          // 0: api.base.iam.AssignTenantAdminRequest

@@ -10,7 +10,7 @@
 package user
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -34,8 +34,8 @@ const file_base_user_v1_auto_portal_service_proto_rawDesc = "" +
 	"\x0eBaseUserPortal\x12[\n" +
 	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/api/base/user/portal/health\x12\x9a\x01\n" +
 	"\x13GetAppCacheByDomain\x12*.api.base.user.OneAppByDomainPortalRequest\x1a#.api.base.user.AppPortalDetailReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/user/portal/app/getCacheByDomain\x12y\n" +
-	"\fGetAuthCache\x12\x16.google.protobuf.Empty\x1a$.api.base.user.AuthPortalDetailReply\"+\x82\xd3\xe4\x93\x02%\x12#/api/base/user/portal/auth/getCacheBE\n" +
-	"\rapi.base.userP\x01Z2github.com/zhixingdx/oipivot-api/base/user/v1;userb\x06proto3"
+	"\fGetAuthCache\x12\x16.google.protobuf.Empty\x1a$.api.base.user.AuthPortalDetailReply\"+\x82\xd3\xe4\x93\x02%\x12#/api/base/user/portal/auth/getCacheBD\n" +
+	"\rapi.base.userP\x01Z1github.com/zhixingdx/public/api/base/user/v1;userb\x06proto3"
 
 var file_base_user_v1_auto_portal_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),               // 0: google.protobuf.Empty

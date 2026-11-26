@@ -10,7 +10,7 @@
 package iam
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -151,8 +151,8 @@ const file_base_iam_v1_auto_portal_service_proto_rawDesc = "" +
 	"\x13DisableOneUserGroup\x12'.api.base.iam.OneUserGroupPortalRequest\x1a(.api.base.iam.UserGroupPortalDetailReply\"4\x82\xd3\xe4\x93\x02.:\x01*\")/api/base/iam/portal/userGroup/disableOne\x12\x85\x01\n" +
 	"\x0fEnableUserGroup\x12).api.base.iam.MultiUserGroupPortalRequest\x1a\x15.api.apicommon.BigNum\"0\x82\xd3\xe4\x93\x02*:\x01*\"%/api/base/iam/portal/userGroup/enable\x12\x87\x01\n" +
 	"\x10DisableUserGroup\x12).api.base.iam.MultiUserGroupPortalRequest\x1a\x15.api.apicommon.BigNum\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/base/iam/portal/userGroup/disable\x12\x8b\x01\n" +
-	"\x14GetUserGroupAllCache\x12\x16.google.protobuf.Empty\x1a'.api.base.iam.UserGroupPortalMultiReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/iam/portal/userGroup/getAllCacheBB\n" +
-	"\fapi.base.iamP\x01Z0github.com/zhixingdx/oipivot-api/base/iam/v1;iamb\x06proto3"
+	"\x14GetUserGroupAllCache\x12\x16.google.protobuf.Empty\x1a'.api.base.iam.UserGroupPortalMultiReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/iam/portal/userGroup/getAllCacheBA\n" +
+	"\fapi.base.iamP\x01Z/github.com/zhixingdx/public/api/base/iam/v1;iamb\x06proto3"
 
 var file_base_iam_v1_auto_portal_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),                           // 0: google.protobuf.Empty

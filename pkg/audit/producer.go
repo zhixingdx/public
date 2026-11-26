@@ -8,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	public "github.com/zhixingdx/oipivot-api/base/audit/v1"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"
+	public "github.com/zhixingdx/public/api/base/audit/v1"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/middleware/meta"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"

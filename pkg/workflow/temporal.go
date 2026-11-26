@@ -4,9 +4,9 @@ package workflow
 import (
 	"time"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 
-	"github.com/zhixingdx/oipivot-api/config"
+	"github.com/zhixingdx/public/api/config"
 	"go.temporal.io/sdk/client"
 	tlog "go.temporal.io/sdk/log"
 	"go.temporal.io/sdk/worker"

@@ -126,8 +126,8 @@ const file_base_tenant_v1_plus_message_dag_proto_rawDesc = "" +
 	"\x04data\x18\x01 \x03(\v2*.api.base.tenant.RelationPortalDetailReplyR\x04data\"\x8b\x01\n" +
 	"\x19RelationPortalDetailReply\x12J\n" +
 	"\x0erelationTenant\x18\x01 \x01(\v2\".api.base.tenant.TenantDetailReplyR\x0erelationTenant\x12\"\n" +
-	"\frelationType\x18\x02 \x01(\tR\frelationTypeBK\n" +
-	"\x0fapi.base.tenantP\x01Z6github.com/zhixingdx/oipivot-api/base/tenant/v1;tenantb\x06proto3"
+	"\frelationType\x18\x02 \x01(\tR\frelationTypeBJ\n" +
+	"\x0fapi.base.tenantP\x01Z5github.com/zhixingdx/public/api/base/tenant/v1;tenantb\x06proto3"
 
 var (
 	file_base_tenant_v1_plus_message_dag_proto_rawDescOnce sync.Once

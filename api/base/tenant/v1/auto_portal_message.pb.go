@@ -11,7 +11,7 @@ package tenant
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
@@ -12787,8 +12787,8 @@ const file_base_tenant_v1_auto_portal_message_proto_rawDesc = "" +
 	"\x05count\x18\x04 \x01(\x03R\x05count\x12\x1e\n" +
 	"\n" +
 	"totalPages\x18\x05 \x01(\x05R\n" +
-	"totalPagesBK\n" +
-	"\x0fapi.base.tenantP\x01Z6github.com/zhixingdx/oipivot-api/base/tenant/v1;tenantb\x06proto3"
+	"totalPagesBJ\n" +
+	"\x0fapi.base.tenantP\x01Z5github.com/zhixingdx/public/api/base/tenant/v1;tenantb\x06proto3"
 
 var (
 	file_base_tenant_v1_auto_portal_message_proto_rawDescOnce sync.Once

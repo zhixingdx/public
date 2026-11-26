@@ -5,7 +5,7 @@ import (
 	"context"
 	"errors"
 
-	pb "github.com/zhixingdx/oipivot-api/base/audit/v1"
+	pb "github.com/zhixingdx/public/api/base/audit/v1"
 
 	"google.golang.org/protobuf/proto"
 )

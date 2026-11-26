@@ -130,8 +130,8 @@ const file_apicommon_v1_file_proto_rawDesc = "" +
 	"\x05_sizeB\a\n" +
 	"\x05_descB\a\n" +
 	"\x05_iconB\b\n" +
-	"\x06_coverBJ\n" +
-	"\rapi.apicommonP\x01Z7github.com/zhixingdx/oipivot-api/apicommon/v1;apicommonb\x06proto3"
+	"\x06_coverBI\n" +
+	"\rapi.apicommonP\x01Z6github.com/zhixingdx/public/api/apicommon/v1;apicommonb\x06proto3"
 
 var (
 	file_apicommon_v1_file_proto_rawDescOnce sync.Once

@@ -11,10 +11,10 @@ import (
 	"github.com/go-kratos/kratos/v3/middleware/recovery"
 	"github.com/go-kratos/kratos/v3/transport/http"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
-	ymetrics "github.com/zhixingdx/oipivot/backend/pkg/middleware/metrics"
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/trace"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
+	ymetrics "github.com/zhixingdx/public/pkg/middleware/metrics"
+	"github.com/zhixingdx/public/pkg/middleware/trace"
 )
 
 func init() {

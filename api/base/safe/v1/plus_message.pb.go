@@ -8,7 +8,7 @@ package safe
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -2813,8 +2813,8 @@ const file_base_safe_v1_plus_message_proto_rawDesc = "" +
 	"TextResult\x12\x1b\n" +
 	"\x17TEXT_RESULT_UNSPECIFIED\x10\x00\x12\x14\n" +
 	"\x10TEXT_RESULT_PASS\x10\x01\x12\x13\n" +
-	"\x0fTEXT_RESULT_HIT\x10\x02BE\n" +
-	"\rapi.base.safeP\x01Z2github.com/zhixingdx/oipivot-api/base/safe/v1;safeb\x06proto3"
+	"\x0fTEXT_RESULT_HIT\x10\x02BD\n" +
+	"\rapi.base.safeP\x01Z1github.com/zhixingdx/public/api/base/safe/v1;safeb\x06proto3"
 
 var (
 	file_base_safe_v1_plus_message_proto_rawDescOnce sync.Once

@@ -11,7 +11,7 @@ package notify
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -6349,8 +6349,8 @@ const file_base_notify_v1_auto_message_proto_rawDesc = "" +
 	"\r_createTimeLtB\x10\n" +
 	"\x0e_createTimeLteB\a\n" +
 	"\x05_pageB\v\n" +
-	"\t_pageSizeBK\n" +
-	"\x0fapi.base.notifyP\x01Z6github.com/zhixingdx/oipivot-api/base/notify/v1;notifyb\x06proto3"
+	"\t_pageSizeBJ\n" +
+	"\x0fapi.base.notifyP\x01Z5github.com/zhixingdx/public/api/base/notify/v1;notifyb\x06proto3"
 
 var (
 	file_base_notify_v1_auto_message_proto_rawDescOnce sync.Once

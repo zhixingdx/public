@@ -1,7 +1,7 @@
 syntax = "proto3";
 package api.fault;
 // 特意使用 apicommon 居然与其他 common 包冲突
-option go_package = "github.com/zhixingdx/oipivot-api/fault;fault";
+option go_package = "github.com/zhixingdx/public/api/fault;fault";
 option java_multiple_files = true;
 option java_package = "api.fault";
 import "errors/errors.proto";

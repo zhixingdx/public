@@ -7,7 +7,7 @@
 package audit
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -1603,8 +1603,8 @@ const file_base_audit_v1_plus_message_proto_rawDesc = "" +
 	"\achanges\x18\x03 \x03(\v2\x16.api.base.audit.ChangeR\achanges\x12\x1a\n" +
 	"\bsnapshot\x18\x04 \x01(\tR\bsnapshot\x12$\n" +
 	"\romittedFields\x18\x05 \x03(\tR\romittedFields\x122\n" +
-	"\x14payloadSchemaVersion\x18\x06 \x01(\x05R\x14payloadSchemaVersionBH\n" +
-	"\x0eapi.base.auditP\x01Z4github.com/zhixingdx/oipivot-api/base/audit/v1;auditb\x06proto3"
+	"\x14payloadSchemaVersion\x18\x06 \x01(\x05R\x14payloadSchemaVersionBG\n" +
+	"\x0eapi.base.auditP\x01Z3github.com/zhixingdx/public/api/base/audit/v1;auditb\x06proto3"
 
 var (
 	file_base_audit_v1_plus_message_proto_rawDescOnce sync.Once

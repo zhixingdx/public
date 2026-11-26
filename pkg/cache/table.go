@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/samber/lo"
-	"github.com/zhixingdx/oipivot-api/fault"
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/api/fault"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 	"golang.org/x/sync/singleflight"
 )
 

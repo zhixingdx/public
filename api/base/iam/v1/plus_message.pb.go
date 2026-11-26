@@ -4236,8 +4236,8 @@ const file_base_iam_v1_plus_message_proto_rawDesc = "" +
 	"\x05phone\x18\x03 \x01(\tB\x13\xbaH\x10r\x0e\x10\x01\x18\x0f2\b^[0-9]+$R\x05phone\"K\n" +
 	"\x13AssignedTenantAdmin\x12\x18\n" +
 	"\astaffID\x18\x01 \x01(\tR\astaffID\x12\x1a\n" +
-	"\busername\x18\x02 \x01(\tR\busernameBB\n" +
-	"\fapi.base.iamP\x01Z0github.com/zhixingdx/oipivot-api/base/iam/v1;iamb\x06proto3"
+	"\busername\x18\x02 \x01(\tR\busernameBA\n" +
+	"\fapi.base.iamP\x01Z/github.com/zhixingdx/public/api/base/iam/v1;iamb\x06proto3"
 
 var (
 	file_base_iam_v1_plus_message_proto_rawDescOnce sync.Once

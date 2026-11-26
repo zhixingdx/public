@@ -404,8 +404,8 @@ const file_base_wechat_v1_plus_message_proto_rawDesc = "" +
 	"\twatermark\x18\x04 \x01(\v2<.api.base.wechat.MiniGetPhoneNumberReply.PhoneInfo.WatermarkR\twatermark\x1a?\n" +
 	"\tWatermark\x12\x14\n" +
 	"\x05appid\x18\x01 \x01(\tR\x05appid\x12\x1c\n" +
-	"\ttimestamp\x18\x02 \x01(\x03R\ttimestampBK\n" +
-	"\x0fapi.base.wechatP\x01Z6github.com/zhixingdx/oipivot-api/base/wechat/v1;wechatb\x06proto3"
+	"\ttimestamp\x18\x02 \x01(\x03R\ttimestampBJ\n" +
+	"\x0fapi.base.wechatP\x01Z5github.com/zhixingdx/public/api/base/wechat/v1;wechatb\x06proto3"
 
 var (
 	file_base_wechat_v1_plus_message_proto_rawDescOnce sync.Once

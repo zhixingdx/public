@@ -6,7 +6,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/zhixingdx/oipivot-api/apicommon/v1"
+	"github.com/zhixingdx/public/api/apicommon/v1"
 )
 
 func Valid(call *apicommon.BizCall) bool {

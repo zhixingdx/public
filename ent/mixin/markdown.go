@@ -5,7 +5,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
+	"github.com/zhixingdx/public/ent/ann"
 )
 
 // Markdown  mixin 通常用于表示 内容 markdown

@@ -1,7 +1,7 @@
 // Package dict 资源所属分类字典
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // ResourceSection 资源所属分类（用于发布到校本资源的 section 字段）
 type ResourceSection string

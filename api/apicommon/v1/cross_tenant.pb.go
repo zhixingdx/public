@@ -81,8 +81,8 @@ const file_apicommon_v1_cross_tenant_proto_rawDesc = "" +
 	"\x1fapicommon/v1/cross_tenant.proto\x12\rapi.apicommon\"O\n" +
 	"\x17CrossTenantStaffRequest\x12\x1a\n" +
 	"\btenantID\x18\x01 \x01(\tR\btenantID\x12\x18\n" +
-	"\astaffID\x18\x02 \x01(\tR\astaffIDBJ\n" +
-	"\rapi.apicommonP\x01Z7github.com/zhixingdx/oipivot-api/apicommon/v1;apicommonb\x06proto3"
+	"\astaffID\x18\x02 \x01(\tR\astaffIDBI\n" +
+	"\rapi.apicommonP\x01Z6github.com/zhixingdx/public/api/apicommon/v1;apicommonb\x06proto3"
 
 var (
 	file_apicommon_v1_cross_tenant_proto_rawDescOnce sync.Once

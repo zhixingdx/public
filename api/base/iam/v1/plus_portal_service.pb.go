@@ -7,10 +7,10 @@
 package iam
 
 import (
-	v11 "github.com/zhixingdx/oipivot-api/apicommon/v1"
-	v13 "github.com/zhixingdx/oipivot-api/base/safe/v1"
-	v12 "github.com/zhixingdx/oipivot-api/base/static/v1"
-	v1 "github.com/zhixingdx/oipivot-api/base/user/v1"
+	v11 "github.com/zhixingdx/public/api/apicommon/v1"
+	v13 "github.com/zhixingdx/public/api/base/safe/v1"
+	v12 "github.com/zhixingdx/public/api/base/static/v1"
+	v1 "github.com/zhixingdx/public/api/base/user/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -82,8 +82,8 @@ const file_base_iam_v1_plus_portal_service_proto_rawDesc = "" +
 	"\x19ThirdOAuthProviderAccount\x12..api.base.iam.ThirdOAuthProviderAccountRequest\x1a\x17.google.protobuf.Struct\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/base/iam/portal/oauth/third/account\x12\x9a\x01\n" +
 	"\x1aThirdOAuthStaffLoginByCode\x12*.api.base.iam.ThirdOAuthAccessTokenRequest\x1a\x17.api.base.iam.AuthReply\"7\x82\xd3\xe4\x93\x021:\x01*\",/api/base/iam/portal/oauth/third/loginByCode\x12x\n" +
 	"\x11DetailConfStorage\x12\x16.google.protobuf.Empty\x1a\x19.api.base.iam.StorageConf\"0\x82\xd3\xe4\x93\x02*\x12(/api/base/iam/portal/conf/storage/detail\x12z\n" +
-	"\x0fEditConfStorage\x12\x19.api.base.iam.StorageConf\x1a\x19.api.base.iam.StorageConf\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/base/iam/portal/conf/storage/editBB\n" +
-	"\fapi.base.iamP\x01Z0github.com/zhixingdx/oipivot-api/base/iam/v1;iamb\x06proto3"
+	"\x0fEditConfStorage\x12\x19.api.base.iam.StorageConf\x1a\x19.api.base.iam.StorageConf\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/base/iam/portal/conf/storage/editBA\n" +
+	"\fapi.base.iamP\x01Z/github.com/zhixingdx/public/api/base/iam/v1;iamb\x06proto3"
 
 var file_base_iam_v1_plus_portal_service_proto_goTypes = []any{
 	(*v1.PasswordKeyRequest)(nil),                 // 0: api.base.user.PasswordKeyRequest

@@ -6,8 +6,8 @@ import (
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
-	"github.com/zhixingdx/oipivot/backend/pkg/utils"
+	"github.com/zhixingdx/public/ent/ann"
+	"github.com/zhixingdx/public/pkg/utils"
 )
 
 // IDCard 为实体提供可空的身份证字段，并由生成层统一维护脱敏值和密文。

@@ -11,7 +11,7 @@ package safe
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
@@ -5220,8 +5220,8 @@ const file_base_safe_v1_auto_message_proto_rawDesc = "" +
 	"\x05_pageB\v\n" +
 	"\t_pageSize\"B\n" +
 	"'EditSensitiveWordVersionMetadataRequest\x12\x17\n" +
-	"\x02id\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x02idBE\n" +
-	"\rapi.base.safeP\x01Z2github.com/zhixingdx/oipivot-api/base/safe/v1;safeb\x06proto3"
+	"\x02id\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\x02idBD\n" +
+	"\rapi.base.safeP\x01Z1github.com/zhixingdx/public/api/base/safe/v1;safeb\x06proto3"
 
 var (
 	file_base_safe_v1_auto_message_proto_rawDescOnce sync.Once

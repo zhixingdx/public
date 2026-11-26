@@ -2946,9 +2946,9 @@ const file_config_config_proto_rawDesc = "" +
 	"\x17useBuildIDForVersioning\x18\x18 \x01(\bR\x17useBuildIDForVersioning\".\n" +
 	"\x04Auth\x12\x12\n" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x12\n" +
-	"\x04addr\x18\x02 \x01(\tR\x04addrBJ\n" +
+	"\x04addr\x18\x02 \x01(\tR\x04addrBI\n" +
 	"\n" +
-	"api.configP\x01Z.github.com/zhixingdx/oipivot-api/config;config\xa2\x02\tApiConfigb\x06proto3"
+	"api.configP\x01Z-github.com/zhixingdx/public/api/config;config\xa2\x02\tApiConfigb\x06proto3"
 
 var (
 	file_config_config_proto_rawDescOnce sync.Once

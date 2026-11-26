@@ -9,10 +9,10 @@ package iam
 import (
 	context "context"
 	http "github.com/go-kratos/kratos/v3/transport/http"
-	v12 "github.com/zhixingdx/oipivot-api/apicommon/v1"
-	v11 "github.com/zhixingdx/oipivot-api/base/safe/v1"
-	v13 "github.com/zhixingdx/oipivot-api/base/static/v1"
-	v1 "github.com/zhixingdx/oipivot-api/base/user/v1"
+	v12 "github.com/zhixingdx/public/api/apicommon/v1"
+	v11 "github.com/zhixingdx/public/api/base/safe/v1"
+	v13 "github.com/zhixingdx/public/api/base/static/v1"
+	v1 "github.com/zhixingdx/public/api/base/user/v1"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	structpb "google.golang.org/protobuf/types/known/structpb"
 )

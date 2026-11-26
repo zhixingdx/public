@@ -27,8 +27,8 @@ const file_base_wechat_v1_plus_service_proto_rawDesc = "" +
 	"!base/wechat/v1/plus_service.proto\x12\x0fapi.base.wechat\x1a!base/wechat/v1/plus_message.proto2\xe8\x01\n" +
 	"\x14BaseWechatManagePlus\x12d\n" +
 	"\x10MiniCode2Session\x12(.api.base.wechat.MiniCode2SessionRequest\x1a&.api.base.wechat.MiniCode2SessionReply\x12j\n" +
-	"\x12MiniGetPhoneNumber\x12*.api.base.wechat.MiniGetPhoneNumberRequest\x1a(.api.base.wechat.MiniGetPhoneNumberReplyBK\n" +
-	"\x0fapi.base.wechatP\x01Z6github.com/zhixingdx/oipivot-api/base/wechat/v1;wechatb\x06proto3"
+	"\x12MiniGetPhoneNumber\x12*.api.base.wechat.MiniGetPhoneNumberRequest\x1a(.api.base.wechat.MiniGetPhoneNumberReplyBJ\n" +
+	"\x0fapi.base.wechatP\x01Z5github.com/zhixingdx/public/api/base/wechat/v1;wechatb\x06proto3"
 
 var file_base_wechat_v1_plus_service_proto_goTypes = []any{
 	(*MiniCode2SessionRequest)(nil),   // 0: api.base.wechat.MiniCode2SessionRequest

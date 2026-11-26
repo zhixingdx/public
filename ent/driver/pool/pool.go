@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/zhixingdx/oipivot-api/config"
+	"github.com/zhixingdx/public/api/config"
 	"google.golang.org/protobuf/types/known/durationpb"
 )
 

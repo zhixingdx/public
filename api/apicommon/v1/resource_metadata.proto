@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api.apicommon;
 
-option go_package = "github.com/zhixingdx/oipivot-api/apicommon/v1;apicommon";
+option go_package = "github.com/zhixingdx/public/api/apicommon/v1;apicommon";
 option java_multiple_files = true;
 option java_package = "api.apicommon";
 

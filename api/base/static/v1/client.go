@@ -1,6 +1,6 @@
 package static
 
-import "github.com/zhixingdx/oipivot-api/rpcclient"
+import "github.com/zhixingdx/public/api/rpcclient"
 
 func GetRPC(endpoint string) BaseStaticManageClient {
 	return NewBaseStaticManageClient(rpcclient.Connect(endpoint))

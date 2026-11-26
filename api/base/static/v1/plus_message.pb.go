@@ -1710,8 +1710,8 @@ const file_base_static_v1_plus_message_proto_rawDesc = "" +
 	"\x0efirstLevelDirs\x18\x02 \x03(\v2-.api.base.static.TenantFirstLevelDirUsageItemR\x0efirstLevelDirs\x12C\n" +
 	"\n" +
 	"quotaTotal\x18\x03 \x01(\v2#.api.base.static.StorageSizeDisplayR\n" +
-	"quotaTotalBK\n" +
-	"\x0fapi.base.staticP\x01Z6github.com/zhixingdx/oipivot-api/base/static/v1;staticb\x06proto3"
+	"quotaTotalBJ\n" +
+	"\x0fapi.base.staticP\x01Z5github.com/zhixingdx/public/api/base/static/v1;staticb\x06proto3"
 
 var (
 	file_base_static_v1_plus_message_proto_rawDescOnce sync.Once

@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"
+	"github.com/zhixingdx/public/pkg/middleware/meta"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 )
 

@@ -8,8 +8,8 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
-	"github.com/zhixingdx/oipivot/backend/pkg/dict"
+	"github.com/zhixingdx/public/ent/ann"
+	"github.com/zhixingdx/public/pkg/dict"
 )
 
 // versionedResourceContentHashPattern 固定内部 SHA-256 为小写十六进制规范编码。

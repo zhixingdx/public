@@ -1,7 +1,7 @@
 /* cSpell:disable */
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 type GrantType string
 

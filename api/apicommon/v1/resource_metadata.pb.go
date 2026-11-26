@@ -560,8 +560,8 @@ const file_apicommon_v1_resource_metadata_proto_rawDesc = "" +
 	"\x06all_of\x18\x02 \x01(\v2..api.apicommon.ResourceMetadataExpressionGroupH\x00R\x05allOf\x12G\n" +
 	"\x06any_of\x18\x03 \x01(\v2..api.apicommon.ResourceMetadataExpressionGroupH\x00R\x05anyOfB\x13\n" +
 	"\n" +
-	"expression\x12\x05\xbaH\x02\b\x01BJ\n" +
-	"\rapi.apicommonP\x01Z7github.com/zhixingdx/oipivot-api/apicommon/v1;apicommonb\x06proto3"
+	"expression\x12\x05\xbaH\x02\b\x01BI\n" +
+	"\rapi.apicommonP\x01Z6github.com/zhixingdx/public/api/apicommon/v1;apicommonb\x06proto3"
 
 var (
 	file_apicommon_v1_resource_metadata_proto_rawDescOnce sync.Once

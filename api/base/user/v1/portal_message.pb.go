@@ -138,8 +138,8 @@ const file_base_user_v1_portal_message_proto_rawDesc = "" +
 	"\b_idTokenB\x10\n" +
 	"\x0e_oauthProviderB\x10\n" +
 	"\x0e_oauthClientIDB\x11\n" +
-	"\x0f_oauthAccountIDBE\n" +
-	"\rapi.base.userP\x01Z2github.com/zhixingdx/oipivot-api/base/user/v1;userb\x06proto3"
+	"\x0f_oauthAccountIDBD\n" +
+	"\rapi.base.userP\x01Z1github.com/zhixingdx/public/api/base/user/v1;userb\x06proto3"
 
 var (
 	file_base_user_v1_portal_message_proto_rawDescOnce sync.Once

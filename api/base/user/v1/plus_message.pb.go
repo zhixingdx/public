@@ -3622,8 +3622,8 @@ const file_base_user_v1_plus_message_proto_rawDesc = "" +
 	"\x06userID\x18\x01 \x01(\tR\x06userID\x122\n" +
 	"\x14allowedSupplierCodes\x18\x02 \x03(\tR\x14allowedSupplierCodes\"L\n" +
 	"\x16AppSupplierAccessReply\x122\n" +
-	"\x14allowedSupplierCodes\x18\x01 \x03(\tR\x14allowedSupplierCodesBE\n" +
-	"\rapi.base.userP\x01Z2github.com/zhixingdx/oipivot-api/base/user/v1;userb\x06proto3"
+	"\x14allowedSupplierCodes\x18\x01 \x03(\tR\x14allowedSupplierCodesBD\n" +
+	"\rapi.base.userP\x01Z1github.com/zhixingdx/public/api/base/user/v1;userb\x06proto3"
 
 var (
 	file_base_user_v1_plus_message_proto_rawDescOnce sync.Once

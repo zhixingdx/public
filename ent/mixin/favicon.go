@@ -4,7 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
+	"github.com/zhixingdx/public/ent/ann"
 )
 
 // Favicon mixin 通常用于表示 Favicon 图标地址

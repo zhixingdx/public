@@ -10,7 +10,7 @@
 package tenant
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -45,8 +45,8 @@ const file_base_tenant_v1_auto_portal_service_proto_rawDesc = "" +
 	"\x18QueryCoopRelationRequest\x126.api.base.tenant.QueryCoopRelationRequestPortalRequest\x1a3.api.base.tenant.CoopRelationRequestPortalRowsReply\"<\x82\xd3\xe4\x93\x026:\x01*\"1/api/base/tenant/portal/coopRelationRequest/query\x12\xa7\x01\n" +
 	"\x18CountCoopRelationRequest\x126.api.base.tenant.QueryCoopRelationRequestPortalRequest\x1a\x15.api.apicommon.BigNum\"<\x82\xd3\xe4\x93\x026:\x01*\"1/api/base/tenant/portal/coopRelationRequest/count\x12\xc2\x01\n" +
 	"\x17ListCoopRelationRequest\x125.api.base.tenant.ListCoopRelationRequestPortalRequest\x1a3.api.base.tenant.CoopRelationRequestPortalListReply\";\x82\xd3\xe4\x93\x025:\x01*\"0/api/base/tenant/portal/coopRelationRequest/list\x12\x8f\x01\n" +
-	"\fCurrentRealm\x12 .api.base.tenant.OneRealmRequest\x1a..api.base.tenant.RealmVersionPortalDetailReply\"-\x82\xd3\xe4\x93\x02'\x12%/api/base/tenant/portal/realm/currentBK\n" +
-	"\x0fapi.base.tenantP\x01Z6github.com/zhixingdx/oipivot-api/base/tenant/v1;tenantb\x06proto3"
+	"\fCurrentRealm\x12 .api.base.tenant.OneRealmRequest\x1a..api.base.tenant.RealmVersionPortalDetailReply\"-\x82\xd3\xe4\x93\x02'\x12%/api/base/tenant/portal/realm/currentBJ\n" +
+	"\x0fapi.base.tenantP\x01Z5github.com/zhixingdx/public/api/base/tenant/v1;tenantb\x06proto3"
 
 var file_base_tenant_v1_auto_portal_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),                          // 0: google.protobuf.Empty

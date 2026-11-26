@@ -10,7 +10,7 @@
 package notify
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -72,8 +72,8 @@ const file_base_notify_v1_auto_service_proto_rawDesc = "" +
 	"\x11QueryOneSmsRecord\x12&.api.base.notify.QuerySmsRecordRequest\x1a%.api.base.notify.SmsRecordDetailReply\"5\x82\xd3\xe4\x93\x02/:\x01*\"*/api/base/notify/manage/smsRecord/queryOne\x12\x92\x01\n" +
 	"\x0eQuerySmsRecord\x12&.api.base.notify.QuerySmsRecordRequest\x1a$.api.base.notify.SmsRecordMultiReply\"2\x82\xd3\xe4\x93\x02,:\x01*\"'/api/base/notify/manage/smsRecord/query\x12\x83\x01\n" +
 	"\x0eCountSmsRecord\x12&.api.base.notify.QuerySmsRecordRequest\x1a\x15.api.apicommon.BigNum\"2\x82\xd3\xe4\x93\x02,:\x01*\"'/api/base/notify/manage/smsRecord/count\x12\x8e\x01\n" +
-	"\rListSmsRecord\x12%.api.base.notify.ListSmsRecordRequest\x1a#.api.base.notify.SmsRecordListReply\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/base/notify/manage/smsRecord/listBK\n" +
-	"\x0fapi.base.notifyP\x01Z6github.com/zhixingdx/oipivot-api/base/notify/v1;notifyb\x06proto3"
+	"\rListSmsRecord\x12%.api.base.notify.ListSmsRecordRequest\x1a#.api.base.notify.SmsRecordListReply\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/base/notify/manage/smsRecord/listBJ\n" +
+	"\x0fapi.base.notifyP\x01Z5github.com/zhixingdx/public/api/base/notify/v1;notifyb\x06proto3"
 
 var file_base_notify_v1_auto_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),          // 0: google.protobuf.Empty

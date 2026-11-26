@@ -9,7 +9,7 @@ import "base/notify/v1/auto_portal_message.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/zhixingdx/oipivot-api/base/notify/v1;notify";
+option go_package = "github.com/zhixingdx/public/api/base/notify/v1;notify";
 option java_multiple_files = true;
 option java_package = "api.base.notify";
 

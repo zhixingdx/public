@@ -7,7 +7,7 @@
 package safe
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -30,8 +30,8 @@ const file_base_safe_v1_plus_service_proto_rawDesc = "" +
 	"\x1fbase/safe/v1/plus_service.proto\x12\rapi.base.safe\x1a\x1fbase/safe/v1/plus_message.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x19apicommon/v1/common.proto2\xa0\x02\n" +
 	"\x12BaseSafeManagePlus\x12\x8d\x01\n" +
 	"\x16GetSensitiveWordStatus\x12\x16.google.protobuf.Empty\x1a'.api.base.safe.SensitiveWordStatusReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/safe/manage/sensitiveWord/status\x12z\n" +
-	"\x14ReloadSensitiveWords\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"5\x82\xd3\xe4\x93\x02/:\x01*\"*/api/base/safe/manage/sensitiveWord/reloadBE\n" +
-	"\rapi.base.safeP\x01Z2github.com/zhixingdx/oipivot-api/base/safe/v1;safeb\x06proto3"
+	"\x14ReloadSensitiveWords\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"5\x82\xd3\xe4\x93\x02/:\x01*\"*/api/base/safe/manage/sensitiveWord/reloadBD\n" +
+	"\rapi.base.safeP\x01Z1github.com/zhixingdx/public/api/base/safe/v1;safeb\x06proto3"
 
 var file_base_safe_v1_plus_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),            // 0: google.protobuf.Empty

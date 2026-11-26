@@ -131,7 +131,7 @@ const file_apicommon_v1_trusted_runtime_proto_rawDesc = "" +
 	"\x13TrustedRuntimeReply\x12/\n" +
 	"\x06output\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06output2d\n" +
 	"\x0eTrustedRuntime\x12R\n" +
-	"\x06Invoke\x12$.api.apicommon.TrustedRuntimeRequest\x1a\".api.apicommon.TrustedRuntimeReplyB9Z7github.com/zhixingdx/oipivot-api/apicommon/v1;apicommonb\x06proto3"
+	"\x06Invoke\x12$.api.apicommon.TrustedRuntimeRequest\x1a\".api.apicommon.TrustedRuntimeReplyB8Z6github.com/zhixingdx/public/api/apicommon/v1;apicommonb\x06proto3"
 
 var (
 	file_apicommon_v1_trusted_runtime_proto_rawDescOnce sync.Once

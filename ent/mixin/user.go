@@ -6,7 +6,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
+	"github.com/zhixingdx/public/ent/ann"
 )
 
 // Creator  mixin 创建人
@@ -27,7 +27,7 @@ func (Creator) Fields() []ent.Field {
 				Validate:   "{max_len:15}",
 				AutoCreate: true,
 				DefaultFn: &ann.FieldFunc{
-					PkgPath: []string{"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"},
+					PkgPath: []string{"github.com/zhixingdx/public/pkg/middleware/meta"},
 					Place:   ann.PlaceService,
 					GetStr:  "userID,_:=meta.GetUserID(ctx)",
 					SetStr:  `if b.Creator==nil && userID != "" {b.Creator = &userID}`,
@@ -68,14 +68,14 @@ func (Updater) Fields() []ent.Field {
 				AutoCreate: true,
 				AutoUpdate: true,
 				UpdateFn: &ann.FieldFunc{
-					PkgPath: []string{"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"},
+					PkgPath: []string{"github.com/zhixingdx/public/pkg/middleware/meta"},
 					Place:   ann.PlaceService,
 					GetStr:  "userID,_:=meta.GetUserID(ctx)",
 					SetStr:  `if b.Updater==nil && userID != "" {b.Updater = &userID}`,
 					Portal:  ann.FnPortalTypeOnly,
 				},
 				DefaultFn: &ann.FieldFunc{
-					PkgPath: []string{"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"},
+					PkgPath: []string{"github.com/zhixingdx/public/pkg/middleware/meta"},
 					Place:   ann.PlaceService,
 					GetStr:  "userID,_:=meta.GetUserID(ctx)",
 					SetStr:  `if b.Updater==nil && userID != "" {b.Updater = &userID}`,

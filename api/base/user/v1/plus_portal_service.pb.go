@@ -7,10 +7,10 @@
 package user
 
 import (
-	v12 "github.com/zhixingdx/oipivot-api/apicommon/v1"
-	v13 "github.com/zhixingdx/oipivot-api/base/safe/v1"
-	v1 "github.com/zhixingdx/oipivot-api/base/static/v1"
-	v11 "github.com/zhixingdx/oipivot-api/base/wechat/v1"
+	v12 "github.com/zhixingdx/public/api/apicommon/v1"
+	v13 "github.com/zhixingdx/public/api/base/safe/v1"
+	v1 "github.com/zhixingdx/public/api/base/static/v1"
+	v11 "github.com/zhixingdx/public/api/base/wechat/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -78,8 +78,8 @@ const file_base_user_v1_plus_portal_service_proto_rawDesc = "" +
 	"\x0eThirdOAuthUser\x12$.api.base.user.ThirdOAuthUserRequest\x1a\x17.google.protobuf.Struct\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/base/user/portal/oauth/third/user\x12\x9c\x01\n" +
 	"\x15ThirdOAuthLoginByCode\x12+.api.base.user.ThirdOAuthAccessTokenRequest\x1a\x1c.api.base.user.UserAuthReply\"8\x82\xd3\xe4\x93\x022:\x01*\"-/api/base/user/portal/oauth/third/loginByCode\x12\x8b\x01\n" +
 	"\x13OAuthGetAccessToken\x12 .api.base.user.OAuthTokenRequest\x1a\x1e.api.base.user.OAuthTokenReply\"2\x82\xd3\xe4\x93\x02,:\x01*\"'/api/base/user/portal/oauth/accessToken\x12\x93\x01\n" +
-	"\x10OAuthGetUserInfo\x12,.api.base.user.OAuthAccessTokenParamsRequest\x1a$.api.base.user.UserPortalDetailReply\"+\x82\xd3\xe4\x93\x02%:\x01*\" /api/base/user/portal/oauth/userBE\n" +
-	"\rapi.base.userP\x01Z2github.com/zhixingdx/oipivot-api/base/user/v1;userb\x06proto3"
+	"\x10OAuthGetUserInfo\x12,.api.base.user.OAuthAccessTokenParamsRequest\x1a$.api.base.user.UserPortalDetailReply\"+\x82\xd3\xe4\x93\x02%:\x01*\" /api/base/user/portal/oauth/userBD\n" +
+	"\rapi.base.userP\x01Z1github.com/zhixingdx/public/api/base/user/v1;userb\x06proto3"
 
 var file_base_user_v1_plus_portal_service_proto_goTypes = []any{
 	(*ResourceIDRequest)(nil),                    // 0: api.base.user.ResourceIDRequest

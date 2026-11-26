@@ -10,9 +10,9 @@ import (
 
 	"github.com/go-kratos/kratos/v3/transport"
 	"github.com/google/uuid"
-	"github.com/zhixingdx/oipivot-api/apicommon/v1"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"
+	"github.com/zhixingdx/public/api/apicommon/v1"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/middleware/meta"
 	"go.opentelemetry.io/otel/trace"
 )
 

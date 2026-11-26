@@ -3,10 +3,10 @@ package passwordenvelope
 import (
 	"context"
 
-	safe "github.com/zhixingdx/oipivot-api/base/safe/v1"
-	user "github.com/zhixingdx/oipivot-api/base/user/v1"
-	"github.com/zhixingdx/oipivot-api/fault"
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"
+	safe "github.com/zhixingdx/public/api/base/safe/v1"
+	user "github.com/zhixingdx/public/api/base/user/v1"
+	"github.com/zhixingdx/public/api/fault"
+	"github.com/zhixingdx/public/pkg/middleware/meta"
 	"google.golang.org/grpc"
 )
 

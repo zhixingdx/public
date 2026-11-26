@@ -28,8 +28,8 @@ const file_base_notify_v1_plus_portal_service_proto_rawDesc = "" +
 	"\x14BaseNotifyPortalPlus\x12X\n" +
 	"\vSendSmsCode\x12#.api.base.notify.SendSmsCodeRequest\x1a$.api.base.notify.SendSmsCodeResponse\x12^\n" +
 	"\rSendEmailCode\x12%.api.base.notify.SendEmailCodeRequest\x1a&.api.base.notify.SendEmailCodeResponse\x12R\n" +
-	"\tSendEmail\x12!.api.base.notify.SendEmailRequest\x1a\".api.base.notify.SendEmailResponseBK\n" +
-	"\x0fapi.base.notifyP\x01Z6github.com/zhixingdx/oipivot-api/base/notify/v1;notifyb\x06proto3"
+	"\tSendEmail\x12!.api.base.notify.SendEmailRequest\x1a\".api.base.notify.SendEmailResponseBJ\n" +
+	"\x0fapi.base.notifyP\x01Z5github.com/zhixingdx/public/api/base/notify/v1;notifyb\x06proto3"
 
 var file_base_notify_v1_plus_portal_service_proto_goTypes = []any{
 	(*SendSmsCodeRequest)(nil),    // 0: api.base.notify.SendSmsCodeRequest

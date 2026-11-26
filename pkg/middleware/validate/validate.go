@@ -7,8 +7,8 @@ import (
 	"buf.build/go/protovalidate"
 	"github.com/go-kratos/kratos/v3/errors"
 	"github.com/go-kratos/kratos/v3/middleware"
-	"github.com/zhixingdx/oipivot-api/fault"
-	"github.com/zhixingdx/oipivot/backend/pkg/lang"
+	"github.com/zhixingdx/public/api/fault"
+	"github.com/zhixingdx/public/pkg/lang"
 	"google.golang.org/protobuf/proto"
 )
 

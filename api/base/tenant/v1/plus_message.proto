@@ -1,6 +1,6 @@
 syntax = "proto3";
 package api.base.tenant;
-option go_package = "github.com/zhixingdx/oipivot-api/base/tenant/v1;tenant";
+option go_package = "github.com/zhixingdx/public/api/base/tenant/v1;tenant";
 option java_multiple_files = true;
 option java_package = "api.base.tenant";
 

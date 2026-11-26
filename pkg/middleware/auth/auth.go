@@ -3,9 +3,9 @@ package auth
 
 import (
 	"github.com/go-kratos/kratos/v3/middleware"
-	iam "github.com/zhixingdx/oipivot-api/base/iam/v1"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/lang"
+	iam "github.com/zhixingdx/public/api/base/iam/v1"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/lang"
 )
 
 // ListConf 白名单和灰名单配置

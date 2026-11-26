@@ -6,7 +6,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
+	"github.com/zhixingdx/public/ent/ann"
 )
 
 // CreatorByStaff  mixin 创建人
@@ -32,7 +32,7 @@ func (CreatorByStaff) Fields() []ent.Field {
 				NotPortalQueryReply:  true,
 				NotPortalDetailReply: true,
 				DefaultFn: &ann.FieldFunc{
-					PkgPath: []string{"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"},
+					PkgPath: []string{"github.com/zhixingdx/public/pkg/middleware/meta"},
 					Place:   ann.PlaceService,
 					GetStr:  "staffID,_:=meta.GetStaffID(ctx)",
 					SetStr:  `if b.CreatorByStaff==nil && staffID != "" {b.CreatorByStaff = &staffID}`,
@@ -78,7 +78,7 @@ func (UpdaterByStaff) Fields() []ent.Field {
 				NotPortalQueryReply:  true,
 				NotPortalDetailReply: true,
 				UpdateFn: &ann.FieldFunc{
-					PkgPath: []string{"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"},
+					PkgPath: []string{"github.com/zhixingdx/public/pkg/middleware/meta"},
 					Place:   ann.PlaceService,
 					GetStr:  "staffID,_:=meta.GetStaffID(ctx)",
 					SetStr:  `if b.UpdaterByStaff==nil && staffID != "" {b.UpdaterByStaff = &staffID}`,

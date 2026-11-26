@@ -8,7 +8,7 @@ import "apicommon/v1/common.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/zhixingdx/oipivot-api/base/audit/v1;audit";
+option go_package = "github.com/zhixingdx/public/api/base/audit/v1;audit";
 option java_multiple_files = true;
 option java_package = "api.base.audit";
 service BaseAuditManage {

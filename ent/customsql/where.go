@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
-	"github.com/zhixingdx/oipivot/backend/pkg/tag"
+	"github.com/zhixingdx/public/ent/ann"
+	"github.com/zhixingdx/public/pkg/tag"
 	"github.com/samber/lo"
 )
 

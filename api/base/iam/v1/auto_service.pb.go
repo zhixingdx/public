@@ -10,7 +10,7 @@
 package iam
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -272,8 +272,8 @@ const file_base_iam_v1_auto_service_proto_rawDesc = "" +
 	"\x11SetUserGroupCache\x12!.api.base.iam.OneUserGroupRequest\x1a\x13.api.apicommon.Bool\"2\x82\xd3\xe4\x93\x02,:\x01*\"'/api/base/iam/manage/userGroup/setCache\x12\x91\x01\n" +
 	"\x12MGetUserGroupCache\x12#.api.base.iam.MultiUserGroupRequest\x1a!.api.base.iam.UserGroupMultiReply\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/base/iam/manage/userGroup/mGetCache\x12\x83\x01\n" +
 	"\x12MSetUserGroupCache\x12#.api.base.iam.MultiUserGroupRequest\x1a\x13.api.apicommon.Bool\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/base/iam/manage/userGroup/mSetCache\x12\x81\x01\n" +
-	"\x11DelUserGroupCache\x12#.api.base.iam.MultiUserGroupRequest\x1a\x13.api.apicommon.Bool\"2\x82\xd3\xe4\x93\x02,:\x01*\"'/api/base/iam/manage/userGroup/delCacheBB\n" +
-	"\fapi.base.iamP\x01Z0github.com/zhixingdx/oipivot-api/base/iam/v1;iamb\x06proto3"
+	"\x11DelUserGroupCache\x12#.api.base.iam.MultiUserGroupRequest\x1a\x13.api.apicommon.Bool\"2\x82\xd3\xe4\x93\x02,:\x01*\"'/api/base/iam/manage/userGroup/delCacheBA\n" +
+	"\fapi.base.iamP\x01Z/github.com/zhixingdx/public/api/base/iam/v1;iamb\x06proto3"
 
 var file_base_iam_v1_auto_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),                      // 0: google.protobuf.Empty

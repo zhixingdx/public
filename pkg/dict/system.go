@@ -6,8 +6,8 @@ package dict
 import (
 	"context"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/lang"
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"
+	"github.com/zhixingdx/public/pkg/lang"
+	"github.com/zhixingdx/public/pkg/middleware/meta"
 )
 
 // Platform 平台

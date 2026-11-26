@@ -3,7 +3,7 @@ package utils
 import (
 	"context"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"
+	"github.com/zhixingdx/public/pkg/middleware/meta"
 )
 
 // 获取客户端 IP

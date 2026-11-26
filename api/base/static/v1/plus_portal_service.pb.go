@@ -30,8 +30,8 @@ const file_base_static_v1_plus_portal_service_proto_rawDesc = "" +
 	"\n" +
 	"(base/static/v1/plus_portal_service.proto\x12\x0fapi.base.static\x1a\x1cgoogle/api/annotations.proto\x1a!base/static/v1/plus_message.proto2\xba\x01\n" +
 	"\x14BaseStaticPortalPlus\x12\xa1\x01\n" +
-	"\x13GetPublicFileAccess\x12+.api.base.static.GetPublicFileAccessRequest\x1a).api.base.static.GetPublicFileAccessReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/static/portal/file/public/accessBK\n" +
-	"\x0fapi.base.staticP\x01Z6github.com/zhixingdx/oipivot-api/base/static/v1;staticb\x06proto3"
+	"\x13GetPublicFileAccess\x12+.api.base.static.GetPublicFileAccessRequest\x1a).api.base.static.GetPublicFileAccessReply\"2\x82\xd3\xe4\x93\x02,\x12*/api/base/static/portal/file/public/accessBJ\n" +
+	"\x0fapi.base.staticP\x01Z5github.com/zhixingdx/public/api/base/static/v1;staticb\x06proto3"
 
 var file_base_static_v1_plus_portal_service_proto_goTypes = []any{
 	(*GetPublicFileAccessRequest)(nil), // 0: api.base.static.GetPublicFileAccessRequest

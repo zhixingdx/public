@@ -11,8 +11,8 @@ package iam
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
-	v11 "github.com/zhixingdx/oipivot-api/base/tenant/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
+	v11 "github.com/zhixingdx/public/api/base/tenant/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
@@ -18875,8 +18875,8 @@ const file_base_iam_v1_auto_portal_message_proto_rawDesc = "" +
 	"\x05count\x18\x04 \x01(\x03R\x05count\x12\x1e\n" +
 	"\n" +
 	"totalPages\x18\x05 \x01(\x05R\n" +
-	"totalPagesBB\n" +
-	"\fapi.base.iamP\x01Z0github.com/zhixingdx/oipivot-api/base/iam/v1;iamb\x06proto3"
+	"totalPagesBA\n" +
+	"\fapi.base.iamP\x01Z/github.com/zhixingdx/public/api/base/iam/v1;iamb\x06proto3"
 
 var (
 	file_base_iam_v1_auto_portal_message_proto_rawDescOnce sync.Once

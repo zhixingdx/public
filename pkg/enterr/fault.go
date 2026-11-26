@@ -3,7 +3,7 @@ package enterr
 import (
 	"errors"
 
-	"github.com/zhixingdx/oipivot-api/fault"
+	"github.com/zhixingdx/public/api/fault"
 )
 
 // ErrDuplicateKey 供同一次用例在并发首次创建时重新读取，不改变对外错误码。

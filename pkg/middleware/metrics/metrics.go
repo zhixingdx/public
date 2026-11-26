@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-kratos/kratos/contrib/otel/v3/metrics"
 	"github.com/go-kratos/kratos/v3/middleware"
-	"github.com/zhixingdx/oipivot-api/config"
-	ymetrics "github.com/zhixingdx/oipivot/backend/pkg/metrics"
+	"github.com/zhixingdx/public/api/config"
+	ymetrics "github.com/zhixingdx/public/pkg/metrics"
 	"go.opentelemetry.io/otel/metric"
 )
 

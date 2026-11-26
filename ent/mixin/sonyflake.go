@@ -11,8 +11,8 @@ import (
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
-	"github.com/zhixingdx/oipivot/backend/pkg/utils"
+	"github.com/zhixingdx/public/ent/ann"
+	"github.com/zhixingdx/public/pkg/utils"
 	"github.com/sony/sonyflake"
 )
 

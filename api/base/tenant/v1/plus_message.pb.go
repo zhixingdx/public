@@ -2860,8 +2860,8 @@ const file_base_tenant_v1_plus_message_proto_rawDesc = "" +
 	"\x11InitTenantRequest\x12\x19\n" +
 	"\x02id\x18\x01 \x01(\tB\t\xbaH\x06r\x04\x10\x01\x18\x0fR\x02id\x12A\n" +
 	"\x06tenant\x18\x02 \x01(\v2!.api.base.tenant.AddTenantRequestB\x06\xbaH\x03\xc8\x01\x01R\x06tenant\x12#\n" +
-	"\rvalidate_only\x18\x03 \x01(\bR\fvalidateOnlyBK\n" +
-	"\x0fapi.base.tenantP\x01Z6github.com/zhixingdx/oipivot-api/base/tenant/v1;tenantb\x06proto3"
+	"\rvalidate_only\x18\x03 \x01(\bR\fvalidateOnlyBJ\n" +
+	"\x0fapi.base.tenantP\x01Z5github.com/zhixingdx/public/api/base/tenant/v1;tenantb\x06proto3"
 
 var (
 	file_base_tenant_v1_plus_message_proto_rawDescOnce sync.Once

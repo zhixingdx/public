@@ -1030,8 +1030,8 @@ const file_base_audit_v1_auto_message_proto_rawDesc = "" +
 	"\btenantID\x18\xcd\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\btenantID\"V\n" +
 	"\x12MultiRecordRequest\x12\x1a\n" +
 	"\x03ids\x18\x01 \x03(\tB\b\xbaH\x05\x92\x01\x02\b\x01R\x03ids\x12$\n" +
-	"\btenantID\x18\xcd\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\btenantIDBH\n" +
-	"\x0eapi.base.auditP\x01Z4github.com/zhixingdx/oipivot-api/base/audit/v1;auditb\x06proto3"
+	"\btenantID\x18\xcd\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\btenantIDBG\n" +
+	"\x0eapi.base.auditP\x01Z3github.com/zhixingdx/public/api/base/audit/v1;auditb\x06proto3"
 
 var (
 	file_base_audit_v1_auto_message_proto_rawDescOnce sync.Once

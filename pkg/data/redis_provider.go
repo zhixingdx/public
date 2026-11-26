@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/zhixingdx/oipivot-api/config"
+	"github.com/zhixingdx/public/api/config"
 )
 
 // NewUniversalRedisFromConfig 根据配置创建 Redis 客户端，供 Wire 注入；与 GetRedisClient 行为一致。

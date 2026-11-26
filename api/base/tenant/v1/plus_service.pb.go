@@ -7,7 +7,7 @@
 package tenant
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -41,8 +41,8 @@ const file_base_tenant_v1_plus_service_proto_rawDesc = "" +
 	"\vGetKindsMap\x12\x16.google.protobuf.Empty\x1a\x15.api.apicommon.StrMap\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/api/base/tenant/manage/kinds\x12\x7f\n" +
 	"\vApproveJoin\x12#.api.base.tenant.ApproveJoinRequest\x1a\x13.api.apicommon.Bool\"6\x82\xd3\xe4\x93\x020:\x01*\"+/api/base/tenant/manage/tenant/join/approve\x12\xb7\x01\n" +
 	"\x1aGetSelectableParentTenants\x12/.api.base.tenant.SelectableParentTenantsRequest\x1a..api.base.tenant.TenantRelationBriefMultiReply\"8\x82\xd3\xe4\x93\x022\x120/api/base/tenant/manage/tenant/selectableParents\x12y\n" +
-	"\x12GetSupplierOptions\x12\x12.api.apicommon.Str\x1a\x1d.api.base.tenant.OptionsReply\"0\x82\xd3\xe4\x93\x02*\x12(/api/base/tenant/manage/supplier/optionsBK\n" +
-	"\x0fapi.base.tenantP\x01Z6github.com/zhixingdx/oipivot-api/base/tenant/v1;tenantb\x06proto3"
+	"\x12GetSupplierOptions\x12\x12.api.apicommon.Str\x1a\x1d.api.base.tenant.OptionsReply\"0\x82\xd3\xe4\x93\x02*\x12(/api/base/tenant/manage/supplier/optionsBJ\n" +
+	"\x0fapi.base.tenantP\x01Z5github.com/zhixingdx/public/api/base/tenant/v1;tenantb\x06proto3"
 
 var file_base_tenant_v1_plus_service_proto_goTypes = []any{
 	(*InitTenantRequest)(nil),              // 0: api.base.tenant.InitTenantRequest

@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-kratos/kratos/v3/errors"
 	"github.com/go-kratos/kratos/v3/metadata"
-	"github.com/zhixingdx/oipivot-api/fault"
+	"github.com/zhixingdx/public/api/fault"
 )
 
 // GetValue 获取元数据

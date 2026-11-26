@@ -7,8 +7,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 )
 
 var (

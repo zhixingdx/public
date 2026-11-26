@@ -5,7 +5,7 @@ import (
 	"context"
 
 	"github.com/go-kratos/kratos/v3/metadata"
-	"github.com/zhixingdx/oipivot-api/fault"
+	"github.com/zhixingdx/public/api/fault"
 )
 
 // ValidTenantID 校验 1 到 63 字节的可打印 ASCII 标识，并拒绝首尾空格。

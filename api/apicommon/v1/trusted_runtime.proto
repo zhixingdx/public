@@ -1,6 +1,6 @@
 syntax = "proto3";
 package api.apicommon;
-option go_package = "github.com/zhixingdx/oipivot-api/apicommon/v1;apicommon";
+option go_package = "github.com/zhixingdx/public/api/apicommon/v1;apicommon";
 import "google/protobuf/struct.proto";
 
 // TrustedRuntime 为受信内部调用复用目标服务的现有操作权限和业务处理，不提供 HTTP 路由。

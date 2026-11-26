@@ -1,7 +1,7 @@
 // Package dict 校本资源来源类型字典
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // SchoolResourceSource 校本资源来源类型
 type SchoolResourceSource string

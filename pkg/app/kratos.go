@@ -11,8 +11,8 @@ import (
 	"github.com/go-kratos/kratos/v3/transport"
 	"github.com/go-kratos/kratos/v3/transport/grpc"
 	"github.com/go-kratos/kratos/v3/transport/http"
-	conf "github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	conf "github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 

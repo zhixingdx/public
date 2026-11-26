@@ -167,8 +167,8 @@ const file_base_iam_v1_plus_message_dag_proto_rawDesc = "" +
 	"\x0e_oauthClientID\"x\n" +
 	"\x15GroupRelPortalRequest\x12!\n" +
 	"\agroupID\x18\x01 \x01(\tB\a\xbaH\x04r\x02\x10\x01R\agroupID\x12<\n" +
-	"\x06staffs\x18\x02 \x01(\v2$.api.base.iam.ListStaffPortalRequestR\x06staffsBB\n" +
-	"\fapi.base.iamP\x01Z0github.com/zhixingdx/oipivot-api/base/iam/v1;iamb\x06proto3"
+	"\x06staffs\x18\x02 \x01(\v2$.api.base.iam.ListStaffPortalRequestR\x06staffsBA\n" +
+	"\fapi.base.iamP\x01Z/github.com/zhixingdx/public/api/base/iam/v1;iamb\x06proto3"
 
 var (
 	file_base_iam_v1_plus_message_dag_proto_rawDescOnce sync.Once

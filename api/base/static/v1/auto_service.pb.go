@@ -10,7 +10,7 @@
 package static
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -233,8 +233,8 @@ const file_base_static_v1_auto_service_proto_rawDesc = "" +
 	"\x15DelVideoCategoryCache\x12*.api.base.static.MultiVideoCategoryRequest\x1a\x13.api.apicommon.Bool\"9\x82\xd3\xe4\x93\x023:\x01*\"./api/base/static/manage/videoCategory/delCache\x12\x97\x01\n" +
 	"\x18GetVideoCategoryAllCache\x12\x16.google.protobuf.Empty\x1a(.api.base.static.VideoCategoryMultiReply\"9\x82\xd3\xe4\x93\x023\x121/api/base/static/manage/videoCategory/getAllCache\x12\x85\x01\n" +
 	"\x18SetVideoCategoryAllCache\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"<\x82\xd3\xe4\x93\x026:\x01*\"1/api/base/static/manage/videoCategory/setAllCache\x12\x85\x01\n" +
-	"\x18DelVideoCategoryAllCache\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"<\x82\xd3\xe4\x93\x026:\x01*\"1/api/base/static/manage/videoCategory/delAllCacheBK\n" +
-	"\x0fapi.base.staticP\x01Z6github.com/zhixingdx/oipivot-api/base/static/v1;staticb\x06proto3"
+	"\x18DelVideoCategoryAllCache\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"<\x82\xd3\xe4\x93\x026:\x01*\"1/api/base/static/manage/videoCategory/delAllCacheBJ\n" +
+	"\x0fapi.base.staticP\x01Z5github.com/zhixingdx/public/api/base/static/v1;staticb\x06proto3"
 
 var file_base_static_v1_auto_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),             // 0: google.protobuf.Empty

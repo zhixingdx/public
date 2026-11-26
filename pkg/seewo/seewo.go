@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/seewo/api"
+	"github.com/zhixingdx/public/pkg/seewo/api"
 )
 
 // Seewo 希沃开放平台 SDK 主入口

@@ -1,6 +1,6 @@
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // CourseEvalInviteStatus 评课邀请状态
 type CourseEvalInviteStatus string

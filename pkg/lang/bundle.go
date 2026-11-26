@@ -4,7 +4,7 @@ package lang
 import (
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"github.com/samber/lo"
-	"github.com/zhixingdx/oipivot-api/config"
+	"github.com/zhixingdx/public/api/config"
 	"golang.org/x/text/language"
 )
 

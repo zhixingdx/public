@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	public "github.com/zhixingdx/oipivot-api/base/audit/v1"
+	public "github.com/zhixingdx/public/api/base/audit/v1"
 	"google.golang.org/protobuf/proto"
 )
 

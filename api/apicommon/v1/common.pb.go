@@ -1297,8 +1297,8 @@ const file_apicommon_v1_common_proto_rawDesc = "" +
 	"\x14ResolvedVersionedRef\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
 	"\aversion\x18\x02 \x01(\tR\aversion\x12\x12\n" +
-	"\x04hash\x18\x03 \x01(\tR\x04hashBJ\n" +
-	"\rapi.apicommonP\x01Z7github.com/zhixingdx/oipivot-api/apicommon/v1;apicommonb\x06proto3"
+	"\x04hash\x18\x03 \x01(\tR\x04hashBI\n" +
+	"\rapi.apicommonP\x01Z6github.com/zhixingdx/public/api/apicommon/v1;apicommonb\x06proto3"
 
 var (
 	file_apicommon_v1_common_proto_rawDescOnce sync.Once

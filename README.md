@@ -1,16 +1,11 @@
 # OIPivot 行业开发 SDK
 
-`SDK_VERSION` 依次记录 SDK 版本和平台来源提交。根目录的 `pkg/` 提供运行时库，`ent/` 提供建模注解和驱动，`api/` 是独立的 Go 与 Proto 契约模块。公共 tag `vX.Y.Z` 和 `api/vX.Y.Z` 指向同一提交。Go 源与 Proto 沿用平台的类型和导入名。
+`github.com/zhixingdx/public` 是一个 Go 模块。公开协议与 Go 绑定从 `public/api/...` 引入，运行时库从 `public/pkg/...` 引入，Ent 注解和驱动从 `public/ent/...` 引入。`SDK_VERSION` 记录版本和来源提交。
 
-在行业项目的 go.mod 中锁定两个模块的实际下载位置。以下示例使用 v0.1.0，升级时一起修改版本。
+业务项目直接锁定一个公共仓版本。首个正式标签发布前，可将下列命令的版本换为公共仓预览提交。
 
-```go
-require (
-    github.com/zhixingdx/oipivot/backend v0.1.0
-    github.com/zhixingdx/oipivot-api v0.1.0
-)
-replace github.com/zhixingdx/oipivot/backend => github.com/zhixingdx/public v0.1.0
-replace github.com/zhixingdx/oipivot-api => github.com/zhixingdx/public/api v0.1.0
+```sh
+go get github.com/zhixingdx/public@v0.1.0
 ```
 
 ## 安装 Yimoka
@@ -35,7 +30,7 @@ yimoka version
 
 ## 开发业务服务
 
-在项目 go.mod 中加入上述两个依赖和替换，并锁定 Wire 工具（`go get -tool github.com/google/wire/cmd/wire@v0.7.0`）。在 `backend/edu/course/` 维护该服务的 `tables/` 和 `config.yaml`。配置中的 `serviceType: edu`、`serviceName: course` 决定服务身份，`package`、`protoGoModule` 和 `protoImportPath` 决定业务 Go 包与 PB 的导入路径。生成器使用项目自己的 PB 包，公共 Proto 来自 go.mod 选中的 SDK。首次执行通过 Go 模块代理获取锁定的 Buf 和插件，已有相同版本的原生 Buf 可直接复用。
+在项目 go.mod 中加入上述模块依赖，并锁定 Wire 工具（`go get -tool github.com/google/wire/cmd/wire@v0.7.0`）。在 `backend/edu/course/` 维护该服务的 `tables/` 和 `config.yaml`。配置中的 `serviceType: edu`、`serviceName: course` 决定服务身份，`package`、`protoGoModule` 和 `protoImportPath` 决定业务 Go 包与 PB 的导入路径。生成器使用项目自己的 PB 包，公共 Proto 来自 go.mod 选中的 SDK。首次执行通过 Go 模块代理获取锁定的 Buf 和插件，已有相同版本的原生 Buf 可直接复用。
 
 ```sh
 go mod tidy

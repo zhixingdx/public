@@ -3,7 +3,7 @@ package api
 import (
 	"fmt"
 
-	"github.com/zhixingdx/oipivot-api/fault"
+	"github.com/zhixingdx/public/api/fault"
 )
 
 // Response 希沃开放平台通用响应结构

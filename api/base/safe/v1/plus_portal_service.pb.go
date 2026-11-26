@@ -46,8 +46,8 @@ const file_base_safe_v1_plus_portal_service_proto_rawDesc = "" +
 	"\tSealValue\x12\x1f.api.base.safe.SealValueRequest\x1a .api.base.safe.SealValueResponse\x12N\n" +
 	"\tOpenValue\x12\x1f.api.base.safe.OpenValueRequest\x1a .api.base.safe.OpenValueResponse\x12]\n" +
 	"\x0eCheckTextBatch\x12$.api.base.safe.CheckTextBatchRequest\x1a%.api.base.safe.CheckTextBatchResponse\x12Z\n" +
-	"\rMaskTextBatch\x12#.api.base.safe.MaskTextBatchRequest\x1a$.api.base.safe.MaskTextBatchResponseBE\n" +
-	"\rapi.base.safeP\x01Z2github.com/zhixingdx/oipivot-api/base/safe/v1;safeb\x06proto3"
+	"\rMaskTextBatch\x12#.api.base.safe.MaskTextBatchRequest\x1a$.api.base.safe.MaskTextBatchResponseBD\n" +
+	"\rapi.base.safeP\x01Z1github.com/zhixingdx/public/api/base/safe/v1;safeb\x06proto3"
 
 var file_base_safe_v1_plus_portal_service_proto_goTypes = []any{
 	(*IssueChallengeRequest)(nil),   // 0: api.base.safe.IssueChallengeRequest

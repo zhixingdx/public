@@ -7,7 +7,7 @@
 package tenant
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -62,8 +62,8 @@ const file_base_tenant_v1_plus_portal_service_proto_rawDesc = "" +
 	"\x13ApproveCoopRelation\x12+.api.base.tenant.ApproveCoopRelationRequest\x1a\x13.api.apicommon.Bool\"@\x82\xd3\xe4\x93\x02::\x01*\"5/api/base/tenant/portal/coop/relation/request/approve\x12\x9c\x01\n" +
 	"\x14WithdrawCoopRelation\x12,.api.base.tenant.WithdrawCoopRelationRequest\x1a\x13.api.apicommon.Bool\"A\x82\xd3\xe4\x93\x02;:\x01*\"6/api/base/tenant/portal/coop/relation/request/withdraw\x12\xc2\x01\n" +
 	"\x1dDetailMyInitiatedCoopRelation\x12..api.base.tenant.OneCoopRelationRequestRequest\x1a3.api.base.tenant.MyInitiatedCoopRelationDetailReply\"<\x82\xd3\xe4\x93\x026\x124/api/base/tenant/portal/coop/relation/request/detail\x12\xc2\x01\n" +
-	"\x1cDetailMyCoopRelationApproval\x12/.api.base.tenant.OneCoopRelationApprovalRequest\x1a2.api.base.tenant.MyCoopRelationApprovalDetailReply\"=\x82\xd3\xe4\x93\x027\x125/api/base/tenant/portal/coop/relation/approval/detailBK\n" +
-	"\x0fapi.base.tenantP\x01Z6github.com/zhixingdx/oipivot-api/base/tenant/v1;tenantb\x06proto3"
+	"\x1cDetailMyCoopRelationApproval\x12/.api.base.tenant.OneCoopRelationApprovalRequest\x1a2.api.base.tenant.MyCoopRelationApprovalDetailReply\"=\x82\xd3\xe4\x93\x027\x125/api/base/tenant/portal/coop/relation/approval/detailBJ\n" +
+	"\x0fapi.base.tenantP\x01Z5github.com/zhixingdx/public/api/base/tenant/v1;tenantb\x06proto3"
 
 var file_base_tenant_v1_plus_portal_service_proto_goTypes = []any{
 	(*TenantAccessRequest)(nil),                // 0: api.base.tenant.TenantAccessRequest

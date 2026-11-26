@@ -280,8 +280,8 @@ const file_fault_fault_proto_rawDesc = "" +
 	"\x14INSUFFICIENT_STORAGE\x10k\x1a\x04\xa8E\xfb\x03\x12\x17\n" +
 	"\rLOOP_DETECTED\x10l\x1a\x04\xa8E\xfc\x03\x12\x16\n" +
 	"\fNOT_EXTENDED\x10n\x1a\x04\xa8E\xfe\x03\x12)\n" +
-	"\x1fNETWORK_AUTHENTICATION_REQUIRED\x10o\x1a\x04\xa8E\xff\x03\x1a\x04\xa0E\xf4\x03B;\n" +
-	"\tapi.faultP\x01Z,github.com/zhixingdx/oipivot-api/fault;faultb\x06proto3"
+	"\x1fNETWORK_AUTHENTICATION_REQUIRED\x10o\x1a\x04\xa8E\xff\x03\x1a\x04\xa0E\xf4\x03B:\n" +
+	"\tapi.faultP\x01Z+github.com/zhixingdx/public/api/fault;faultb\x06proto3"
 
 var (
 	file_fault_fault_proto_rawDescOnce sync.Once

@@ -7,9 +7,9 @@ import (
 
 	"github.com/redis/go-redis/v9"
 	"github.com/samber/lo"
-	"github.com/zhixingdx/oipivot-api/fault"
-	"github.com/zhixingdx/oipivot/backend/pkg/lang"
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/api/fault"
+	"github.com/zhixingdx/public/pkg/lang"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 )
 
 // RedisCache  实现 Cache 接口 RedisCache

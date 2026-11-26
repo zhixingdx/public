@@ -5,16 +5,16 @@ import (
 	"errors"
 	"strings"
 
-	directory "github.com/zhixingdx/oipivot-api/base/tenant/v1"
+	directory "github.com/zhixingdx/public/api/base/tenant/v1"
 
 	kerrors "github.com/go-kratos/kratos/v3/errors"
 	"github.com/go-kratos/kratos/v3/middleware"
 	"github.com/go-kratos/kratos/v3/transport"
-	"github.com/zhixingdx/oipivot-api/apicommon/v1"
-	iam "github.com/zhixingdx/oipivot-api/base/iam/v1"
-	"github.com/zhixingdx/oipivot-api/fault"
-	"github.com/zhixingdx/oipivot/backend/pkg/lang"
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"
+	"github.com/zhixingdx/public/api/apicommon/v1"
+	iam "github.com/zhixingdx/public/api/base/iam/v1"
+	"github.com/zhixingdx/public/api/fault"
+	"github.com/zhixingdx/public/pkg/lang"
+	"github.com/zhixingdx/public/pkg/middleware/meta"
 	"google.golang.org/grpc"
 )
 

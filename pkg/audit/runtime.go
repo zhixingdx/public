@@ -7,10 +7,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/zhixingdx/oipivot-api/apicommon/v1"
-	"github.com/zhixingdx/oipivot-api/config"
-	log "github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
-	"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"
+	"github.com/zhixingdx/public/api/apicommon/v1"
+	"github.com/zhixingdx/public/api/config"
+	log "github.com/zhixingdx/public/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/pkg/middleware/meta"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )

@@ -8,10 +8,10 @@ package user
 
 import (
 	context "context"
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
-	v12 "github.com/zhixingdx/oipivot-api/base/safe/v1"
-	v11 "github.com/zhixingdx/oipivot-api/base/static/v1"
-	v13 "github.com/zhixingdx/oipivot-api/base/wechat/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
+	v12 "github.com/zhixingdx/public/api/base/safe/v1"
+	v11 "github.com/zhixingdx/public/api/base/static/v1"
+	v13 "github.com/zhixingdx/public/api/base/wechat/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

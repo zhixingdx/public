@@ -6,8 +6,8 @@ import (
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
-	"github.com/zhixingdx/oipivot/backend/ent/ann"
-	"github.com/zhixingdx/oipivot/backend/pkg/dict"
+	"github.com/zhixingdx/public/ent/ann"
+	"github.com/zhixingdx/public/pkg/dict"
 )
 
 // TenantID mixin 通常用于 sass 场景中标识不同的 租户
@@ -92,7 +92,7 @@ func (m TenantVisibilityScope) Fields() []ent.Field {
 				OnlyData:   true,
 				AutoCreate: true,
 				DefaultFn: &ann.FieldFunc{
-					PkgPath: []string{"github.com/zhixingdx/oipivot/backend/pkg/middleware/meta"},
+					PkgPath: []string{"github.com/zhixingdx/public/pkg/middleware/meta"},
 					Place:   ann.PlaceData,
 					GetStr: `currentRealm, realmErr := meta.GetRealm(ctx)
 if realmErr != nil { return nil, realmErr }`,

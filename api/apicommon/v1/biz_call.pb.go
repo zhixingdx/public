@@ -157,8 +157,8 @@ const file_apicommon_v1_biz_call_proto_rawDesc = "" +
 	"\x0eBizCallRequest\x12#\n" +
 	"\aservice\x18\x01 \x01(\tB\t\xbaH\x06r\x04\x10\x01\x18\x7fR\aservice\x12!\n" +
 	"\x06action\x18\x02 \x01(\tB\t\xbaH\x06r\x04\x10\x01\x18\x7fR\x06action\x12 \n" +
-	"\x06biz_id\x18\x03 \x01(\tB\t\xbaH\x06r\x04\x10\x01\x18\x7fR\x05bizIdBJ\n" +
-	"\rapi.apicommonP\x01Z7github.com/zhixingdx/oipivot-api/apicommon/v1;apicommonb\x06proto3"
+	"\x06biz_id\x18\x03 \x01(\tB\t\xbaH\x06r\x04\x10\x01\x18\x7fR\x05bizIdBI\n" +
+	"\rapi.apicommonP\x01Z6github.com/zhixingdx/public/api/apicommon/v1;apicommonb\x06proto3"
 
 var (
 	file_apicommon_v1_biz_call_proto_rawDescOnce sync.Once

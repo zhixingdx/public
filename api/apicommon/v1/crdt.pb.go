@@ -167,8 +167,8 @@ const file_apicommon_v1_crdt_proto_rawDesc = "" +
 	"\x05event\x18\x02 \x01(\tR\x05event\x12\x1c\n" +
 	"\ttimestamp\x18\x03 \x01(\tR\ttimestamp\x120\n" +
 	"\x04data\x18\x04 \x01(\v2\x17.google.protobuf.StructH\x00R\x04data\x88\x01\x01B\a\n" +
-	"\x05_dataBJ\n" +
-	"\rapi.apicommonP\x01Z7github.com/zhixingdx/oipivot-api/apicommon/v1;apicommonb\x06proto3"
+	"\x05_dataBI\n" +
+	"\rapi.apicommonP\x01Z6github.com/zhixingdx/public/api/apicommon/v1;apicommonb\x06proto3"
 
 var (
 	file_apicommon_v1_crdt_proto_rawDescOnce sync.Once

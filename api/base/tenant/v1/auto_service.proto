@@ -9,7 +9,7 @@ import "base/tenant/v1/auto_message.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/zhixingdx/oipivot-api/base/tenant/v1;tenant";
+option go_package = "github.com/zhixingdx/public/api/base/tenant/v1;tenant";
 option java_multiple_files = true;
 option java_package = "api.base.tenant";
 

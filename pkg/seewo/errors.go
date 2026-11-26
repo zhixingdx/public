@@ -1,6 +1,6 @@
 package seewo
 
-import "github.com/zhixingdx/oipivot-api/fault"
+import "github.com/zhixingdx/public/api/fault"
 
 var (
 	// ErrConfigInvalidAPI 配置中 API 地址无效

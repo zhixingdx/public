@@ -1,6 +1,6 @@
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // 云服务商
 type CloudProvider string

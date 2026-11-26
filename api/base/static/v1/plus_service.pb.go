@@ -10,7 +10,7 @@
 package static
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -43,8 +43,8 @@ const file_base_static_v1_plus_service_proto_rawDesc = "" +
 	"\rGetUploadTask\x12%.api.base.static.OneUploadTaskRequest\x1a&.api.base.static.UploadTaskDetailReply\".\x82\xd3\xe4\x93\x02(\x12&/api/base/static/manage/uploadTask/get\x12\x84\x01\n" +
 	"\x10CancelUploadTask\x12%.api.base.static.OneUploadTaskRequest\x1a\x13.api.apicommon.Bool\"4\x82\xd3\xe4\x93\x02.:\x01*\")/api/base/static/manage/uploadTask/cancel\x12k\n" +
 	"\x18GetUploadTaskCrossTenant\x12%.api.base.static.OneUploadTaskRequest\x1a&.api.base.static.UploadTaskDetailReply\"\x00\x12[\n" +
-	"\x1bCancelUploadTaskCrossTenant\x12%.api.base.static.OneUploadTaskRequest\x1a\x13.api.apicommon.Bool\"\x00BK\n" +
-	"\x0fapi.base.staticP\x01Z6github.com/zhixingdx/oipivot-api/base/static/v1;staticb\x06proto3"
+	"\x1bCancelUploadTaskCrossTenant\x12%.api.base.static.OneUploadTaskRequest\x1a\x13.api.apicommon.Bool\"\x00BJ\n" +
+	"\x0fapi.base.staticP\x01Z5github.com/zhixingdx/public/api/base/static/v1;staticb\x06proto3"
 
 var file_base_static_v1_plus_service_proto_goTypes = []any{
 	(*GetUploadCredentialRequest)(nil),         // 0: api.base.static.GetUploadCredentialRequest

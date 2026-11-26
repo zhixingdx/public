@@ -1,7 +1,7 @@
 // Package dict 文件相关字典
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // FileCategory 文件大类（用于资源库筛选）
 type FileCategory string

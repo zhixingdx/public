@@ -4,7 +4,7 @@ package data
 import (
 	"github.com/redis/go-redis/extra/redisotel/v9"
 	"github.com/redis/go-redis/v9"
-	"github.com/zhixingdx/oipivot-api/config"
+	"github.com/zhixingdx/public/api/config"
 )
 
 // GetRedisClient returns a Redis client based on the provided configuration.

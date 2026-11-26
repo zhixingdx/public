@@ -8,9 +8,9 @@ import (
 
 	kerrors "github.com/go-kratos/kratos/v3/errors"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
-	"github.com/zhixingdx/oipivot-api/config"
-	"github.com/zhixingdx/oipivot-api/fault"
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/api/config"
+	"github.com/zhixingdx/public/api/fault"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 	"golang.org/x/text/language"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

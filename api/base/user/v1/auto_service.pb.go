@@ -10,7 +10,7 @@
 package user
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -127,8 +127,8 @@ const file_base_user_v1_auto_service_proto_rawDesc = "" +
 	"\x1cSetWechatQueryCacheByUnionID\x12(.api.base.user.OneWechatByUnionIDRequest\x1a\x13.api.apicommon.Bool\">\x82\xd3\xe4\x93\x028:\x01*\"3/api/base/user/manage/wechat/setQueryCacheByUnionID\x12\xad\x01\n" +
 	"\x1dMGetWechatQueryCacheByUnionID\x12*.api.base.user.MultiWechatByUnionIDRequest\x1a\x1f.api.base.user.WechatMultiReply\"?\x82\xd3\xe4\x93\x029:\x01*\"4/api/base/user/manage/wechat/mGetQueryCacheByUnionID\x12\xa1\x01\n" +
 	"\x1dMSetWechatQueryCacheByUnionID\x12*.api.base.user.MultiWechatByUnionIDRequest\x1a\x13.api.apicommon.Bool\"?\x82\xd3\xe4\x93\x029:\x01*\"4/api/base/user/manage/wechat/mSetQueryCacheByUnionID\x12\x9f\x01\n" +
-	"\x1cDelWechatQueryCacheByUnionID\x12*.api.base.user.MultiWechatByUnionIDRequest\x1a\x13.api.apicommon.Bool\">\x82\xd3\xe4\x93\x028:\x01*\"3/api/base/user/manage/wechat/delQueryCacheByUnionIDBE\n" +
-	"\rapi.base.userP\x01Z2github.com/zhixingdx/oipivot-api/base/user/v1;userb\x06proto3"
+	"\x1cDelWechatQueryCacheByUnionID\x12*.api.base.user.MultiWechatByUnionIDRequest\x1a\x13.api.apicommon.Bool\">\x82\xd3\xe4\x93\x028:\x01*\"3/api/base/user/manage/wechat/delQueryCacheByUnionIDBD\n" +
+	"\rapi.base.userP\x01Z1github.com/zhixingdx/public/api/base/user/v1;userb\x06proto3"
 
 var file_base_user_v1_auto_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),                       // 0: google.protobuf.Empty

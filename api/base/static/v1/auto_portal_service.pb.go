@@ -10,7 +10,7 @@
 package static
 
 import (
-	v1 "github.com/zhixingdx/oipivot-api/apicommon/v1"
+	v1 "github.com/zhixingdx/public/api/apicommon/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -32,8 +32,8 @@ const file_base_static_v1_auto_portal_service_proto_rawDesc = "" +
 	"\n" +
 	"(base/static/v1/auto_portal_service.proto\x12\x0fapi.base.static\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x19apicommon/v1/common.proto\x1a!base/static/v1/auto_message.proto\x1a(base/static/v1/auto_portal_message.proto2q\n" +
 	"\x10BaseStaticPortal\x12]\n" +
-	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"&\x82\xd3\xe4\x93\x02 \x12\x1e/api/base/static/portal/healthBK\n" +
-	"\x0fapi.base.staticP\x01Z6github.com/zhixingdx/oipivot-api/base/static/v1;staticb\x06proto3"
+	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x13.api.apicommon.Bool\"&\x82\xd3\xe4\x93\x02 \x12\x1e/api/base/static/portal/healthBJ\n" +
+	"\x0fapi.base.staticP\x01Z5github.com/zhixingdx/public/api/base/static/v1;staticb\x06proto3"
 
 var file_base_static_v1_auto_portal_service_proto_goTypes = []any{
 	(*emptypb.Empty)(nil), // 0: google.protobuf.Empty

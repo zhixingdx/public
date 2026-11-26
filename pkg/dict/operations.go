@@ -3,7 +3,7 @@
 package dict
 
 import (
-	"github.com/zhixingdx/oipivot/backend/pkg/lang"
+	"github.com/zhixingdx/public/pkg/lang"
 )
 
 // AnnouncementStatus 公告状态

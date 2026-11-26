@@ -2,7 +2,7 @@
 // Package dict 提供跨业务复用的版本状态字典。
 package dict
 
-import "github.com/zhixingdx/oipivot/backend/pkg/lang"
+import "github.com/zhixingdx/public/pkg/lang"
 
 // VersionStatus 表示版本化资源唯一的生命周期状态。
 type VersionStatus string

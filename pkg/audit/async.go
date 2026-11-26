@@ -5,7 +5,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/zhixingdx/oipivot/backend/pkg/logger/kratoslog"
+	"github.com/zhixingdx/public/pkg/logger/kratoslog"
 )
 
 // TryAppendAsync 异步上报审计事件，失败仅记日志。
