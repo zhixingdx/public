@@ -1,6 +1,6 @@
 // cSpell:disable
 
-module github.com/zhixingdx/oipivot
+module github.com/zhixingdx/oipivot/backend
 
 go 1.26.0
 
@@ -125,4 +125,4 @@ require (
 	golang.org/x/tools v0.52.0 // indirect
 )
 
-replace github.com/zhixingdx/oipivot-api => ./backend/api
+replace github.com/zhixingdx/oipivot-api => ./api

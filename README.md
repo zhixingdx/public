@@ -1,16 +1,16 @@
 # OIPivot 行业开发 SDK
 
-`SDK_VERSION` 依次记录 SDK 版本和平台来源提交。根模块提供 `backend/pkg`、`backend/ent`，`backend/api` 是独立的 Go 与 Proto 契约模块。公共 tag `vX.Y.Z` 和 `backend/api/vX.Y.Z` 指向同一提交。Go 源与 Proto 沿用平台的类型和导入名。
+`SDK_VERSION` 依次记录 SDK 版本和平台来源提交。根目录的 `pkg/` 提供运行时库，`ent/` 提供建模注解和驱动，`api/` 是独立的 Go 与 Proto 契约模块。公共 tag `vX.Y.Z` 和 `api/vX.Y.Z` 指向同一提交。Go 源与 Proto 沿用平台的类型和导入名。
 
 在行业项目的 go.mod 中锁定两个模块的实际下载位置。以下示例使用 v0.1.0，升级时一起修改版本。
 
 ```go
 require (
-    github.com/zhixingdx/oipivot v0.1.0
+    github.com/zhixingdx/oipivot/backend v0.1.0
     github.com/zhixingdx/oipivot-api v0.1.0
 )
-replace github.com/zhixingdx/oipivot => github.com/zhixingdx/public v0.1.0
-replace github.com/zhixingdx/oipivot-api => github.com/zhixingdx/public/backend/api v0.1.0
+replace github.com/zhixingdx/oipivot/backend => github.com/zhixingdx/public v0.1.0
+replace github.com/zhixingdx/oipivot-api => github.com/zhixingdx/public/api v0.1.0
 ```
 
 ## 安装 Yimoka
